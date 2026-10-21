@@ -1,0 +1,49 @@
+# Oniscus package manifest: which files of this tree go into which RPM.
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+# Read by oniscus.spec (to install and list the files) and by build.sh (to drop
+# these files from the image overlay when the ISO uses the packages instead).
+# One entry per line, TAB-separated:
+#   package  source (relative to the repository root)  destination  flags
+# A source directory is copied whole. Flags, comma-separated or "-":
+#   exec    file mode 0755
+#   config  %config(noreplace): updates never overwrite a file the admin changed
+#   own     the package also owns the destination directory (and its subdirectories)
+# Files under /usr/local in the overlay move to /usr in the packages (packages must
+# not touch /usr/local). System defaults that the overlay puts in /etc/xdg go to
+# /etc/xdg/oniscus instead, so they never clash with files owned by XFCE or openSUSE
+# packages; the Oniscus session puts that directory first in XDG_CONFIG_DIRS.
+#
+# Not packaged on purpose (they stay in kiwi/root and only reach the image):
+#   etc/ly/config.ini              owned by the ly package
+#   etc/dconf/profile/user         may be owned by dconf
+#   etc/calamares/, usr/share/applications/oniscus-install.desktop   live ISO only
+#   etc/bash.bashrc.local          admin file; the Release image gets a stub that
+#                                  sources /usr/share/oniscus/shell/bashrc.sh
+
+onis	kiwi/root/usr/local/bin/onis	/usr/bin/onis	exec
+onis	kiwi/root/usr/local/share/man/man1/onis.1	/usr/share/man/man1/onis.1	-
+onis	kiwi/root/usr/local/share/man/man1/oniscus.1	/usr/share/man/man1/oniscus.1	-
+onis	kiwi/root/usr/local/share/man/pt_BR/man1/onis.1	/usr/share/man/pt_BR/man1/onis.1	-
+onis	kiwi/root/usr/local/share/man/pt_BR/man1/oniscus.1	/usr/share/man/pt_BR/man1/oniscus.1	-
+onis	kiwi/root/usr/share/oniscus/catalog.tsv	/usr/share/oniscus/catalog.tsv	-
+onis	kiwi/root/usr/share/oniscus/agent	/usr/share/oniscus/agent	own
+oniscus-branding	kiwi/root/usr/share/oniscus/logo.ansi	/usr/share/oniscus/logo.ansi	-
+oniscus-branding	kiwi/root/usr/share/pixmaps/oniscus-menu.svg	/usr/share/pixmaps/oniscus-menu.svg	-
+oniscus-branding	kiwi/root/usr/share/wallpapers/xi3.jpg	/usr/share/wallpapers/xi3.jpg	-
+oniscus-branding	kiwi/root/usr/share/themes/Xi3-Retro	/usr/share/themes/Xi3-Retro	own
+oniscus-branding	kiwi/root/usr/share/plank/themes/Xi3-Retro	/usr/share/plank/themes/Xi3-Retro	own
+oniscus-branding	kiwi/root/usr/lib/os-release.oniscus	/usr/lib/os-release.oniscus	-
+oniscus-branding	kiwi/root/usr/libexec/oniscus	/usr/libexec/oniscus	exec,own
+oniscus-branding	kiwi/root/usr/lib/systemd/system/oniscus-os-release.service	/usr/lib/systemd/system/oniscus-os-release.service	-
+oniscus-desktop	kiwi/root/usr/local/bin/xi3-active-app	/usr/bin/xi3-active-app	exec
+oniscus-desktop	kiwi/root/usr/share/oniscus/xsessions	/usr/share/oniscus/xsessions	own
+oniscus-desktop	kiwi/root/usr/share/oniscus/wayland-sessions	/usr/share/oniscus/wayland-sessions	own
+oniscus-desktop	kiwi/root/etc/bash.bashrc.local	/usr/share/oniscus/shell/bashrc.sh	-
+oniscus-desktop	kiwi/root/etc/profile.d/oniscus-local-bin.sh	/etc/profile.d/oniscus-local-bin.sh	config
+oniscus-desktop	kiwi/root/etc/profile.d/oniscus-starship.sh	/etc/profile.d/oniscus-starship.sh	config
+oniscus-desktop	kiwi/root/etc/starship.toml	/etc/starship.toml	config
+oniscus-desktop	kiwi/root/etc/xdg/mimeapps.list	/etc/xdg/oniscus/mimeapps.list	config
+oniscus-desktop	kiwi/root/etc/xdg/xfce4/xfconf/xfce-perchannel-xml	/etc/xdg/oniscus/xfce4/xfconf/xfce-perchannel-xml	config,own
+oniscus-desktop	kiwi/root/etc/dconf/db/local.d/10-xi3-plank	/etc/dconf/db/local.d/10-xi3-plank	config
+oniscus-desktop	kiwi/root/etc/skel/.config	/etc/skel/.config	config

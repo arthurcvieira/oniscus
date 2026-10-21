@@ -1,0 +1,18 @@
+#!/bin/sh
+# Prints the name of the focused application for the top bar (genmon plugin).
+# Labels follow the session language: English by default, Portuguese for pt_*.
+case "${LC_ALL:-${LC_MESSAGES:-$LANG}}" in
+    pt*) desktop="Área de trabalho"; files="Arquivos"; editor="Editor de texto" ;;
+    *)   desktop="Desktop"; files="Files"; editor="Text Editor" ;;
+esac
+
+id=$(xdotool getactivewindow 2>/dev/null) || { printf '<txt>%s</txt>\n' "$desktop"; exit 0; }
+name=$(xdotool getwindowclassname "$id" 2>/dev/null)
+case "$name" in
+    ""|Xfce4-panel|Plank|Polybar) name="$desktop" ;;
+    Xfce4-terminal) name="Terminal" ;;
+    Thunar) name="$files" ;;
+    firefox*) name="Firefox" ;;
+    Mousepad) name="$editor" ;;
+esac
+printf '<txt>%s</txt>\n' "$name"

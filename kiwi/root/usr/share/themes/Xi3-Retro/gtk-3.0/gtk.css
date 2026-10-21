@@ -1,0 +1,116 @@
+/* Xi3 Retro: original GTK 3 theme for Oniscus (GPL-3.0-or-later).
+ * Dark, with a yellow gel accent and slate bars. Builds on the dark Adwaita
+ * theme bundled with GTK and only changes the look. Uses no Apple artwork.
+ * The palette is shared with the distro's visual identity. */
+@import url("resource:///org/gtk/libgtk/theme/Adwaita/gtk-contained-dark.css");
+
+/* Palette */
+@define-color xi3_carvao   #121519;  /* desktop, terminal */
+@define-color xi3_grafite  #1C2026;  /* windows, dock */
+@define-color xi3_ardosia  #2A3038;  /* bars, input fields */
+@define-color xi3_ardosia_top #333A43;
+@define-color xi3_borda    #3A424C;
+@define-color xi3_nevoa    #E6E9EC;  /* main text */
+@define-color xi3_cinza    #9AA4AF;  /* secondary text */
+@define-color xi3_mel      #FFE58F;  /* light gel */
+@define-color xi3_amarelo  #F7C948;  /* accent */
+@define-color xi3_ambar    #C99412;  /* dark gel */
+@define-color xi3_bico     #F28C28;  /* warning */
+@define-color xi3_musgo    #4CC27A;  /* success */
+
+@define-color theme_bg_color @xi3_grafite;
+@define-color theme_base_color @xi3_carvao;
+@define-color theme_fg_color @xi3_nevoa;
+@define-color theme_text_color @xi3_nevoa;
+@define-color theme_selected_bg_color @xi3_amarelo;
+@define-color theme_selected_fg_color @xi3_carvao;
+@define-color borders @xi3_borda;
+@define-color warning_color @xi3_bico;
+
+window, .background {
+  background-color: @xi3_grafite;
+  color: @xi3_nevoa;
+}
+
+/* Toolbars, header bars and menus in slate with a light texture */
+headerbar, toolbar, .toolbar, menubar, .titlebar {
+  background-image:
+    repeating-linear-gradient(90deg, alpha(white, 0.025) 0px, alpha(white, 0.025) 1px, alpha(black, 0.05) 1px, alpha(black, 0.05) 3px),
+    linear-gradient(to bottom, @xi3_ardosia_top, @xi3_ardosia);
+  border-bottom: 1px solid @xi3_borda;
+  color: @xi3_nevoa;
+}
+
+/* Slate gel buttons, with a highlight on the top half */
+button {
+  border-radius: 11px;
+  border: 1px solid @xi3_borda;
+  background-image: linear-gradient(to bottom, #424A55 0%, #2F353D 50%, #282D34 51%, #353C45 100%);
+  box-shadow: 0 1px 1px alpha(black, 0.35);
+  color: @xi3_nevoa;
+  text-shadow: none;
+}
+button:hover {
+  background-image: linear-gradient(to bottom, #4C5561 0%, #363D46 50%, #2F353D 51%, #3D454F 100%);
+}
+button:active, button:checked {
+  background-image: linear-gradient(to bottom, #23282E 0%, #1C2026 50%, #181B20 51%, #23282E 100%);
+}
+
+/* Primary button in yellow gel */
+button.suggested-action, button.default {
+  border-color: @xi3_ambar;
+  background-image: linear-gradient(to bottom, @xi3_mel 0%, @xi3_amarelo 50%, @xi3_ambar 51%, @xi3_amarelo 100%);
+  color: @xi3_carvao;
+}
+
+entry {
+  border-radius: 4px;
+  border: 1px solid @xi3_borda;
+  background-color: @xi3_carvao;
+  color: @xi3_nevoa;
+  box-shadow: inset 0 1px 2px alpha(black, 0.5);
+}
+entry:focus { border-color: @xi3_amarelo; }
+
+/* Scrollbars in yellow gel */
+scrollbar slider {
+  min-width: 10px;
+  min-height: 10px;
+  border-radius: 6px;
+  border: 1px solid @xi3_ambar;
+  background-image: linear-gradient(to right, @xi3_mel, @xi3_amarelo 50%, @xi3_ambar 51%, @xi3_amarelo);
+}
+
+/* Selection in lists and the sidebar */
+*:selected, row:selected {
+  background-color: @xi3_amarelo;
+  background-image: none;
+  color: @xi3_carvao;
+}
+.sidebar, placessidebar {
+  background-color: @xi3_ardosia;
+  background-image: none;
+}
+
+/* Top bar (xfce4-panel) */
+.xfce4-panel.background {
+  background-color: transparent;
+  background-image: linear-gradient(to bottom, @xi3_ardosia_top, @xi3_ardosia);
+  border-bottom: 1px solid @xi3_borda;
+  color: @xi3_nevoa;
+}
+.xfce4-panel.background button {
+  border: none;
+  border-radius: 0;
+  background-image: none;
+  box-shadow: none;
+  color: @xi3_nevoa;
+}
+.xfce4-panel.background button:hover, .xfce4-panel.background button:checked {
+  background-image: none;
+  background-color: @xi3_amarelo;
+  color: @xi3_carvao;
+}
+
+@define-color success_color @xi3_musgo;

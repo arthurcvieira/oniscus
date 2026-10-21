@@ -1,0 +1,25 @@
+<!--
+  OBS source service for home:oniscus/oniscus.
+  Fetches the GitHub repository, takes the spec and changelog from packaging/,
+  and makes oniscus-<version>.tar.xz. The version comes from the last git tag
+  plus the commits after it: tag v0.1.0 + 3 commits -> 0.1.0+git3.abc1234.
+-->
+<services>
+  <service name="obs_scm">
+    <param name="url">https://github.com/arthurcvieira/oniscus.git</param>
+    <param name="scm">git</param>
+    <param name="revision">main</param>
+    <param name="filename">oniscus</param>
+    <param name="versionformat">@PARENT_TAG@+git@TAG_OFFSET@.%h</param>
+    <param name="versionrewrite-pattern">v(.*)</param>
+    <param name="extract">packaging/oniscus.spec</param>
+    <param name="extract">packaging/oniscus.changes</param>
+    <param name="exclude">out</param>
+  </service>
+  <service name="tar" mode="buildtime"/>
+  <service name="recompress" mode="buildtime">
+    <param name="file">*.tar</param>
+    <param name="compression">xz</param>
+  </service>
+  <service name="set_version" mode="buildtime"/>
+</services>

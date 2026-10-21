@@ -1,0 +1,32 @@
+# Oniscus: prompt in the brand colors (Yellow #F7C948, Honey #FFE58F, Beak #F28C28)
+add_newline = true
+format = "$username$hostname$directory$git_branch$git_status$cmd_duration$line_break$character"
+
+[username]
+show_always = true
+style_user = "bold #F7C948"
+format = "[$user]($style)"
+
+[hostname]
+ssh_only = false
+style = "#9AA4AF"
+format = "[@$hostname]($style) "
+
+[directory]
+style = "bold #E6E9EC"
+truncation_length = 3
+
+[git_branch]
+style = "#FFE58F"
+format = "[ $branch]($style) "
+
+[git_status]
+style = "#F28C28"
+
+[cmd_duration]
+style = "#9AA4AF"
+format = "[$duration]($style) "
+
+[character]
+success_symbol = "[❯](bold #F7C948)"
+error_symbol = "[❯](bold #F28C28)"

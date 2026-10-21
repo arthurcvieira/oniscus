@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Oniscus terminal: charcoal background, mist text, yellow cursor -->
+<channel name="xfce4-terminal" version="1.0">
+  <property name="font-name" type="string" value="Noto Sans Mono 11"/>
+  <property name="font-use-system" type="bool" value="false"/>
+  <property name="color-use-theme" type="bool" value="false"/>
+  <property name="color-background" type="string" value="#121519"/>
+  <property name="color-foreground" type="string" value="#E6E9EC"/>
+  <property name="color-cursor" type="string" value="#F7C948"/>
+  <property name="color-cursor-use-default" type="bool" value="false"/>
+  <property name="color-palette" type="string" value="#1C2026;#F28C28;#4CC27A;#F7C948;#7AA2D6;#C38FD8;#6FC3C0;#E6E9EC;#3A424C;#F0A86E;#A6E8BE;#F2D49B;#A3C1E8;#DBB4E8;#9ADBD8;#FFFFFF"/>
+  <property name="misc-menubar-default" type="bool" value="false"/>
+  <property name="scrolling-bar" type="string" value="TERMINAL_SCROLLBAR_NONE"/>
+</channel>

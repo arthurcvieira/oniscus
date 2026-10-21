@@ -1,0 +1,6 @@
+<!-- Package settings for `osc meta pkg home:oniscus oniscus -F package-meta.xml` -->
+<package name="oniscus" project="home:oniscus">
+  <title>Oniscus distribution files</title>
+  <description>Builds onis, oniscus-branding and oniscus-desktop from packaging/oniscus.spec.</description>
+  <url>https://github.com/arthurcvieira/oniscus</url>
+</package>

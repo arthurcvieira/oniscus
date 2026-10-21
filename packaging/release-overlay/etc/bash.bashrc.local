@@ -1,0 +1,4 @@
+# Local additions to /etc/bash.bashrc. Edit freely: updates never touch this file.
+# Oniscus shell defaults (Starship prompt, fastfetch) come from the oniscus-desktop
+# package and are updated with the system.
+[ -r /usr/share/oniscus/shell/bashrc.sh ] && . /usr/share/oniscus/shell/bashrc.sh
