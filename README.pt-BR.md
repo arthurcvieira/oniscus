@@ -5,151 +5,131 @@
   </picture>
 </p>
 
-# Oniscus (os arquivos da imagem ainda dizem Xi3)
+<p align="center">
+  <a href="https://github.com/arthurcvieira/oniscus/releases/latest"><img alt="Última versão" src="https://img.shields.io/github/v/release/arthurcvieira/oniscus?include_prereleases&sort=semver&style=flat-square&label=vers%C3%A3o&color=F7C948&labelColor=1C2026"></a>
+  <a href="https://github.com/arthurcvieira/oniscus/releases"><img alt="Downloads" src="https://img.shields.io/github/downloads/arthurcvieira/oniscus/total?style=flat-square&label=downloads&color=F7C948&labelColor=1C2026"></a>
+  <a href="https://github.com/arthurcvieira/oniscus/stargazers"><img alt="Estrelas" src="https://img.shields.io/github/stars/arthurcvieira/oniscus?style=flat-square&logo=github&label=estrelas&color=F7C948&labelColor=1C2026"></a>
+  <a href="LICENSES.pt-BR.md"><img alt="Licença" src="https://img.shields.io/badge/licen%C3%A7a-GPL--3.0--or--later-4CC27A?style=flat-square&labelColor=1C2026"></a>
+  <br>
+  <img alt="Baseado no openSUSE Tumbleweed" src="https://img.shields.io/badge/baseado%20no-openSUSE%20Tumbleweed-73BA25?style=flat-square&labelColor=1C2026">
+  <img alt="XFCE + i3" src="https://img.shields.io/badge/desktop-XFCE%20%2B%20i3-9AA4AF?style=flat-square&labelColor=1C2026">
+  <a href="https://github.com/arthurcvieira/oniscus/commits/main"><img alt="Último commit" src="https://img.shields.io/github/last-commit/arthurcvieira/oniscus?style=flat-square&label=%C3%BAltimo%20commit&color=9AA4AF&labelColor=1C2026"></a>
+</p>
 
-[English](README.md)
+<p align="center">
+  <b>Um Linux aconchegante que simplesmente funciona.</b><br>
+  <a href="https://github.com/arthurcvieira/oniscus/releases/latest">Baixar</a> ·
+  <a href="docs/onis.pt-BR.md">O comando onis</a> ·
+  <a href="docs/development.pt-BR.md">Compile você mesmo</a> ·
+  <a href="README.md">English</a>
+</p>
 
-**Um Linux aconchegante que simplesmente funciona.**
+---
 
-Distribuição baseada no openSUSE Tumbleweed com XFCE e i3wm por padrão. O i3 roda
-como gerenciador de janelas **dentro** da sessão XFCE: o XFCE cuida de painel,
-configurações, energia, notificações, montagem de discos e Thunar, e o i3 cuida das
-janelas. O sistema é focado no terminal. Usa os repositórios oficiais do
-Tumbleweed (oss, non-oss e update) e o repositório do Oniscus para os pacotes
-próprios da distro, que assim se atualizam com o resto do sistema (veja
-[docs/packages.pt-BR.md](docs/packages.pt-BR.md)).
+O **Oniscus** é uma distribuição Linux feita sobre o openSUSE Tumbleweed, com um
+desktop retrô e acolhedor que já está pronto quando você entra. O XFCE cuida do
+dia a dia (configurações, energia, notificações, Wi-Fi, discos e arquivos)
+enquanto o i3 mantém suas janelas organizadas lado a lado. Sem maratona de
+configuração, sem caçar arquivos de config: é ligar e se sentir em casa.
 
-## Idiomas
+O nome vem do *Oniscus*, o tatuzinho-de-jardim: pequeno, resistente e feliz num
+cantinho aconchegante. Esse isópode é o nosso mascote, e você vai encontrá-lo
+acenando no botão do menu e no terminal.
 
-O inglês é o idioma padrão. O português do Brasil é o segundo idioma suportado:
-as traduções vêm instaladas, e as ferramentas e textos do Oniscus seguem o `LANG`.
-Para trocar, escolha Português nas configurações do XFCE ou defina
-`LANG=pt_BR.UTF-8`. Os comentários de código são em inglês, e todo documento tem
-versão em inglês e em português (`*.pt-BR.md`).
+## Por que Oniscus
 
-## Como funciona
+- **Pronto desde o primeiro boot.** Painel, dock, lançador, tema, prompt e apps
+  já vêm configurados. Dá para começar a trabalhar na hora.
+- **Rolling release, mas seguro.** O Tumbleweed traz o software mais novo, e toda
+  atualização do sistema cria antes um ponto de restauração do
+  [snapper](https://github.com/openSUSE/snapper). Se algo parecer estranho, volte
+  com um comando.
+- **Janelas lado a lado sem lição de casa.** O i3 organiza as janelas e o XFCE
+  cuida do resto. Você tem a agilidade de um gerenciador tiling com o conforto de
+  um desktop completo.
+- **Um comando amigo.** O `onis` é a tela de boas-vindas e o canivete suíço do
+  sistema: instale apps, atualize, crie pontos de restauração, troque cores e mais.
+- **Só fontes oficiais.** Os pacotes vêm dos repositórios oficiais do Tumbleweed,
+  e as peças próprias do Oniscus são RPMs comuns do
+  [Open Build Service](https://build.opensuse.org/project/show/home:oniscus), que
+  se atualizam junto com o resto do sistema.
+- **Fala a sua língua.** Inglês por padrão, com português do Brasil incluído. As
+  ferramentas do Oniscus seguem o seu `LANG`.
 
-| Peça | Escolha |
+## Um passeio
+
+| | |
 |---|---|
-| Base | openSUSE Tumbleweed (rolling release) |
-| Build da imagem | KIWI NG (a mesma ferramenta que o openSUSE usa) |
-| Login | Ly (greeter no terminal, tty2) com as cores da marca; só a sessão Oniscus aparece |
-| Gerenciador de janelas | i3 no lugar do xfwm4 (definido em `xfce4-session.xml`) |
-| Barra superior | xfce4-panel: menu, app em foco, wifi, bateria, relógio, busca |
-| Barra inferior | Polybar em pílula flutuante: áreas de trabalho, CPU e RAM |
-| Dock | Plank à esquerda, some quando uma janela encosta (intellihide) |
-| Área de trabalho | sem xfdesktop (ele cobriria o i3); papel de parede via feh |
-| Lançador | rofi (`Super+Espaço`, `Super+d` ou a lupa da barra de cima) e xfce4-appfinder |
-| Compositor | picom com animações de abrir, fechar e redimensionar janelas |
-| Tema | Xi3 Retrô escuro com realce amarelo (próprio, estilo anos 2000), ícones Oxygen, fonte Noto Sans |
-| Terminal | foco do sistema: abre sozinho no login, primeiro no dock, prompt Starship e fastfetch com o mascote |
-| Áudio | PipeWire |
-| Mídia | VLC é o player padrão de vídeo e música (também `vlc -I ncurses` no terminal); a etapa opcional do Packman adiciona o `vlc-codecs` |
-| Boas-vindas | comando `onis` (bash + gum): abre no login e no `Super+Alt+Espaço`. Veja [docs/onis.pt-BR.md](docs/onis.pt-BR.md) |
+| **Login** | Ly, uma tela de entrada tranquila no estilo terminal, nas cores do Oniscus |
+| **Barra de cima** | menu, app em foco, Wi-Fi, bateria, relógio e busca |
+| **Barra de baixo** | uma pílula flutuante com áreas de trabalho, CPU e RAM |
+| **Dock** | Plank à esquerda, que sai da frente quando uma janela chega perto |
+| **Lançador** | rofi, a uma tecla de distância |
+| **Visual** | Xi3 Retrô: tema escuro inspirado nos anos 2000, com realce amarelo quente, ícones Oxygen e Noto Sans |
+| **Movimento** | animações do picom ao abrir, fechar e redimensionar janelas |
+| **Terminal** | prompt Starship e fastfetch com o mascote |
+| **Mídia** | VLC para vídeo e música, PipeWire para o som |
+| **Instalador** | Calamares, com drivers NVIDIA e codecs extras opcionais |
 
-## Estrutura
+## Conheça o `onis`
 
-```
-distro/
-├── build.sh                      # gera a ISO com kiwi-ng
-├── art/                          # gerador do papel de parede e arquivos da marca
-├── packaging/                    # spec RPM, manifesto de arquivos e serviço do OBS
-├── docs/                         # documentação extra
-└── kiwi/
-    ├── config.kiwi               # pacotes, repositórios, tipo de imagem (ISO live UEFI)
-    ├── config.sh                 # serviços, greeter, usuário live, idioma
-    └── root/                     # arquivos copiados por cima da imagem
-```
-
-Os padrões do sistema ficam em `/etc/xdg` (valem para todo usuário novo), e as
-configs de usuário (i3, Polybar, picom, fastfetch) ficam em `/etc/skel`, que é
-copiado para o home de cada usuário criado.
-
-## Design
-
-Mockup interativo: https://claude.ai/artifact/5JJzRi9e9jw8pyLk2tnp5i
-
-Arquivos que implementam o design (dentro de `kiwi/`):
-
-- `root/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml`: barra superior
-- `root/usr/local/bin/xi3-active-app`: nome do app em foco (plugin genmon + xdotool)
-- `root/etc/skel/.config/xfce4/panel/launcher-7/`: botão de busca
-- `root/usr/share/themes/Xi3-Retro/`: tema GTK (barras, botões, painel)
-- `root/usr/share/plank/themes/Xi3-Retro/`: tema do dock
-- `root/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xsettings.xml`: tema, ícones e fonte padrão
-- `root/etc/xdg/xfce4/xfconf/xfce-perchannel-xml/xfce4-terminal.xml`: cores do terminal
-- `root/etc/skel/.config/picom/picom.conf`: animações das janelas
-- `root/usr/share/wallpapers/xi3.jpg`: papel de parede (gerado por `art/wallpaper.py`)
-- `root/etc/skel/.config/polybar/`: barra inferior e script que a inicia
-- `root/etc/ly/config.ini` e `root/usr/share/oniscus/xsessions/`: greeter Ly e a sessão Oniscus
-- `root/etc/starship.toml`, `root/etc/profile.d/oniscus-starship.sh`, `root/etc/bash.bashrc.local`: prompt e fastfetch
-- `root/etc/skel/.config/fastfetch/` e `root/usr/share/oniscus/logo.ansi`: fastfetch com o mascote
-- `root/usr/share/pixmaps/oniscus-menu.svg`: mascote no botão do menu
-- `root/etc/xdg/mimeapps.list`: VLC como player de mídia padrão
-- `root/etc/dconf/db/local.d/10-xi3-plank` e `root/etc/skel/.config/plank/`: dock
-
-Pontos a testar no primeiro build:
-
-- O i3 trata janelas do tipo "dock" como barras de cima/baixo. Precisa ver se o
-  Plank fica mesmo na esquerda dentro do i3; se não ficar, a alternativa é um
-  painel vertical do XFCE com autohide.
-- Menu global estilo Mac (Arquivo, Editar…) não está incluído: depende do
-  vala-panel-appmenu, que ainda não foi confirmado nos repositórios oficiais.
-- As animações usam a sintaxe do picom 12; conferir a versão no Tumbleweed.
-- O `config.ini` do Ly usa cores no formato do Ly 1.1 ou mais novo (`0xSSRRGGBB`).
-  Conferir a versão do pacote `ly` e se o serviço é `ly.service` ou `ly@tty2.service`.
-- O plugin de bateria do painel (`power-manager-plugin`) vem do xfce4-power-manager.
-- Os nomes dos pacotes de tradução `-lang` no `config.kiwi`.
-- Branding: se `branding-upstream`, `plymouth-branding-upstream` e
-  `MozillaFirefox-branding-upstream` existem, se nada traz o logo do openSUSE de volta
-  (`rpm -qa '*branding*'`) e se GRUB, Plymouth, `/etc/issue` e fastfetch dizem Oniscus.
-- O VLC 3 instala `vlc.desktop` (usado em `/etc/xdg/mimeapps.list`); o VLC 4 troca para
-  `org.videolan.vlc.desktop`. Conferir o nome e se `vlc-qt` e `vlc-lang` existem.
-- Nomes dos arquivos `.desktop` usados no dock (thunar, xfce4-terminal, firefox,
-  org.xfce.mousepad, xfce-settings-manager).
-
-## Como gerar a ISO
-
-Num openSUSE (pode ser uma VM ou um container `opensuse/tumbleweed` com privilégios):
+O `onis` abre quando você entra e fica a um atalho de distância
+(<kbd>Super</kbd>+<kbd>Alt</kbd>+<kbd>Espaço</kbd>). Todo item do menu também é
+um comando:
 
 ```bash
-sudo zypper install python3-kiwi kiwi-systemdeps
-./build.sh
-qemu-system-x86_64 -enable-kvm -m 4G -bios /usr/share/qemu/ovmf-x86_64.bin -cdrom out/*.iso
+onis install gimp        # apps do Tumbleweed e do Flathub, por categoria
+onis update              # sistema + Flatpak, com ponto de restauração antes
+onis snapshot list       # veja e volte pontos de restauração
+onis accent "#7FB4CA"    # troca a cor de realce em todo o sistema
+onis drivers nvidia      # driver NVIDIA ou codecs extras, quando quiser
+onis agent               # peça ajuda ao seu agente de IA com o sistema
+onis doctor              # um relatório rápido do sistema, só leitura
 ```
 
-Alternativa sem máquina local: criar um projeto no Open Build Service
-(build.opensuse.org) em `home:<usuario>` e subir a pasta `kiwi/`. O OBS gera a
-ISO a cada mudança no Tumbleweed.
+Prefere o nome longo? `oniscus` também funciona. Veja o
+[guia completo](docs/onis.pt-BR.md) ou rode `onis help`.
 
-## Licenças
+## Atalhos úteis
 
-Tudo pode ser publicado: os arquivos próprios são GPL-3.0-or-later (arte em
-CC BY-SA 4.0) e o resto vem dos repositórios oficiais. Detalhes em
+| Teclas | O que faz |
+|---|---|
+| <kbd>Super</kbd>+<kbd>Espaço</kbd> | abrir um app |
+| <kbd>Super</kbd>+<kbd>Alt</kbd>+<kbd>Espaço</kbd> | menu do `onis` |
+| <kbd>Super</kbd>+<kbd>Enter</kbd> | terminal |
+| <kbd>Super</kbd>+<kbd>E</kbd> | arquivos (Thunar) |
+| <kbd>Super</kbd>+<kbd>1</kbd>…<kbd>9</kbd> | trocar de área de trabalho |
+| <kbd>Super</kbd>+<kbd>Shift</kbd>+<kbd>Q</kbd> | fechar a janela |
+| <kbd>Super</kbd>+<kbd>Shift</kbd>+<kbd>Espaço</kbd> | soltar ou encaixar a janela |
+| <kbd>Super</kbd>+<kbd>F</kbd> | tela cheia |
+| <kbd>Super</kbd>+<kbd>Shift</kbd>+<kbd>X</kbd> | bloquear a tela |
+
+`onis keys` mostra todos e deixa você trocar.
+
+## Como ter o Oniscus
+
+1. Baixe a ISO mais recente em
+   [Releases](https://github.com/arthurcvieira/oniscus/releases/latest).
+2. Grave num pendrive com o Fedora Media Writer, o balenaEtcher ou
+   `sudo dd if=oniscus.iso of=/dev/sdX bs=4M status=progress`.
+3. Inicie pelo pendrive (UEFI) e entre com o usuário `live`, senha `live`. A tela
+   de login lembra você.
+4. Escolha **Instalar o Oniscus** no `onis` ou no menu. O instalador pergunta
+   idioma, teclado e fuso horário, e oferece drivers NVIDIA e codecs extras se
+   você quiser.
+
+Já instalou? O `onis update` mantém tudo em dia, inclusive o próprio Oniscus.
+
+Quer gerar a ISO você mesmo ou mexer no desktop? Veja
+[docs/development.pt-BR.md](docs/development.pt-BR.md) e
+[docs/packages.pt-BR.md](docs/packages.pt-BR.md).
+
+## Licença
+
+Os arquivos próprios do Oniscus são [GPL-3.0-or-later](COPYING), e a arte
+(mascote, logos, papel de parede) é CC BY-SA 4.0. O resto vem dos repositórios
+oficiais do openSUSE Tumbleweed, cada um com sua licença. Detalhes em
 [LICENSES.pt-BR.md](LICENSES.pt-BR.md).
 
-## Situação atual
-
-Esqueleto inicial, **ainda não testado num build real**. Os nomes de pacotes
-foram escritos com base no Tumbleweed, mas precisam ser confirmados com
-`zypper search` na primeira compilação.
-
-## Próximos passos
-
-1. Primeiro build e teste em VM; corrigir nomes de pacotes que faltarem.
-2. Testar o instalador. A ISO live sobe em inglês, teclado US e UTC; o
-   instalador Calamares ("Instalar o Oniscus" no menu) pergunta idioma, teclado e
-   fuso, cria a conta do usuário e depois remove o usuário live, o sudo sem senha
-   e o aviso dele no Ly. Config em `kiwi/root/etc/calamares/`. A conferir: se o
-   `calamares` está no repositório oficial do Tumbleweed e se a cópia do sistema
-   live em execução (`unpackfs` a partir de `/`) funciona com a imagem live do KIWI.
-   O instalador também oferece duas etapas opcionais, ambas desmarcadas: o
-   repositório oficial da NVIDIA com o driver recomendado e os codecs do Packman.
-   Nada disso vai na ISO; é baixado durante a instalação
-   (`calamares/modules/contextualprocess-oniscus-extras.conf`).
-3. As regras de marca do openSUSE não permitem usar o nome ou o logo "openSUSE"
-   como nome da sua distro; "baseada no openSUSE Tumbleweed" é permitido.
-4. Atualização das configs: hoje elas são gravadas na imagem. Para que mudanças
-   futuras cheguem a quem já instalou, elas teriam que virar um RPM
-   (`xi3-desktop-config`), o que exige um repositório próprio no OBS (os pacotes do
-   sistema continuariam vindo só do Tumbleweed).
+<sub>O Oniscus é um projeto independente, baseado no openSUSE Tumbleweed e sem
+vínculo ou endosso do Projeto openSUSE.</sub>
