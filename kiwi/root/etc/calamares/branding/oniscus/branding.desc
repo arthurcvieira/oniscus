@@ -1,0 +1,43 @@
+# Oniscus branding for the Calamares installer.
+---
+componentName: oniscus
+
+welcomeStyleCalamares: false
+welcomeExpandingLogo: true
+windowExpanding: normal
+windowSize: 900px,620px
+windowPlacement: center
+sidebar: widget
+navigation: widget
+
+strings:
+    productName:         Oniscus
+    shortProductName:    Oniscus
+    version:             0.1.0
+    shortVersion:        0.1
+    versionedName:       Oniscus 0.1
+    shortVersionedName:  Oniscus 0.1
+    # EFI directory and boot menu entry
+    bootloaderEntryName: Oniscus
+    productUrl:          ""
+    supportUrl:          ""
+    knownIssuesUrl:      ""
+    releaseNotesUrl:     ""
+    donateUrl:           ""
+
+images:
+    productLogo:         "logo.svg"
+    productIcon:         "logo.svg"
+    productWelcome:      "welcome.jpg"
+
+slideshowAPI: 2
+slideshow:           "show.qml"
+
+style:
+    SidebarBackground:         "#1C2026"
+    SidebarText:               "#E6E9EC"
+    SidebarTextCurrent:        "#121519"
+    SidebarBackgroundCurrent:  "#F7C948"
+
+uploadServer:
+    type:    "none"

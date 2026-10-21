@@ -1,0 +1,11 @@
+# Oniscus: Starship prompt in every interactive terminal.
+if [ -n "$PS1" ] && command -v starship >/dev/null 2>&1; then
+    eval "$(starship init bash)"
+fi
+
+# Show the mascot and system info in the first terminal of the session.
+if [ -n "$PS1" ] && command -v fastfetch >/dev/null 2>&1 && [ -n "$XDG_RUNTIME_DIR" ] \
+   && [ ! -e "$XDG_RUNTIME_DIR/oniscus-fastfetch" ]; then
+    : > "$XDG_RUNTIME_DIR/oniscus-fastfetch"
+    fastfetch
+fi

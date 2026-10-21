@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Search
+Name[pt_BR]=Buscar
+Comment=Search applications and files
+Comment[pt_BR]=Buscar aplicativos e arquivos
+Exec=rofi -show drun
+Icon=system-search-symbolic

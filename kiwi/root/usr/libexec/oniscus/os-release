@@ -1,0 +1,8 @@
+#!/bin/bash
+# Keeps Oniscus's identity in /etc/os-release. openSUSE-release owns that file and
+# restores openSUSE's text when it is updated, so this runs at every boot.
+set -eu
+src=/usr/lib/os-release.oniscus
+cmp -s "$src" /etc/os-release && exit 0
+rm -f /etc/os-release
+cp "$src" /etc/os-release

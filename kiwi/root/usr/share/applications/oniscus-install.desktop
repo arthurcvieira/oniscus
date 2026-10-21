@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Install Oniscus
+Name[pt_BR]=Instalar o Oniscus
+Comment=Install Oniscus on this computer
+Comment[pt_BR]=Instalar o Oniscus neste computador
+Exec=pkexec calamares
+Icon=/usr/share/pixmaps/oniscus-menu.svg
+Categories=System;

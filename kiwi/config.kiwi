@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Oniscus (image files still say Xi3): openSUSE Tumbleweed + XFCE
+  with i3 as the window manager. Uses the official Tumbleweed repositories; the
+  Release profile adds the Oniscus repository for the distro's own packages.
+  Build: see build.sh at the project root.
+-->
+<image schemaversion="7.5" name="Oniscus" displayname="Oniscus">
+    <description type="system">
+        <author>Oniscus contributors</author>
+        <contact>https://github.com/arthurcvieira/oniscus/issues</contact>
+        <specification>Oniscus: Tumbleweed live ISO with XFCE + i3wm</specification>
+    </description>
+
+    <!-- Profiles (see build.sh):
+         Dev     (default) Oniscus files come from the root/ overlay only. Good for
+                 trying changes before they are released.
+         Release Oniscus files come from the Oniscus repository on the Open Build
+                 Service as RPMs (onis, oniscus-branding, oniscus-desktop), so
+                 installed systems update them with `zypper dup` / `onis update`. -->
+    <profiles>
+        <profile name="Dev" description="Oniscus files from the image overlay"/>
+        <profile name="Release" description="Oniscus files from the Oniscus package repository"/>
+    </profiles>
+
+    <preferences>
+        <version>0.1.0</version>
+        <packagemanager>zypper</packagemanager>
+        <locale>en_US</locale>
+        <keytable>us</keytable>
+        <timezone>UTC</timezone>
+        <rpm-excludedocs>false</rpm-excludedocs>
+        <rpm-check-signatures>true</rpm-check-signatures>
+        <bootsplash-theme>bgrt</bootsplash-theme>
+        <type image="iso"
+              primary="true"
+              flags="dmsquash"
+              firmware="uefi"
+              mediacheck="false"
+              volid="ONISCUS_LIVE"
+              publisher="Oniscus"
+              kernelcmdline="splash quiet">
+            <bootloader name="grub2" console="gfxterm" timeout="10"/>
+        </type>
+    </preferences>
+
+    <users>
+        <!-- Live session user: login "live", password "live" in Ly -->
+        <user name="live" groups="users,wheel,audio,video" home="/home/live" password="live" pwdformat="plain"/>
+    </users>
+
+    <!-- Official Tumbleweed repositories (plus the Oniscus one in the Release profile) -->
+    <repository type="rpm-md" alias="repo-oss" imageinclude="true">
+        <source path="https://download.opensuse.org/tumbleweed/repo/oss/"/>
+    </repository>
+    <repository type="rpm-md" alias="repo-non-oss" imageinclude="true">
+        <source path="https://download.opensuse.org/tumbleweed/repo/non-oss/"/>
+    </repository>
+    <repository type="rpm-md" alias="repo-update" imageinclude="true">
+        <source path="https://download.opensuse.org/update/tumbleweed/"/>
+    </repository>
+
+    <!-- Oniscus's own packages, built on build.opensuse.org from packaging/oniscus.spec.
+         imageinclude keeps the repository on installed systems, so updates arrive
+         with the rest of Tumbleweed. -->
+    <repository type="rpm-md" alias="oniscus" imageinclude="true" profiles="Release">
+        <source path="https://download.opensuse.org/repositories/home:/oniscus/openSUSE_Tumbleweed/"/>
+    </repository>
+
+    <packages type="image" profiles="Release">
+        <package name="onis"/>
+        <package name="oniscus-branding"/>
+        <package name="oniscus-desktop"/>
+    </packages>
+
+    <packages type="image">
+        <!-- Base -->
+        <namedCollection name="base"/>
+        <namedCollection name="enhanced_base"/>
+        <package name="kernel-default"/>
+        <package name="kernel-firmware-all"/>
+        <package name="grub2"/>
+        <package name="grub2-x86_64-efi" arch="x86_64"/>
+        <package name="shim" arch="x86_64"/>
+        <package name="dracut-kiwi-live"/>
+        <package name="systemd"/>
+        <package name="sudo"/>
+        <package name="zypper"/>
+        <package name="NetworkManager"/>
+        <package name="NetworkManager-applet"/>
+        <package name="timezone"/>
+        <package name="glibc-locale"/>
+
+        <!-- Branding: Oniscus may say "based on openSUSE Tumbleweed" but must not
+             use openSUSE's name, logo or artwork as its own. The -upstream
+             variants are plain (no openSUSE art) and conflict with the openSUSE
+             ones, so they keep them out. -->
+        <package name="branding-upstream"/>
+        <package name="plymouth-branding-upstream"/>
+        <package name="MozillaFirefox-branding-upstream"/>
+
+        <!-- Languages: English is the default, Portuguese (Brazil) is the second
+             supported language. Translations live in the -lang subpackages. -->
+        <package name="xfce4-panel-lang"/>
+        <package name="xfce4-session-lang"/>
+        <package name="xfce4-settings-lang"/>
+        <package name="xfce4-terminal-lang"/>
+        <package name="xfce4-power-manager-lang"/>
+        <package name="xfce4-whiskermenu-plugin-lang"/>
+        <package name="thunar-lang"/>
+        <package name="mousepad-lang"/>
+        <package name="MozillaFirefox-translations-common"/>
+
+        <!-- Graphics and login -->
+        <namedCollection name="x11"/>
+        <package name="xorg-x11-server"/>
+        <package name="xinit"/>
+        <package name="ly"/>
+
+        <!-- XFCE (without xfwm4 or xfdesktop) -->
+        <package name="xfce4-session"/>
+        <package name="xfce4-settings"/>
+        <package name="xfce4-panel"/>
+        <package name="xfce4-notifyd"/>
+        <package name="xfce4-power-manager"/>
+        <package name="xfce4-terminal"/>
+        <package name="xfce4-appfinder"/>
+        <package name="xfce4-screenshooter"/>
+        <package name="xfce4-pulseaudio-plugin"/>
+        <package name="xfce4-whiskermenu-plugin"/>
+        <package name="thunar"/>
+        <package name="thunar-volman"/>
+        <package name="tumbler"/>
+        <package name="gvfs"/>
+        <package name="xfconf"/>
+        <package name="xfce4-panel-profiles"/>
+        <package name="adwaita-icon-theme"/>
+        <package name="oxygen5-icon-theme"/>
+        <package name="google-noto-sans-mono-fonts"/>
+        <package name="google-noto-sans-fonts"/>
+
+        <!-- i3 -->
+        <package name="i3"/>
+        <package name="i3status"/>
+        <package name="i3lock"/>
+        <package name="dmenu"/>
+        <package name="rofi"/>
+        <package name="picom"/>
+        <package name="starship"/>
+        <package name="fastfetch"/>
+        <package name="polybar"/>
+        <package name="plank"/>
+        <package name="xdotool"/>
+        <package name="dconf"/>
+        <package name="xfce4-genmon-plugin"/>
+        <package name="feh"/>
+        <!-- Welcome app (onis command) -->
+        <package name="gum"/>
+        <package name="xdg-utils"/>
+        <package name="libnotify-tools"/>
+        <package name="flatpak"/>
+        <package name="man"/>
+
+        <!-- Audio -->
+        <package name="pipewire"/>
+        <package name="pipewire-pulseaudio"/>
+        <package name="wireplumber"/>
+        <package name="pavucontrol"/>
+
+        <!-- Applications -->
+        <package name="MozillaFirefox"/>
+        <package name="mousepad"/>
+        <package name="ristretto"/>
+        <package name="file-roller"/>
+        <!-- Default media player (video, music, streams). Extra codecs only
+             through the optional Packman step in the installer. -->
+        <package name="vlc"/>
+        <package name="vlc-qt"/>
+        <package name="vlc-lang"/>
+
+        <!-- Installer: asks for language, keyboard layout and time zone -->
+        <package name="calamares"/>
+        <package name="efibootmgr"/>
+        <package name="polkit"/>
+    </packages>
+
+    <!-- Keep xfwm4 and xfdesktop out even if something recommends them -->
+    <packages type="delete">
+        <package name="xfwm4"/>
+        <package name="xfdesktop"/>
+        <!-- openSUSE artwork packages are removed and locked in config.sh -->
+    </packages>
+
+    <packages type="bootstrap">
+        <package name="filesystem"/>
+        <package name="glibc-locale-base"/>
+        <package name="ca-certificates"/>
+        <package name="ca-certificates-mozilla"/>
+        <package name="openSUSE-release"/>
+        <package name="cracklib-dict-small"/>
+    </packages>
+</image>

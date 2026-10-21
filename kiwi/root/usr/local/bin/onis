@@ -1,0 +1,1863 @@
+#!/bin/bash
+# Oniscus: welcome screen and system Swiss army knife, in the terminal.
+# Everything is an "onis" subcommand, and the same
+# menu opens in the terminal (gum) or in rofi (Super+Alt+Space).
+#
+# Copyright (C) 2026 Oniscus contributors
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+# Usage: onis [command]   (no command opens the welcome screen; "onis help" lists all)
+
+set -uo pipefail
+
+CONF="${XDG_CONFIG_HOME:-$HOME/.config}"
+DATA="${XDG_DATA_HOME:-$HOME/.local/share}"
+STATE="$CONF/oniscus"
+I3CFG="$CONF/i3/config"
+SHARE=/usr/share/oniscus
+LOGO="$SHARE/logo.ansi"
+CATALOG="$SHARE/catalog.tsv"
+GUIDE="$SHARE/agent"
+mkdir -p "$STATE"
+
+# Language: English by default, Portuguese when the session locale is pt_*
+case "${ONISCUS_LANG:-${LC_ALL:-${LC_MESSAGES:-${LANG:-en}}}}" in
+    pt*) L=pt ;;
+    *)   L=en ;;
+esac
+
+# t "English" "Português": every user-facing string exists in both languages
+t() { if [ "$L" = pt ]; then printf '%s' "$2"; else printf '%s' "$1"; fi; }
+
+WELCOME_TITLE="Oniscus Welcome"
+AGENT_TITLE="Oniscus Agent"
+
+# Brand accent trio: Yellow, Honey (light) and Amber (dark)
+ACCENT_DEFAULT="#F7C948 #FFE58F #C99412"
+read -r ACCENT HONEY AMBER < <(cat "$STATE/accent" 2>/dev/null || echo "$ACCENT_DEFAULT")
+FG="#E6E9EC"; MUTED="#9AA4AF"; BG="#121519"; WARN="#F28C28"; GOOD="#4CC27A"
+
+# Interface: "gum" in the terminal, "rofi" when started from the keybinding
+UI=gum
+
+# ---------------------------------------------------------------------------
+# gum colors follow the current accent
+export GUM_CHOOSE_CURSOR_FOREGROUND="$ACCENT" GUM_CHOOSE_SELECTED_FOREGROUND="$ACCENT"
+export GUM_CHOOSE_HEADER_FOREGROUND="$MUTED" GUM_CHOOSE_CURSOR="▸ "
+export GUM_FILTER_INDICATOR_FOREGROUND="$ACCENT" GUM_FILTER_MATCH_FOREGROUND="$ACCENT"
+export GUM_FILTER_PROMPT_FOREGROUND="$ACCENT" GUM_FILTER_HEADER_FOREGROUND="$MUTED"
+export GUM_INPUT_CURSOR_FOREGROUND="$ACCENT" GUM_INPUT_PROMPT_FOREGROUND="$ACCENT"
+export GUM_INPUT_HEADER_FOREGROUND="$MUTED"
+export GUM_CONFIRM_SELECTED_BACKGROUND="$ACCENT" GUM_CONFIRM_SELECTED_FOREGROUND="$BG"
+export GUM_CONFIRM_PROMPT_FOREGROUND="$FG"
+export GUM_SPIN_SPINNER_FOREGROUND="$ACCENT"
+# gum's own key help is English-only; onis prints its own hint in both languages
+export GUM_CHOOSE_HEADER="" GUM_CHOOSE_SHOW_HELP=false GUM_FILTER_SHOW_HELP=false
+export GUM_WRITE_SHOW_HELP=false GUM_INPUT_SHOW_HELP=false GUM_CONFIRM_SHOW_HELP=false
+GUM_FILTER_PLACEHOLDER="$(t "Filter..." "Filtrar...")"
+export GUM_FILTER_PLACEHOLDER
+
+has() { command -v "$1" >/dev/null 2>&1; }
+
+# Scrollable view for long output
+page() { gum pager --show-line-numbers=false; }
+
+heading() {
+    gum style --foreground "$ACCENT" --bold --margin "1 0 0 0" "$1"
+    [ -n "${2:-}" ] && gum style --foreground "$MUTED" "$2"
+    echo
+}
+ok()   { gum style --foreground "$GOOD" "✔ $*"; }
+warn() { gum style --foreground "$WARN" "! $*"; }
+note() { gum style --foreground "$MUTED" "$*"; }
+box()  { gum style --border rounded --border-foreground "$ACCENT" --padding "1 2" "$@"; }
+
+pause() {
+    echo
+    note "$(t "Press Enter to continue" "Enter para continuar")"
+    read -r _ || true
+}
+
+confirm() { gum confirm --affirmative "$(t Yes Sim)" --negative "$(t No Não)" "$1"; }
+
+# Show a command before running it: nothing happens hidden
+run() {
+    gum style --foreground "$MUTED" "\$ $*"
+    bash -c "$*"
+}
+
+# Install from Tumbleweed whatever package provides a command (zypper resolves paths)
+need() {
+    local missing=() c
+    for c in "$@"; do [ "$c" = - ] || has "$c" || missing+=("/usr/bin/$c"); done
+    [ ${#missing[@]} -eq 0 ] && return 0
+    note "$(t "Installing from the official repositories:" "Instalando dos repositórios oficiais:") ${missing[*]##*/}"
+    run sudo zypper --non-interactive install "${missing[*]}"
+}
+
+# Run a subcommand in a floating terminal (used by the rofi menu)
+in_terminal() {
+    setsid -f xfce4-terminal --title "$WELCOME_TITLE" --geometry 100x32 \
+        -x onis "$@" >/dev/null 2>&1
+}
+
+# ---------------------------------------------------------------------------
+# Menus. Each line is "Label<TAB>action". "menu:x" opens another menu,
+# "app:cmd" starts a graphical program, anything else is an onis subcommand.
+
+menu_main() {
+    # Live ISO: offer the installer first
+    if grep -qw rd.live.image /proc/cmdline 2>/dev/null && has calamares; then
+        printf '%s\t%s\n' "$(t "Install Oniscus to this computer" "Instalar o Oniscus neste computador")" "app:pkexec calamares"
+    fi
+    printf '%s\t%s\n' \
+        "$(t "Ask the AI agent for help" "Pedir ajuda ao agente de IA")"  "agent" \
+        "$(t "Install" "Instalar")"            "install" \
+        "$(t "Uninstall" "Desinstalar")"       "uninstall" \
+        "$(t "Update everything" "Atualizar tudo")"  "update" \
+        "$(t "Snapshots (restore points)" "Snapshots (pontos de restauração)")"  "snapshot" \
+        "$(t "Style" "Estilo")"                "menu:style" \
+        "$(t "i3 shortcuts" "Atalhos do i3")"  "menu:keys" \
+        "$(t "System" "Sistema")"              "menu:system" \
+        "$(t "Learn" "Aprender")"              "menu:learn" \
+        "$(t "Preferences" "Preferências")"    "menu:prefs"
+}
+
+menu_style() {
+    printf '%s\t%s\n' \
+        "$(t "Accent color" "Cor de realce")"     "accent" \
+        "$(t "Wallpaper" "Papel de parede")"      "wallpaper"
+}
+
+menu_keys() {
+    printf '%s\t%s\n' \
+        "$(t "Show all" "Ver todos")"                 "keys" \
+        "$(t "Change a shortcut" "Mudar um atalho")"  "keys change" \
+        "$(t "New shortcut" "Criar atalho")"          "keys new" \
+        "$(t "Remove a shortcut" "Remover atalho")"   "keys remove" \
+        "$(t "Restore defaults" "Restaurar padrão")"  "keys restore"
+}
+
+menu_system() {
+    printf '%s\t%s\n' \
+        "$(t "Update the system" "Atualizar o sistema")"         "update" \
+        "$(t "Diagnostics report" "Diagnóstico (relatório)")"    "doctor" \
+        "$(t "Snapshots (restore points)" "Snapshots (pontos de restauração)")" "snapshot" \
+        "$(t "Drivers and codecs" "Drivers e codecs")"           "drivers" \
+        "$(t "Network and Wi-Fi" "Rede e Wi-Fi")"                "app:nm-connection-editor" \
+        "$(t "Sound" "Som")"                                     "app:pavucontrol" \
+        "$(t "XFCE settings" "Configurações do XFCE")"           "app:xfce4-settings-manager" \
+        "$(t "Restart bars and dock" "Reiniciar barras e dock")" "restart-bars" \
+        "$(t "About this computer" "Sobre este computador")"     "about"
+}
+
+menu_learn() {
+    printf '%s\t%s\n' \
+        "$(t "Essential shortcuts" "Atalhos essenciais")"       "keys" \
+        "$(t "i3 user guide (web)" "Guia do i3 (site)")"        "app:xdg-open https://i3wm.org/docs/userguide.html" \
+        "$(t "openSUSE wiki (web)" "Wiki do openSUSE (site)")"  "app:xdg-open https://en.opensuse.org/Portal:Tumbleweed"
+}
+
+menu_prefs() {
+    if [ -e "$STATE/no-welcome" ]; then
+        printf '%s\t%s\n' "$(t "Open the welcome screen at login: no" "Abrir as Boas-vindas ao entrar: não")" "welcome on"
+    else
+        printf '%s\t%s\n' "$(t "Open the welcome screen at login: yes" "Abrir as Boas-vindas ao entrar: sim")" "welcome off"
+    fi
+    if [ -e "$STATE/no-crash-watch" ]; then
+        printf '%s\t%s\n' "$(t "Offer the agent when an app crashes: no" "Oferecer o agente quando um programa travar: não")" "agent crashes on"
+    else
+        printf '%s\t%s\n' "$(t "Offer the agent when an app crashes: yes" "Oferecer o agente quando um programa travar: sim")" "agent crashes off"
+    fi
+    printf '%s\t%s\n' "$(t "Default agent:" "Agente padrão:") $(agent_name "$(cat "$STATE/agent" 2>/dev/null)")" "agent default"
+}
+
+menu_title() {
+    case "$1" in
+        main)   echo "Oniscus" ;;
+        style)  t "Style" "Estilo" ;;
+        keys)   t "i3 shortcuts" "Atalhos do i3" ;;
+        system) t "System" "Sistema" ;;
+        learn)  t "Learn" "Aprender" ;;
+        prefs)  t "Preferences" "Preferências" ;;
+    esac
+}
+
+# Pick a line from a menu and print its action. Returns 1 for "back".
+choose() {
+    local menu=$1 lines label
+    lines=$("menu_$menu")
+    if [ "$UI" = rofi ]; then
+        label=$(cut -f1 <<<"$lines" | rofi -dmenu -i -p "$(menu_title "$menu")" \
+            -theme-str "element selected { background-color: $ACCENT; text-color: $BG; }" \
+            -theme-str "window { border: 2px; border-color: $ACCENT; width: 460px; }") || return 1
+    else
+        local back; back=$(t Back Voltar); [ "$menu" = main ] && back=$(t Quit Sair)
+        gum style --foreground "$MUTED" --faint "$(t "↑↓ choose · Enter open · Esc back" "↑↓ escolher · Enter abrir · Esc voltar")" >&2
+        label=$( { cut -f1 <<<"$lines"; echo "$back"; } | gum choose --height 12) || return 1
+        [ "$label" = "$back" ] && return 1
+    fi
+    awk -F'\t' -v r="$label" '$1 == r { print $2; exit }' <<<"$lines"
+}
+
+# Menu loop: opens submenus, runs actions and comes back to the same menu
+browse() {
+    local menu=$1 action
+    while :; do
+        if [ "$UI" = gum ]; then
+            if [ "$menu" = main ]; then header; else clear; heading "$(menu_title "$menu")"; fi
+        fi
+        action=$(choose "$menu") || break
+        [ -z "$action" ] && continue
+        case "$action" in
+            menu:*) browse "${action#menu:}"; [ "$UI" = rofi ] && return ;;
+            app:*)  setsid -f bash -c "${action#app:}" >/dev/null 2>&1; [ "$UI" = rofi ] && return ;;
+            *)
+                if [ "$UI" = rofi ]; then
+                    # shellcheck disable=SC2086
+                    in_terminal $action; return
+                fi
+                clear
+                # shellcheck disable=SC2086
+                main $action
+                ;;
+        esac
+    done
+    return 0
+}
+
+# ---------------------------------------------------------------------------
+# Welcome screen
+
+header() {
+    clear
+    local name text
+    name=$(getent passwd "$USER" | cut -d: -f5 | cut -d, -f1)
+    name=${name:-$USER}
+    text=$(
+        gum style --foreground "$ACCENT" --bold "$(t "Welcome to Oniscus, $name!" "Bem-vindo ao Oniscus, $name!")"
+        echo
+        gum style --foreground "$FG" --width 52 "$(t \
+            "This is your Swiss army knife. Install apps and AI agents, change i3 shortcuts, switch the accent color and take care of the system without memorizing commands." \
+            "Este é o seu canivete suíço. Instale apps e agentes de IA, mude atalhos do i3, troque a cor de realce e cuide do sistema sem decorar comandos.")"
+        echo
+        gum style --foreground "$MUTED" \
+            "Super+Space         $(t "apps" "aplicativos")" \
+            "Super+Alt+Space     $(t "this menu, from anywhere" "este menu, de qualquer lugar")" \
+            "Super+Ctrl+Shift+a  $(t "AI agent that knows Oniscus" "agente de IA que conhece o Oniscus")" \
+            "Super+Enter         terminal" \
+            "onis help           $(t "every command" "todos os comandos")"
+    )
+    if [ -r "$LOGO" ] && [ "$(tput cols 2>/dev/null || echo 80)" -ge 100 ]; then
+        gum join --horizontal --align center "$(cat "$LOGO")" \
+            "$(gum style --padding "0 0 0 3" "$text")"
+    else
+        echo "$text"
+    fi
+    echo
+}
+
+welcome() {
+    has gum || { echo "$(t "Oniscus needs the gum package:" "O Oniscus precisa do pacote gum:") sudo zypper install gum"; exit 1; }
+    case "${1:-}" in
+        on)  rm -f "$STATE/no-welcome"; ok "$(t "The welcome screen will open at login." "As Boas-vindas vão abrir ao entrar.")"; return ;;
+        off) : > "$STATE/no-welcome"
+             ok "$(t "The welcome screen won't open at login anymore (use Super+Alt+Space)." "As Boas-vindas não vão mais abrir ao entrar (use Super+Alt+Espaço).")"; return ;;
+        --autostart)
+            # Called by i3 at login: open in a floating terminal
+            [ -e "$STATE/no-welcome" ] && exit 0
+            exec xfce4-terminal --title "$WELCOME_TITLE" --geometry 104x34 -x onis ;;
+    esac
+    browse main
+    clear
+}
+
+# ---------------------------------------------------------------------------
+# Install: catalog by category, plus free search in the repos and on Flathub
+
+categories() {
+    printf '%s\t%s\n' \
+        ai       "$(t "AI agents" "Agentes de IA")" \
+        browsers "$(t "Browsers" "Navegadores")" \
+        office   "$(t "Office" "Pacote Office")" \
+        design   "$(t "Design" "Design")" \
+        dev      "$(t "Development" "Desenvolvimento")" \
+        chat     "$(t "Communication" "Comunicação")" \
+        media    "$(t "Media" "Multimídia")" \
+        games    "$(t "Games" "Jogos")" \
+        utils    "$(t "Utilities" "Utilitários")"
+}
+
+# Catalog rows without comments: category method target command needs name desc_en desc_pt
+catalog() { grep -v '^#' "$CATALOG" 2>/dev/null | grep -v '^[[:space:]]*$'; }
+
+# Find a catalog row by command, package, app id or name (case-insensitive)
+catalog_find() {
+    catalog | awk -F'\t' -v k="$(tr '[:upper:]' '[:lower:]' <<<"$1")" \
+        'tolower($4) == k || tolower($3) == k || tolower($6) == k { print; exit }'
+}
+
+is_installed() {
+    local method=$1 target=$2 cmd=$3
+    case "$method" in
+        zypper)  rpm -q "$target" >/dev/null 2>&1 ;;
+        flatpak) has flatpak && flatpak info "$target" >/dev/null 2>&1 ;;
+        *)       has "$cmd" || [ -x "$HOME/.local/bin/$cmd" ] ;;
+    esac
+}
+
+source_label() {
+    case "$1" in
+        zypper)  echo "Tumbleweed" ;;
+        flatpak) echo "Flathub" ;;
+        npm)     echo "npm" ;;
+        *)       t "Official" "Oficial" ;;
+    esac
+}
+
+# Flathub is added per user on first use, so installs need no sudo
+ensure_flathub() {
+    need flatpak || return 1
+    flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+}
+
+install_command() {
+    local method=$1 target=$2
+    case "$method" in
+        zypper)  echo "sudo zypper install $target" ;;
+        flatpak) echo "flatpak install --user -y flathub $target" ;;
+        npm)     echo "npm install -g --prefix \"\$HOME/.local\" $target" ;;
+        script)  echo "$target" ;;
+    esac
+}
+
+# Install one catalog row (TAB-separated)
+install_row() {
+    local cat method target cmd needs name den dpt desc line
+    IFS=$'\t' read -r cat method target cmd needs name den dpt <<<"$1"
+    desc=$(t "$den" "$dpt")
+    heading "$name" "$desc"
+    if is_installed "$method" "$target" "$cmd"; then
+        ok "$(t "$name is already installed." "$name já está instalado.")"
+        confirm "$(t "Reinstall or update?" "Reinstalar ou atualizar?")" || return 0
+    fi
+    line=$(install_command "$method" "$target")
+    box "$(gum style --foreground "$MUTED" "$(t "Source:" "Origem:") $(source_label "$method")")" "$line"
+    echo
+    confirm "$(t "Install $name now?" "Instalar $name agora?")" || return 0
+    # shellcheck disable=SC2086
+    need $needs || { warn "$(t "Could not install the requirements." "Não foi possível instalar os requisitos.")"; pause; return 1; }
+    if [ "$method" = flatpak ]; then ensure_flathub || { pause; return 1; }; fi
+    echo
+    if run "$line"; then
+        echo
+        ok "$(t "$name installed." "$name instalado.")"
+        if [ "$cat" = ai ]; then
+            agent_link
+            if [ ! -s "$STATE/agent" ] && agent_is_cli "$cmd"; then echo "$cmd" > "$STATE/agent"; fi
+            [ "$cmd" != - ] && note "$(t "Open a new terminal and run:" "Abra um terminal novo e rode:") $cmd"
+        else
+            note "$(t "It is in the app menu (Super+Space)." "Ele está no menu de aplicativos (Super+Espaço).")"
+        fi
+    else
+        echo
+        warn "$(t "The installation failed. The output above shows why." "A instalação falhou. A saída acima mostra o motivo.")"
+    fi
+    pause
+}
+
+# One category: list apps with ✔ for installed ones
+install_category() {
+    local id=$1 title rows labels row cat method target cmd needs name den dpt mark choice i
+    title=$(categories | awk -F'\t' -v c="$id" '$1 == c { print $2 }')
+    mapfile -t rows < <(catalog | awk -F'\t' -v c="$id" '$1 == c')
+    while :; do
+        clear
+        heading "$(t Install Instalar) › $title" \
+            "$(t "✔ = installed. Tumbleweed repositories first, Flathub for the rest." "✔ = instalado. Repositórios do Tumbleweed primeiro, Flathub para o resto.")"
+        labels=()
+        for row in "${rows[@]}"; do
+            IFS=$'\t' read -r cat method target cmd needs name den dpt <<<"$row"
+            mark=" "; is_installed "$method" "$target" "$cmd" && mark="✔"
+            labels+=("$(printf '%s %-20s %-11s %s' "$mark" "$name" "$(source_label "$method")" "$(t "$den" "$dpt")")")
+        done
+        choice=$(printf '%s\n' "${labels[@]}" "$(t Back Voltar)" | gum choose --height 14) || return 0
+        [ "$choice" = "$(t Back Voltar)" ] && return 0
+        for i in "${!labels[@]}"; do
+            if [ "${labels[$i]}" = "$choice" ]; then clear; install_row "${rows[$i]}"; break; fi
+        done
+    done
+}
+
+# Free search in the official repositories and on Flathub
+install_other() {
+    heading "$(t "Install another package" "Instalar outro pacote")" \
+        "$(t "Searches the Tumbleweed repositories and Flathub." "Busca nos repositórios do Tumbleweed e no Flathub.")"
+    local term results
+    term=$(gum input --placeholder "$(t "name or part of it (e.g. gimp)" "nome ou parte do nome (ex.: gimp)")") || return 0
+    [ -z "$term" ] && return 0
+    if ! { has flatpak && flatpak remote-list --user 2>/dev/null | grep -q flathub; }; then
+        ensure_flathub >/dev/null 2>&1
+    fi
+    # Each result line: method<TAB>target<TAB>name<TAB>summary
+    results=$(gum spin --title "$(t "Searching" "Buscando") \"$term\"..." -- bash -c '
+        zypper --quiet --non-interactive --no-refresh search --type package -- "$1" 2>/dev/null |
+            awk -F"|" "NR > 2 { gsub(/^ +| +\$/, \"\", \$2); gsub(/^ +| +\$/, \"\", \$3); print \"zypper\t\" \$2 \"\t\" \$2 \"\t\" \$3 }"
+        command -v flatpak >/dev/null && flatpak search --columns=application,name,description -- "$1" 2>/dev/null |
+            awk -F"\t" "\$1 ~ /\\./ { print \"flatpak\t\" \$1 \"\t\" \$2 \"\t\" \$3 }"
+    ' _ "$term")
+    [ -z "$results" ] && { warn "$(t "Nothing found for" "Nada encontrado para") \"$term\"."; pause; return; }
+
+    local -A key=()
+    local labels=() method target name desc label choice
+    while IFS=$'\t' read -r method target name desc; do
+        label=$(printf '%-10s %-28s %s' "$(source_label "$method")" "$name" "${desc:0:60}")
+        [ "$method" = flatpak ] && label="$label  ($target)"
+        if is_installed "$method" "$target" "$target"; then label="✔ $label"; else label="  $label"; fi
+        key[$label]="$method"$'\t'"$target"$'\t'"$name"$'\t'"$desc"
+        labels+=("$label")
+    done <<<"$results"
+    choice=$(printf '%s\n' "${labels[@]}" | gum filter --height 16 \
+        --header "$(t "✔ = installed. Pick one:" "✔ = já instalado. Escolha um:")") || return 0
+    [ -z "${key[$choice]:-}" ] && return 0
+    IFS=$'\t' read -r method target name desc <<<"${key[$choice]}"
+    clear
+    install_row "other"$'\t'"$method"$'\t'"$target"$'\t'"-"$'\t'"-"$'\t'"$name"$'\t'"$desc"$'\t'"$desc"
+}
+
+install() {
+    if [ -n "${1:-}" ]; then
+        local row; row=$(catalog_find "$1")
+        if [ -n "$row" ]; then install_row "$row"; else warn "$(t "Not in the catalog:" "Não está no catálogo:") $1"; install_other; fi
+        return
+    fi
+    local other drv back choice id
+    other="$(t "Install another package (repositories + Flathub)" "Instalar outro pacote (repositórios + Flathub)")"
+    drv="$(t "Drivers and codecs (NVIDIA, Packman)" "Drivers e codecs (NVIDIA, Packman)")"
+    back=$(t Back Voltar)
+    while :; do
+        clear
+        heading "$(t Install Instalar)" "$(t "Pick a category, or search for any package." "Escolha uma categoria ou busque qualquer pacote.")"
+        choice=$( { echo "$other"; categories | cut -f2; echo "$drv"; echo "$back"; } | gum choose --height 15) || return 0
+        case "$choice" in
+            "$other") clear; install_other ;;
+            "$drv")   drivers ;;
+            "$back")  return 0 ;;
+            *) id=$(categories | awk -F'\t' -v n="$choice" '$2 == n { print $1 }'); install_category "$id" ;;
+        esac
+    done
+}
+
+# ---------------------------------------------------------------------------
+# Uninstall: system packages (zypper), Flatpak apps and the AI agents from the
+# catalog. "Purge" also removes orphaned dependencies, the app's user data and
+# caches, like apt purge + autoremove.
+
+# Packages Oniscus cannot run without; removal is refused if any would go
+PROTECTED="kernel-default systemd zypper rpm glibc bash sudo filesystem openSUSE-release
+grub2 shim dracut NetworkManager xorg-x11-server i3 xfce4-session xfce4-panel xfconf
+xfce4-settings xfce4-terminal ly gum flatpak polybar plank picom rofi feh pipewire wireplumber
+starship fastfetch dconf xdotool libnotify-tools xdg-utils onis oniscus-branding oniscus-desktop"
+
+is_protected() { tr ' ' '\n' <<<"$PROTECTED" | grep -qx "$1"; }
+
+# Print the packages zypper would remove (dry run; needs sudo for the lock)
+zypper_removal_list() {
+    sudo zypper --non-interactive remove --dry-run "$@" 2>/dev/null |
+        awk '/going to be REMOVED:/ { on = 1; next } on && /^$/ { on = 0 } on { print }' | tr ' ' '\n' | grep -v '^$'
+}
+
+# User folders that look like they belong to an app (for purge)
+user_leftovers() {
+    local name=$1 d
+    for d in "$CONF" "$DATA" "${XDG_CACHE_HOME:-$HOME/.cache}"; do
+        find "$d" -maxdepth 1 -mindepth 1 -iname "$name" 2>/dev/null
+    done
+}
+
+remove_leftovers() {
+    local name=$1 dirs
+    dirs=$(user_leftovers "$name")
+    [ -z "$dirs" ] && return 0
+    echo
+    note "$(t "User files of this app:" "Arquivos do usuário deste app:")"
+    printf '  %s\n' $dirs
+    if confirm "$(t "Delete them too?" "Apagar também?")"; then
+        # shellcheck disable=SC2086
+        rm -rf -- $dirs && ok "$(t "User files deleted." "Arquivos do usuário apagados.")"
+    fi
+}
+
+uninstall_rpm() {
+    local pkg=$1 purge=$2 list bad=() p
+    if is_protected "$pkg"; then
+        warn "$(t "$pkg is part of Oniscus itself and cannot be removed here." "$pkg faz parte do próprio Oniscus e não pode ser removido aqui.")"; pause; return 1
+    fi
+    note "$(t "Checking what would be removed..." "Verificando o que seria removido...")"
+    if [ "$purge" = 1 ]; then list=$(zypper_removal_list --clean-deps "$pkg"); else list=$(zypper_removal_list "$pkg"); fi
+    for p in $list; do is_protected "$p" && bad+=("$p"); done
+    if [ ${#bad[@]} -gt 0 ]; then
+        warn "$(t "Stopped: removing $pkg would also remove parts of Oniscus:" "Parei: remover $pkg também removeria partes do Oniscus:") ${bad[*]}"
+        pause; return 1
+    fi
+    if [ -n "$list" ]; then
+        echo
+        note "$(t "These packages will be removed:" "Estes pacotes vão ser removidos:")"
+        printf '%s\n' "$list" | paste -sd' ' | fold -s -w 96 | sed 's/^/  /'
+    fi
+    echo
+    confirm "$(t "Remove now?" "Remover agora?")" || return 0
+    if [ "$purge" = 1 ]; then run sudo zypper --non-interactive remove --clean-deps "$pkg"
+    else run sudo zypper --non-interactive remove "$pkg"; fi || { warn "$(t "Removal failed." "A remoção falhou.")"; pause; return 1; }
+    ok "$(t "$pkg removed." "$pkg removido.")"
+    [ "$purge" = 1 ] && remove_leftovers "$pkg"
+    pause
+}
+
+uninstall_flatpak() {
+    local id=$1 purge=$2 scope=--user
+    flatpak info --user "$id" >/dev/null 2>&1 || scope=--system
+    local sudo=""; [ "$scope" = --system ] && sudo="sudo "
+    if [ "$purge" = 1 ]; then
+        commands "${sudo}flatpak uninstall $scope -y --delete-data $id" "${sudo}flatpak uninstall $scope -y --unused"
+    else
+        commands "${sudo}flatpak uninstall $scope -y $id"
+    fi
+    echo
+    confirm "$(t "Remove now?" "Remover agora?")" || return 0
+    if [ "$purge" = 1 ]; then
+        run "${sudo}flatpak uninstall $scope -y --delete-data $id" && run "${sudo}flatpak uninstall $scope -y --unused"
+    else
+        run "${sudo}flatpak uninstall $scope -y $id"
+    fi && ok "$(t "$id removed." "$id removido.")" || warn "$(t "Removal failed." "A remoção falhou.")"
+    pause
+}
+
+# AI agents installed with npm or their own installer (catalog methods npm/script)
+uninstall_agent() {
+    local method=$1 target=$2 cmd=$3 purge=$4 path
+    case "$method" in
+        npm)
+            commands "npm uninstall -g --prefix \"\$HOME/.local\" $target"
+            confirm "$(t "Remove now?" "Remover agora?")" || return 0
+            run "npm uninstall -g --prefix \"\$HOME/.local\" $target" && ok "$(t "$cmd removed." "$cmd removido.")" ;;
+        *)
+            path=$(command -v "$cmd" 2>/dev/null || echo "$HOME/.local/bin/$cmd")
+            if [ "$cmd" = claude ]; then
+                # Claude Code's native installer keeps the launcher in ~/.local/bin and versions in ~/.local/share/claude
+                commands "rm -f $HOME/.local/bin/claude" "rm -rf $HOME/.local/share/claude"
+                confirm "$(t "Remove now?" "Remover agora?")" || return 0
+                rm -f "$HOME/.local/bin/claude"; rm -rf "$HOME/.local/share/claude"
+                ok "$(t "Claude Code removed." "Claude Code removido.")"
+            else
+                warn "$(t "$cmd was installed by its own script. Use the project's uninstall instructions; the command is at:" "$cmd foi instalado pelo script do próprio projeto. Use as instruções de remoção do projeto; o comando está em:") $path"
+            fi ;;
+    esac
+    if [ "$purge" = 1 ]; then
+        remove_leftovers "$cmd"
+        [ -e "$HOME/.$cmd" ] && remove_leftovers ".$cmd"
+    fi
+    if [ "$(cat "$STATE/agent" 2>/dev/null)" = "$cmd" ]; then rm -f "$STATE/agent"; fi
+    pause
+}
+
+# Ask "remove" or "remove and purge"; prints 0 or 1
+ask_purge() {
+    local plain full
+    plain=$(t "Remove the app only" "Remover só o app")
+    full=$(t "Remove and purge (orphaned dependencies, user data and cache)" "Remover e limpar tudo (dependências órfãs, dados do usuário e cache)")
+    case "$(printf '%s\n' "$plain" "$full" | gum choose)" in
+        "$plain") echo 0 ;;
+        "$full")  echo 1 ;;
+        *) return 1 ;;
+    esac
+}
+
+# Orphaned dependencies and caches for the whole system
+cleanup() {
+    heading "$(t "Clean up the system" "Limpar o sistema")" \
+        "$(t "Removes packages nothing needs anymore, unused Flatpak runtimes and package caches." "Remove pacotes que nada mais usa, runtimes Flatpak sem uso e caches de pacotes.")"
+    local unneeded bad=() p
+    unneeded=$(zypper --quiet --no-refresh packages --unneeded 2>/dev/null |
+        awk -F'|' 'NR > 2 { gsub(/ /, "", $3); if ($3 != "") print $3 }' | sort -u)
+    for p in $unneeded; do is_protected "$p" && bad+=("$p"); done
+    for p in "${bad[@]}"; do unneeded=$(grep -vx "$p" <<<"$unneeded"); done
+    if [ -n "$unneeded" ]; then
+        note "$(t "Packages no longer needed:" "Pacotes que não são mais necessários:")"
+        printf '%s\n' "$unneeded" | paste -sd' ' | fold -s -w 96 | sed 's/^/  /'
+    else
+        ok "$(t "No orphaned packages." "Nenhum pacote órfão.")"
+    fi
+    commands \
+        ${unneeded:+"sudo zypper remove --clean-deps $(tr '\n' ' ' <<<"$unneeded")"} \
+        "sudo zypper clean --all" \
+        "flatpak uninstall --user -y --unused"
+    note "  $(t "and old i3 config backups made by onis (keeps the 3 newest)" "e cópias antigas da config do i3 feitas pelo onis (mantém as 3 mais novas)")"
+    echo
+    confirm "$(t "Clean up now?" "Limpar agora?")" || return 0
+    if [ -n "$unneeded" ]; then
+        # shellcheck disable=SC2086
+        run sudo zypper --non-interactive remove --clean-deps $unneeded
+    fi
+    run sudo zypper clean --all
+    if has flatpak; then run flatpak uninstall --user -y --unused; fi
+    # Old i3 config backups made by onis keys
+    ls -t "$I3CFG".oniscus-* 2>/dev/null | tail -n +4 | xargs -r rm -f
+    ok "$(t "System cleaned." "Sistema limpo.")"
+    pause
+}
+
+# Pick something installed and remove it
+uninstall_pick() {
+    heading "$(t "Uninstall" "Desinstalar")" "$(t "Type to filter. Flatpak apps and AI agents first, then system packages." "Digite para filtrar. Apps Flatpak e agentes de IA primeiro, depois pacotes do sistema.")"
+    local -A key=()
+    local labels=() line method target cmd name label choice purge
+    # AI agents installed outside zypper/flatpak
+    while IFS=$'\t' read -r _ method target cmd _ name _; do
+        case "$method" in npm|script) ;; *) continue ;; esac
+        agent_installed "$cmd" || continue
+        label=$(printf '%-10s %-34s %s' "$(t Agent Agente)" "$name" "$cmd")
+        key[$label]="agent"$'\t'"$method"$'\t'"$target"$'\t'"$cmd"; labels+=("$label")
+    done < <(catalog | awk -F'\t' '$1 == "ai"')
+    if has flatpak; then
+        while IFS=$'\t' read -r target name; do
+            [ -z "$target" ] && continue
+            label=$(printf '%-10s %-34s %s' "Flatpak" "$name" "$target")
+            key[$label]="flatpak"$'\t'"$target"; labels+=("$label")
+        done < <(flatpak list --app --columns=application,name 2>/dev/null)
+    fi
+    while IFS=$'\t' read -r target name; do
+        is_protected "$target" && continue
+        label=$(printf '%-10s %-34s %s' "$(t Package Pacote)" "$target" "${name:0:50}")
+        key[$label]="zypper"$'\t'"$target"; labels+=("$label")
+    done < <(rpm -qa --qf '%{NAME}\t%{SUMMARY}\n' 2>/dev/null | sort -u)
+    [ ${#labels[@]} -eq 0 ] && { warn "$(t "Nothing to uninstall." "Nada para desinstalar.")"; pause; return; }
+    choice=$(printf '%s\n' "${labels[@]}" | gum filter --height 16 --header "$(t "What do you want to remove?" "O que você quer remover?")") || return 0
+    line=${key[$choice]:-}
+    [ -z "$line" ] && return 0
+    purge=$(ask_purge) || return 0
+    clear
+    IFS=$'\t' read -r method target cmd _ <<<"$line"
+    case "$method" in
+        zypper)  heading "$target"; uninstall_rpm "$target" "$purge" ;;
+        flatpak) heading "$target"; uninstall_flatpak "$target" "$purge" ;;
+        agent)   IFS=$'\t' read -r _ method target cmd <<<"$line"; heading "$cmd"; uninstall_agent "$method" "$target" "$cmd" "$purge" ;;
+    esac
+}
+
+uninstall() {
+    local purge=0 name
+    case "${1:-}" in
+        --cleanup) cleanup; return ;;
+        --purge)   purge=1; shift ;;
+    esac
+    name=${1:-}
+    if [ -z "$name" ]; then
+        local pick clean back choice
+        pick=$(t "Choose an app or package to remove" "Escolher um app ou pacote para remover")
+        clean=$(t "Clean up orphaned dependencies and caches" "Limpar dependências órfãs e caches")
+        back=$(t Back Voltar)
+        while :; do
+            clear
+            heading "$(t Uninstall Desinstalar)"
+            choice=$(printf '%s\n' "$pick" "$clean" "$back" | gum choose) || return 0
+            clear
+            case "$choice" in
+                "$pick")  uninstall_pick ;;
+                "$clean") cleanup ;;
+                *) return 0 ;;
+            esac
+        done
+    fi
+    # Direct: onis uninstall [--purge] <package|flatpak id|agent command>
+    if is_protected "$name"; then
+        warn "$(t "$name is part of Oniscus itself and cannot be removed here." "$name faz parte do próprio Oniscus e não pode ser removido aqui.")"; return 1
+    fi
+    local row; row=$(catalog_find "$name")
+    if [ -n "$row" ]; then
+        local method target cmd
+        IFS=$'\t' read -r _ method target cmd _ <<<"$row"
+        case "$method" in
+            npm|script) uninstall_agent "$method" "$target" "$cmd" "$purge"; return ;;
+            flatpak)    uninstall_flatpak "$target" "$purge"; return ;;
+            zypper)     name=$target ;;
+        esac
+    fi
+    if has flatpak && flatpak info "$name" >/dev/null 2>&1; then uninstall_flatpak "$name" "$purge"
+    elif rpm -q "$name" >/dev/null 2>&1; then uninstall_rpm "$name" "$purge"
+    else warn "$(t "Not installed:" "Não está instalado:") $name"; return 1; fi
+}
+
+# ---------------------------------------------------------------------------
+# Drivers and codecs: the same commands as the optional installer screens
+# (/etc/calamares/modules/contextualprocess-oniscus-extras.conf), so both paths
+# behave the same. Neither ships in the ISO.
+
+# List the commands that will run, before asking
+commands() {
+    echo
+    note "$(t "These commands will run:" "Estes comandos vão rodar:")"
+    printf '  $ %s\n' "$@"
+}
+
+has_nvidia() { lspci 2>/dev/null | grep -iE 'vga|3d|display' | grep -qi nvidia; }
+
+drivers_nvidia() {
+    heading "$(t "NVIDIA driver" "Driver da NVIDIA")" \
+        "$(t "Proprietary driver from NVIDIA's official repository for openSUSE." "Driver proprietário do repositório oficial da NVIDIA para openSUSE.")"
+    if ! has_nvidia; then
+        warn "$(t "No NVIDIA graphics card was found (lspci)." "Nenhuma placa de vídeo NVIDIA foi encontrada (lspci).")"
+        confirm "$(t "Install anyway?" "Instalar mesmo assim?")" || return 0
+    fi
+    commands \
+        "sudo zypper install openSUSE-repos-Tumbleweed-NVIDIA" \
+        "sudo zypper refresh" \
+        "sudo zypper install-new-recommends --repo repo-non-free"
+    echo
+    confirm "$(t "Install the NVIDIA driver now?" "Instalar o driver da NVIDIA agora?")" || return 0
+    run sudo zypper install openSUSE-repos-Tumbleweed-NVIDIA &&
+        run sudo zypper refresh &&
+        run sudo zypper install-new-recommends --repo repo-non-free &&
+        { echo; ok "$(t "Driver installed. Restart the computer to use it." "Driver instalado. Reinicie o computador para usar.")"; } ||
+        { echo; warn "$(t "The installation failed. The output above shows why." "A instalação falhou. A saída acima mostra o motivo.")"; }
+    pause
+}
+
+drivers_codecs() {
+    heading "$(t "Multimedia codecs (Packman)" "Codecs de multimídia (Packman)")" \
+        "$(t "Plays more video and audio formats (H.264, HEVC, AAC...)." "Toca mais formatos de vídeo e áudio (H.264, HEVC, AAC...).")"
+    gum style --border rounded --border-foreground "$WARN" --foreground "$WARN" --padding "0 1" --width 76 "$(t \
+        "Packman is a third-party repository, not part of openSUSE. Some codecs may be patent-restricted in some countries. Its packages replace some system packages." \
+        "O Packman é um repositório de terceiros, fora do openSUSE. Alguns codecs podem ter restrição de patente em alguns países. Os pacotes dele substituem alguns pacotes do sistema.")"
+    commands \
+        "sudo zypper addrepo --refresh --priority 90 https://ftp.gwdg.de/pub/linux/misc/packman/suse/openSUSE_Tumbleweed/ packman" \
+        "sudo zypper dist-upgrade --from packman --allow-vendor-change" \
+        "sudo zypper install --from packman gstreamer-plugins-good gstreamer-plugins-bad gstreamer-plugins-ugly gstreamer-plugins-libav"
+    echo
+    confirm "$(t "Add Packman and install the codecs?" "Adicionar o Packman e instalar os codecs?")" || return 0
+    { zypper lr packman >/dev/null 2>&1 ||
+        run sudo zypper addrepo --refresh --priority 90 https://ftp.gwdg.de/pub/linux/misc/packman/suse/openSUSE_Tumbleweed/ packman; } &&
+        run sudo zypper dist-upgrade --from packman --allow-vendor-change &&
+        run sudo zypper install --from packman gstreamer-plugins-good gstreamer-plugins-bad gstreamer-plugins-ugly gstreamer-plugins-libav &&
+        { echo; ok "$(t "Codecs installed." "Codecs instalados.")"; } ||
+        { echo; warn "$(t "The installation failed. The output above shows why." "A instalação falhou. A saída acima mostra o motivo.")"; }
+    pause
+}
+
+drivers() {
+    case "${1:-}" in
+        nvidia) drivers_nvidia; return ;;
+        codecs) drivers_codecs; return ;;
+    esac
+    local nv codecs back choice
+    nv="$(t "NVIDIA driver" "Driver da NVIDIA")"
+    has_nvidia && nv="$nv  ($(t "NVIDIA card found" "placa NVIDIA encontrada"))"
+    codecs="$(t "Multimedia codecs (Packman, third party)" "Codecs de multimídia (Packman, terceiros)")"
+    back=$(t Back Voltar)
+    clear
+    heading "$(t "Drivers and codecs" "Drivers e codecs")" \
+        "$(t "Optional extras that cannot ship in the ISO." "Extras opcionais que não podem vir na ISO.")"
+    choice=$(printf '%s\n' "$nv" "$codecs" "$back" | gum choose) || return 0
+    clear
+    case "$choice" in
+        "$nv")     drivers_nvidia ;;
+        "$codecs") drivers_codecs ;;
+    esac
+}
+
+# ---------------------------------------------------------------------------
+# Snapshots: a friendly front end for snapper on the root filesystem.
+# /home is a separate Btrfs subvolume on openSUSE, so rollbacks never touch
+# the user's files.
+
+# Snapshot rows as "number<TAB>type<TAB>date<TAB>description<TAB>flags",
+# skipping snapshot 0 (the live system). flags: * = running, + = default boot.
+snap_rows() {
+    sudo snapper --csvout --separator $'\t' list \
+        --columns number,type,date,description,active,default 2>/dev/null |
+        awk -F'\t' 'NR > 1 && $1 != "0" {
+            f = ($5 == "yes" ? "*" : "") ($6 == "yes" ? "+" : "")
+            print $1 "\t" $2 "\t" substr($3, 1, 16) "\t" $4 "\t" f }'
+}
+
+snap_need() {
+    has snapper || { warn "$(t "snapper is not installed (it needs a Btrfs root)." "O snapper não está instalado (ele precisa de raiz em Btrfs).")"; return 1; }
+    sudo snapper list >/dev/null 2>&1 || { warn "$(t "snapper has no configuration for /. On the live ISO there are no snapshots." "O snapper não tem configuração para /. Na ISO live não há snapshots.")"; return 1; }
+}
+
+# Let the user pick one snapshot; prints its number
+snap_pick() {
+    local rows labels choice
+    rows=$(snap_rows)
+    [ -z "$rows" ] && { warn "$(t "There are no snapshots yet." "Ainda não há snapshots.")"; return 1; }
+    labels=$(awk -F'\t' '{ printf "%5s  %-6s %-16s %-3s %s\n", $1, $2, $3, $5, $4 }' <<<"$rows" | sort -rn)
+    choice=$(gum filter --height 15 --header "${1:-$(t "Pick a snapshot" "Escolha um snapshot")}  (* $(t "running" "em uso"), + $(t "next boot" "próximo boot"))" <<<"$labels") || return 1
+    awk '{ print $1 }' <<<"$choice"
+}
+
+snap_list() {
+    snap_need || return 1
+    heading "$(t Snapshots Snapshots)" "$(t "* = running now, + = used at the next boot. Newest first." "* = em uso agora, + = usado no próximo boot. Mais novos primeiro.")"
+    {
+        printf '%5s  %-6s %-16s %-3s %s\n' "#" "$(t type tipo)" "$(t date data)" "" "$(t description descrição)"
+        snap_rows | awk -F'\t' '{ printf "%5s  %-6s %-16s %-3s %s\n", $1, $2, $3, $5, $4 }' | sort -rn
+    } | if [ -t 1 ]; then page; else cat; fi
+}
+
+snap_create() {
+    snap_need || return 1
+    local desc=${1:-}
+    if [ -z "$desc" ]; then
+        heading "$(t "Create a snapshot" "Criar snapshot")" "$(t "A restore point of the system as it is now." "Um ponto de restauração do sistema como está agora.")"
+        desc=$(gum input --placeholder "$(t "e.g. before trying a new driver" "ex.: antes de testar um driver novo")" --header "$(t Description Descrição)") || return 0
+        [ -z "$desc" ] && desc="onis"
+    fi
+    local n
+    n=$(sudo snapper create --cleanup-algorithm number --print-number --description "$desc") &&
+        ok "$(t "Snapshot $n created:" "Snapshot $n criado:") $desc"
+}
+
+snap_diff() {
+    snap_need || return 1
+    local a=${1:-} b=${2:-0}
+    if [ -z "$a" ]; then
+        heading "$(t "Compare" "Comparar")" "$(t "Files that changed between a snapshot and now." "Arquivos que mudaram entre um snapshot e agora.")"
+        a=$(snap_pick) || return 0
+    fi
+    # status lines: "c....." changed, "+" created, "-" deleted
+    sudo snapper status "$a..$b" | if [ -t 1 ]; then page; else cat; fi
+}
+
+snap_delete() {
+    snap_need || return 1
+    local n=${1:-} flags
+    if [ -z "$n" ]; then
+        heading "$(t "Delete a snapshot" "Apagar snapshot")"
+        n=$(snap_pick "$(t "Which snapshot to delete?" "Qual snapshot apagar?")") || return 0
+    fi
+    flags=$(snap_rows | awk -F'\t' -v n="$n" '$1 == n { print $5 }')
+    if [ -n "$flags" ]; then
+        warn "$(t "Snapshot $n is in use (running or next boot) and cannot be deleted." "O snapshot $n está em uso (agora ou no próximo boot) e não pode ser apagado.")"; return 1
+    fi
+    confirm "$(t "Delete snapshot $n? This cannot be undone." "Apagar o snapshot $n? Não dá para desfazer.")" || return 0
+    run sudo snapper delete --sync "$n" && ok "$(t "Snapshot $n deleted." "Snapshot $n apagado.")"
+}
+
+snap_rollback() {
+    snap_need || return 1
+    local n=${1:-} desc
+    if [ -z "$n" ]; then
+        heading "$(t "Restore the system" "Restaurar o sistema")" \
+            "$(t "Boots the system as it was in the snapshot you pick." "Faz o sistema voltar a ser como era no snapshot escolhido.")"
+        n=$(snap_pick "$(t "Restore to which snapshot?" "Restaurar para qual snapshot?")") || return 0
+    fi
+    desc=$(snap_rows | awk -F'\t' -v n="$n" '$1 == n { print $3 " " $4 }')
+    gum style --border rounded --border-foreground "$WARN" --foreground "$WARN" --padding "0 1" --width 76 "$(t \
+        "After a restart, the system (programs, settings in /etc, installed packages) goes back to snapshot $n ($desc). Your files in /home are not touched. The current state is kept as a snapshot, so you can come back to it." \
+        "Depois de reiniciar, o sistema (programas, configurações em /etc, pacotes instalados) volta ao snapshot $n ($desc). Seus arquivos em /home não são mexidos. O estado atual fica guardado como snapshot, então dá para voltar a ele.")"
+    commands "sudo snapper rollback $n"
+    echo
+    confirm "$(t "Restore to snapshot $n?" "Restaurar para o snapshot $n?")" || return 0
+    if run sudo snapper rollback --description "\"onis rollback to $n\"" "$n"; then
+        ok "$(t "Done. The system goes back to snapshot $n at the next restart." "Pronto. O sistema volta ao snapshot $n no próximo reinício.")"
+        if confirm "$(t "Restart now?" "Reiniciar agora?")"; then systemctl reboot; fi
+    else
+        warn "$(t "The rollback failed. The output above shows why." "A restauração falhou. A saída acima mostra o motivo.")"
+    fi
+}
+
+snapshot() {
+    local sub=${1:-}; shift || true
+    case "$sub" in
+        list)     snap_list ;;
+        create)   snap_create "$*" ;;
+        diff)     snap_diff "$@" ;;
+        delete)   snap_delete "$@" ;;
+        rollback) snap_rollback "$@" ;;
+        "")
+            snap_need || { pause; return 1; }
+            local l c d x r back choice
+            l=$(t "List snapshots" "Ver snapshots"); c=$(t "Create a snapshot" "Criar snapshot")
+            d=$(t "Compare a snapshot with now" "Comparar um snapshot com agora"); x=$(t "Delete a snapshot" "Apagar snapshot")
+            r=$(t "Restore the system to a snapshot" "Restaurar o sistema para um snapshot"); back=$(t Back Voltar)
+            while :; do
+                clear
+                heading "$(t Snapshots Snapshots)" "$(t "Restore points of the system, made by snapper (also before and after every update)." "Pontos de restauração do sistema, feitos pelo snapper (também antes e depois de cada atualização).")"
+                choice=$(printf '%s\n' "$l" "$c" "$d" "$x" "$r" "$back" | gum choose) || return 0
+                clear
+                case "$choice" in
+                    "$l") snap_list ;;
+                    "$c") snap_create; pause ;;
+                    "$d") snap_diff ;;
+                    "$x") snap_delete; pause ;;
+                    "$r") snap_rollback; pause ;;
+                    *) return 0 ;;
+                esac
+            done ;;
+        *) help_cmd snapshot; return 1 ;;
+    esac
+}
+
+# ---------------------------------------------------------------------------
+# Accent color: swaps Yellow/Honey/Amber across the user's theme
+
+presets() {
+    printf '%s|%s\n' \
+        "$(t "Yellow (default)" "Amarelo (padrão)")" "#F7C948 #FFE58F #C99412" \
+        "$(t Orange Laranja)" "#FFA552 #FFCB94 #D27A26" \
+        "$(t Green Verde)"    "#5FD38D #A9EBC3 #33A061" \
+        "$(t Blue Azul)"      "#7AA2F7 #B4CBFB #4A6FC4" \
+        "$(t Lilac Lilás)"    "#C59BF0 #E3CCF8 #9068C0" \
+        "$(t Cyan Ciano)"     "#5CCFE6 #A6E8F3 #2E9CB3" \
+        "Coral"               "#F7768E #FBB4C1 #C4485F"
+}
+
+# Honey = accent lightened 45%, Amber = accent darkened 22%
+derive() {
+    local h=${1#\#}
+    awk -v h="$h" 'function hx(s) { return index("0123456789abcdef", tolower(s)) - 1 }
+        function c(i) { return hx(substr(h, i, 1)) * 16 + hx(substr(h, i + 1, 1)) }
+        BEGIN { r = c(1); g = c(3); b = c(5)
+            printf "#%02X%02X%02X ", r, g, b
+            printf "#%02X%02X%02X ", r + (255 - r) * .45, g + (255 - g) * .45, b + (255 - b) * .45
+            printf "#%02X%02X%02X\n", r * .78, g * .78, b * .78 }'
+}
+
+# Colored block in truecolor to preview a color
+swatch() {
+    local h=${1#\#}
+    printf '\e[38;2;%d;%d;%dm██████\e[0m' "0x${h:0:2}" "0x${h:2:2}" "0x${h:4:2}"
+}
+
+accent() {
+    local arg=${1:-} trio
+    if [ -n "$arg" ]; then
+        case "$arg" in
+            default) trio=$ACCENT_DEFAULT ;;
+            *)
+                [[ $arg =~ ^#?[0-9A-Fa-f]{6}$ ]] || { warn "$(t "Use a hex color like #7AA2F7, or \"default\"." "Use um hex como #7AA2F7, ou \"default\".")"; return 1; }
+                trio=$(derive "$arg") ;;
+        esac
+        apply_accent "$trio"; return
+    fi
+
+    heading "$(t "Accent color" "Cor de realce")" \
+        "$(t "Changes i3 borders, bar, window theme, prompt, cursor and this menu." "Muda bordas do i3, barra, tema das janelas, prompt, cursor e este menu.")"
+    local labels=() name colors choice custom back
+    custom=$(t "Other color (hex)" "Outra cor (hex)")
+    back=$(t Back Voltar)
+    while IFS='|' read -r name colors; do
+        labels+=("$(printf '%-18s' "$name") $(swatch "${colors%% *}")")
+    done < <(presets)
+    labels+=("$custom")
+
+    note "$(t Current: Atual:) $ACCENT $(swatch "$ACCENT")"
+    choice=$(gum choose "${labels[@]}" "$back") || return 0
+    choice=$(sed -E 's/\x1b\[[0-9;]*m//g' <<<"$choice"); choice=${choice%%  *}
+    case "$choice" in
+        "$back") return 0 ;;
+        "$custom")
+            local hex
+            hex=$(gum input --placeholder "#7AA2F7" --header "$(t "Hex color" "Cor em hexadecimal")") || return 0
+            [[ $hex =~ ^#?[0-9A-Fa-f]{6}$ ]] || { warn "$(t "Invalid color:" "Cor inválida:") $hex"; pause; return; }
+            trio=$(derive "$hex") ;;
+        *) trio=$(presets | awk -F'|' -v n="$choice" '$1 == n { print $2 }') ;;
+    esac
+    [ -z "$trio" ] && return 0
+    apply_accent "$trio"
+    if confirm "$(t "Apply to the login screen (Ly) too? Asks for the admin password." "Aplicar também na tela de login (Ly)? Pede a senha de administrador.")"; then
+        accent_ly
+    fi
+    pause
+}
+
+apply_accent() {
+    local a m b
+    read -r a m b <<<"$1"
+    a=${a^^}; m=${m^^}; b=${b^^}
+    echo "$a $m $b" > "$STATE/accent"
+    ACCENT=$a; HONEY=$m; AMBER=$b
+
+    # i3: the client.focused line (border, background, text, indicator, child border)
+    if [ -f "$I3CFG" ]; then
+        sed -i -E "s/^([[:space:]]*client\.focused[[:space:]]+)#[0-9A-Fa-f]{6}([[:space:]]+)#[0-9A-Fa-f]{6}([[:space:]]+#[0-9A-Fa-f]{6}[[:space:]]+)#[0-9A-Fa-f]{6}([[:space:]]+)#[0-9A-Fa-f]{6}/\1${a,,}\2${a,,}\3${m,,}\4${a,,}/" "$I3CFG"
+        has i3-msg && i3-msg -q reload 2>/dev/null
+    fi
+
+    # Polybar
+    local pb="$CONF/polybar/config.ini"
+    [ -f "$pb" ] && sed -i -E "s/^(accent[[:space:]]*=[[:space:]]*)#[0-9A-Fa-f]{6}/\1$a/" "$pb"
+
+    # fastfetch
+    local ff="$CONF/fastfetch/config.jsonc"
+    [ -f "$ff" ] && sed -i -E "/\"color\"[[:space:]]*:/s/#[0-9A-Fa-f]{6}/$a/g" "$ff"
+
+    # Starship: user copy generated from /etc/starship.toml
+    if [ -f /etc/starship.toml ]; then
+        sed -e "s/#F7C948/$a/gI" -e "s/#FFE58F/$m/gI" /etc/starship.toml > "$STATE/starship.toml"
+    fi
+
+    # GTK theme: user copy with the three colors swapped
+    local theme=/usr/share/themes/Xi3-Retro dest="$DATA/themes/Xi3-Retro"
+    if [ -d "$theme" ]; then
+        rm -rf "$dest"; mkdir -p "$(dirname "$dest")"; cp -r "$theme" "$dest"
+        sed -i -E \
+            -e "s/^(@define-color xi3_amarelo[[:space:]]+)#[0-9A-Fa-f]{6}/\1$a/" \
+            -e "s/^(@define-color xi3_mel[[:space:]]+)#[0-9A-Fa-f]{6}/\1$m/" \
+            -e "s/^(@define-color xi3_ambar[[:space:]]+)#[0-9A-Fa-f]{6}/\1$b/" \
+            "$dest/gtk-3.0/gtk.css"
+        # With the default colors the system theme applies again
+        [ "$a $m $b" = "$ACCENT_DEFAULT" ] && rm -rf "$dest"
+        # Reload the theme in running apps
+        if has xfconf-query; then
+            xfconf-query -c xsettings -p /Net/ThemeName -s Adwaita 2>/dev/null
+            sleep 0.3
+            xfconf-query -c xsettings -p /Net/ThemeName -s Xi3-Retro 2>/dev/null
+        fi
+    fi
+
+    # Terminal: only the cursor (yellow in the ANSI palette stays yellow)
+    has xfconf-query && xfconf-query -c xfce4-terminal -p /color-cursor -n -t string -s "$a" 2>/dev/null
+
+    # Bottom bar
+    [ -x "$CONF/polybar/launch.sh" ] && setsid -f "$CONF/polybar/launch.sh" >/dev/null 2>&1
+
+    ok "$(t "Accent changed to" "Realce trocado para") $a $(swatch "$a")"
+    note "$(t "New terminals open with the prompt in the new color." "Terminais novos já abrem com o prompt na cor nova.")"
+}
+
+accent_ly() {
+    local cfg=/etc/ly/config.ini a=${ACCENT#\#} b=${AMBER#\#}
+    [ -f "$cfg" ] || { warn "$(t "Could not find" "Não achei") $cfg."; return; }
+    run sudo sed -i -E "'s/^(border_fg[[:space:]]*=[[:space:]]*0x00)[0-9A-Fa-f]{6}/\1$a/; s/^(colormix_col3[[:space:]]*=[[:space:]]*0x00)[0-9A-Fa-f]{6}/\1$b/'" "$cfg" &&
+        ok "$(t "Login screen updated (takes effect at the next login)." "Tela de login atualizada (vale no próximo login).")"
+}
+
+# ---------------------------------------------------------------------------
+# Wallpaper
+
+wallpaper() {
+    local picked
+    if [ "${1:-}" = --apply ]; then
+        picked=$(cat "$STATE/wallpaper" 2>/dev/null)
+        [ -f "$picked" ] || picked=/usr/share/wallpapers/xi3.jpg
+        [ -f "$picked" ] && feh --no-fehbg --bg-fill "$picked"
+        return
+    fi
+    heading "$(t Wallpaper "Papel de parede")" \
+        "$(t "Images from /usr/share/wallpapers, ~/Pictures and ~/Imagens." "Imagens de /usr/share/wallpapers, ~/Imagens e ~/Pictures.")"
+    local list
+    list=$(find /usr/share/wallpapers "$HOME/Pictures" "$HOME/Imagens" -maxdepth 2 -type f \
+        \( -iname '*.jpg' -o -iname '*.jpeg' -o -iname '*.png' -o -iname '*.webp' \) 2>/dev/null | sort)
+    [ -z "$list" ] && { warn "$(t "No images found." "Nenhuma imagem encontrada.")"; pause; return; }
+    picked=$(gum filter --height 15 --header "$(t "Pick an image" "Escolha uma imagem")" <<<"$list") || return 0
+    echo "$picked" > "$STATE/wallpaper"
+    wallpaper --apply
+    ok "$(t "Wallpaper changed." "Papel de parede trocado.")"
+    pause
+}
+
+# ---------------------------------------------------------------------------
+# i3 shortcuts. Shows "Super" instead of $mod/Mod4 and "Alt" instead of Mod1.
+
+to_human() { sed -E 's/\$mod/Super/g; s/Mod4/Super/g; s/Mod1/Alt/g; s/Control/Ctrl/g'; }
+to_i3()    { sed -E 's/\bsuper\b/$mod/Ig; s/\balt\b/Mod1/Ig; s/\bctrl\b/Control/Ig; s/ //g'; }
+
+# Print "line number<TAB>key<TAB>command" for bindsym lines outside mode {} blocks
+list_keys() {
+    awk '
+        /^[[:space:]]*mode[[:space:]].*\{[[:space:]]*$/ { inside = 1; next }
+        inside && /^[[:space:]]*\}/ { inside = 0; next }
+        !inside && /^[[:space:]]*bindsym[[:space:]]/ {
+            i = 2; while ($i ~ /^--/) i++
+            key = $i; cmd = ""
+            for (j = i + 1; j <= NF; j++) cmd = cmd (cmd == "" ? "" : " ") $j
+            sub(/^exec (--no-startup-id )?/, "", cmd)
+            printf "%d\t%s\t%s\n", NR, key, cmd
+        }' "$I3CFG"
+}
+
+readable_keys() {
+    list_keys | while IFS=$'\t' read -r n k c; do
+        printf '%-24s %s\t%s\n' "$(to_human <<<"$k")" "$c" "$n"
+    done
+}
+
+key_in_use() {
+    local target; target=$(tr '[:upper:]' '[:lower:]' <<<"$1")
+    list_keys | awk -F'\t' -v a="$target" 'tolower($2) == a { print $1; found = 1 } END { exit !found }'
+}
+
+# Back up the i3 config and print the backup path
+backup_i3() {
+    local c; c="$I3CFG.oniscus-$(date +%Y%m%d-%H%M%S)"
+    cp "$I3CFG" "$c" && echo "$c"
+}
+
+# Validate the new config; if i3 rejects it, restore the backup
+validate_and_reload() {
+    local backup=$1 err
+    if has i3 && ! err=$(i3 -C -c "$I3CFG" 2>&1); then
+        cp "$backup" "$I3CFG"
+        warn "$(t "i3 rejected the change and nothing was modified:" "O i3 recusou a mudança e nada foi alterado:")"
+        echo "$err" | tail -n 5
+        return 1
+    fi
+    has i3-msg && i3-msg -q reload 2>/dev/null
+    return 0
+}
+
+ask_key() {
+    gum style --foreground "$MUTED" >&2 \
+        "$(t "Type the combination with +, for example: Super+Shift+t, Super+Alt+b, Ctrl+Print" "Escreva a combinação com +, por exemplo: Super+Shift+t, Super+Alt+b, Ctrl+Print")"
+    gum input --placeholder "Super+..." --header "${1:-$(t "New combination" "Nova combinação")}"
+}
+
+keys() {
+    [ -f "$I3CFG" ] || { warn "$(t "Could not find" "Não achei") $I3CFG."; pause; return 1; }
+    local sub=${1:-show}
+    case "$sub" in
+        show)
+            heading "$(t "i3 shortcuts" "Atalhos do i3")" "$(t "Super is the Windows key. / to filter, q to quit." "Super é a tecla do Windows. / para filtrar, q para sair.")"
+            readable_keys | cut -f1 | page
+            ;;
+        change|remove)
+            local changing=1; [ "$sub" = remove ] && changing=0
+            if [ $changing = 1 ]; then heading "$(t "Change a shortcut" "Mudar um atalho")" "$(t "Type to filter." "Digite para filtrar.")"
+            else heading "$(t "Remove a shortcut" "Remover atalho")" "$(t "Type to filter." "Digite para filtrar.")"; fi
+            local all pick n key new i3key backup other
+            all=$(readable_keys)
+            pick=$(cut -f1 <<<"$all" | gum filter --height 15 --header "$(t "Which shortcut?" "Qual atalho?")") || return 0
+            n=$(awk -F'\t' -v e="$pick" '$1 == e { print $2; exit }' <<<"$all")
+            [ -z "$n" ] && return 0
+            backup=$(backup_i3)
+            if [ $changing = 0 ]; then
+                confirm "$(t "Remove" "Remover") \"$(sed 's/  */ /g' <<<"$pick")\"?" || return 0
+                sed -i "${n}s/^/# (removed by onis) /" "$I3CFG"
+            else
+                key=$(list_keys | awk -F'\t' -v n="$n" '$1 == n { print $2 }')
+                note "$(t Current: Atual:) $(to_human <<<"$key")"
+                new=$(ask_key) || return 0
+                [ -z "$new" ] && return 0
+                i3key=$(to_i3 <<<"$new")
+                if other=$(key_in_use "$i3key") && [ "$other" != "$n" ]; then
+                    warn "$(t "$new is already in use (line $other). Change or remove that one first." "$new já está em uso (linha $other). Mude ou remova aquele primeiro.")"; pause; return
+                fi
+                # Replace only the key field, keeping flags and command
+                awk -v n="$n" -v old="$key" -v new="$i3key" '
+                    NR == n && (p = index($0, old)) { $0 = substr($0, 1, p - 1) new substr($0, p + length(old)) }
+                    { print }' "$I3CFG" > "$I3CFG.tmp" && mv "$I3CFG.tmp" "$I3CFG"
+            fi
+            validate_and_reload "$backup" && ok "$(t "Done. i3 has reloaded." "Pronto. O i3 já recarregou.")"
+            pause
+            ;;
+        new)
+            heading "$(t "New shortcut" "Criar atalho")" "$(t "Opens a program or runs a command." "Abre um programa ou roda um comando.")"
+            local new cmd i3key backup n
+            new=$(ask_key) || return 0
+            [ -z "$new" ] && return 0
+            i3key=$(to_i3 <<<"$new")
+            if n=$(key_in_use "$i3key"); then warn "$(t "$new is already in use (line $n)." "$new já está em uso (linha $n).")"; pause; return; fi
+            cmd=$(gum input --placeholder "firefox, thunar ~/Downloads, ..." --header "$(t Command Comando)") || return 0
+            [ -z "$cmd" ] && return 0
+            backup=$(backup_i3)
+            grep -q '^# Oniscus: user shortcuts' "$I3CFG" || printf '\n# Oniscus: user shortcuts\n' >> "$I3CFG"
+            printf 'bindsym %s exec --no-startup-id %s\n' "$i3key" "$cmd" >> "$I3CFG"
+            validate_and_reload "$backup" && ok "$(t "$new now runs: $cmd" "$new agora abre: $cmd")"
+            pause
+            ;;
+        restore)
+            heading "$(t "Restore default shortcuts" "Restaurar atalhos padrão")"
+            note "$(t "Brings back the original Oniscus ~/.config/i3/config. A copy of the current one is kept." "Volta o ~/.config/i3/config original do Oniscus. Uma cópia do atual fica guardada.")"
+            confirm "$(t Restore? Restaurar?)" || return 0
+            backup_i3 >/dev/null
+            cp /etc/skel/.config/i3/config "$I3CFG"
+            apply_accent "$ACCENT $HONEY $AMBER" >/dev/null
+            ok "$(t "i3 config restored." "Config do i3 restaurada.")"
+            pause
+            ;;
+        *) warn "$(t "Use:" "Use:") onis keys [show|change|new|remove|restore]" ;;
+    esac
+}
+
+# ---------------------------------------------------------------------------
+# AI agents at system level: agents get the Oniscus guide, open
+# from a shortcut and are offered when an app crashes. They run as the user;
+# any sudo goes through the user's password and explicit yes.
+
+# Agent working folder: holds the guide as AGENTS.md, CLAUDE.md and GEMINI.md
+AGENT_DIR="$DATA/oniscus/agent"
+
+# Terminal agents that can be the default one, keyed by their command
+agent_is_cli() { case "$1" in claude|codex|gemini|opencode|hermes) return 0 ;; esac; return 1; }
+agent_name() {
+    if [ -z "$1" ]; then t none nenhum; return; fi
+    catalog | awk -F'\t' -v c="$1" '$4 == c { print $6; exit }'
+}
+agent_installed() { has "$1" || [ -x "$HOME/.local/bin/$1" ]; }
+
+# Link the Oniscus guide and skill into the folders each agent reads
+agent_link() {
+    [ -d "$GUIDE" ] || return 0
+    mkdir -p "$AGENT_DIR"
+    local f d
+    for f in AGENTS.md CLAUDE.md GEMINI.md; do ln -sfn "$GUIDE/AGENTS.md" "$AGENT_DIR/$f"; done
+    for d in "$HOME/.claude/skills" "$HOME/.codex/skills" "$HOME/.agents/skills" \
+             "$CONF/opencode/skills" "$HOME/.hermes/skills"; do
+        mkdir -p "$d" && ln -sfn "$GUIDE/skills/oniscus" "$d/oniscus"
+    done
+}
+
+agent_default() {
+    local id=${1:-}
+    if [ -z "$id" ]; then
+        heading "$(t "Default agent" "Agente padrão")" \
+            "$(t "The agent that opens with Super+Ctrl+Shift+a and when an app crashes." "É o agente que abre no Super+Ctrl+Shift+a e quando um programa trava.")"
+        local labels=() cmds=() cmd name choice i
+        while IFS=$'\t' read -r _ _ _ cmd _ name _; do
+            agent_is_cli "$cmd" || continue
+            cmds+=("$cmd")
+            if agent_installed "$cmd"; then labels+=("$name"); else labels+=("$name ($(t install instalar))"); fi
+        done < <(catalog | awk -F'\t' '$1 == "ai"')
+        choice=$(printf '%s\n' "${labels[@]}" "$(t Back Voltar)" | gum choose) || return 1
+        for i in "${!labels[@]}"; do [ "${labels[$i]}" = "$choice" ] && id=${cmds[$i]}; done
+        [ -z "$id" ] && return 1
+    fi
+    agent_is_cli "$id" || { warn "$(t "Use one of:" "Use um destes:") claude codex gemini opencode hermes"; return 1; }
+    agent_installed "$id" || { clear; install_row "$(catalog_find "$id")"; }
+    agent_installed "$id" || return 1
+    echo "$id" > "$STATE/agent"
+    ok "$(t "Default agent:" "Agente padrão:") $(agent_name "$id")"
+}
+
+# Open the default agent, with a task if there is one
+agent_open() {
+    local task=${1:-} id bin
+    # Started from the i3 shortcut: open in its own terminal
+    if [ ! -t 1 ]; then
+        setsid -f xfce4-terminal --title "$AGENT_TITLE" --geometry 110x36 \
+            -x onis agent ask "$task" >/dev/null 2>&1
+        return
+    fi
+    id=$(cat "$STATE/agent" 2>/dev/null)
+    if [ -z "$id" ] || ! agent_installed "$id"; then
+        agent_default || return 0
+        id=$(cat "$STATE/agent" 2>/dev/null)
+    fi
+    if [ -z "$task" ]; then
+        heading "$(t "Ask $(agent_name "$id") for help" "Pedir ajuda ao $(agent_name "$id")")" \
+            "$(t "It knows Oniscus and runs as you. Anything that needs the admin password goes through you." "Ele conhece o Oniscus e roda como você. Tudo que pedir senha de administrador passa por você.")"
+        task=$(gum write --width 80 --height 6 --placeholder "$(t \
+            "Describe the problem or what you want to change. Leave empty to just open the agent. Enter sends." \
+            "Descreva o problema ou o que quer mudar. Em branco só abre o agente. Enter envia.")") || return 0
+    fi
+    agent_link
+    bin=$id
+    has "$bin" || bin="$HOME/.local/bin/$bin"
+    cd "$AGENT_DIR" || return 1
+    clear
+    [ -z "$task" ] && exec "$bin"
+    case "$id" in
+        claude|codex) exec "$bin" "$task" ;;
+        gemini)       exec "$bin" -i "$task" ;;
+        opencode)     exec "$bin" --prompt "$task" ;;
+        *)
+            note "$(t "Paste the task into the agent:" "Cole a tarefa no agente:")"; echo "$task"; echo
+            exec "$bin" ;;
+    esac
+}
+
+# An app crashed: build the diagnosis task and call the agent
+agent_crash() {
+    local pid=$1 prog=${2:-app}
+    agent_open "$(t \
+        "The program \"$prog\" (PID $pid) just crashed and left a core dump. Follow the Oniscus guide. Run coredumpctl info $pid, find the likely cause and the package involved (rpm -qf), check for updates in the official repositories and explain in plain English what happened and what to do. Do not run anything with sudo without asking me." \
+        "O programa \"$prog\" (PID $pid) acabou de travar e gerou um core dump. Siga o guia do Oniscus. Rode coredumpctl info $pid, descubra a causa provável e o pacote envolvido (rpm -qf), veja se há atualização nos repositórios oficiais e me explique em português simples o que aconteceu e o que fazer. Não rode nada com sudo sem me perguntar.")"
+}
+
+# Watch the user journal and offer the agent when an app dumps core
+watch_crashes() {
+    [ -e "$STATE/no-crash-watch" ] && return 0
+    has notify-send || return 0
+    # One instance per user
+    exec 9>"${XDG_RUNTIME_DIR:-/tmp}/oniscus-watch-crashes.lock"
+    flock -n 9 || return 0
+    local line pid prog
+    # fc2e22bc... is the MESSAGE_ID of systemd-coredump messages
+    journalctl --user -f -n 0 -o json MESSAGE_ID=fc2e22bc6ee647b6b90729ab34a250b1 2>/dev/null |
+    while read -r line; do
+        pid=$(sed -nE 's/.*"COREDUMP_PID":"([0-9]+)".*/\1/p' <<<"$line")
+        prog=$(sed -nE 's/.*"COREDUMP_COMM":"([^"]*)".*/\1/p' <<<"$line")
+        [ -z "$pid" ] && continue
+        (
+            r=$(notify-send --app-name Oniscus --icon dialog-warning --wait \
+                --action "agent=$(t "Ask the agent" "Pedir ao agente")" \
+                "$(t "$prog crashed" "$prog travou")" \
+                "$(t "Want the AI agent to find out why?" "Quer que o agente de IA descubra o motivo?")")
+            [ "$r" = agent ] && agent_crash "$pid" "$prog"
+        ) &
+    done
+}
+
+agent() {
+    local sub=${1:-}; shift || true
+    case "$sub" in
+        ""|open)       agent_open ;;
+        ask)           agent_open "$*" ;;
+        default)       agent_default "$@" ;;
+        link)          agent_link ;;
+        crash)         agent_crash "$@" ;;
+        watch-crashes) watch_crashes ;;
+        crashes)
+            case "${1:-}" in
+                on)
+                    rm -f "$STATE/no-crash-watch"
+                    setsid -f onis agent watch-crashes >/dev/null 2>&1
+                    ok "$(t "The agent will be offered when an app crashes." "O agente vai ser oferecido quando um programa travar.")" ;;
+                off)
+                    : > "$STATE/no-crash-watch"
+                    pkill -u "$(id -u)" -f "onis agent watch-crashes"
+                    ok "$(t "Crash notifications turned off." "Avisos de travamento desligados.")" ;;
+            esac ;;
+        *) warn "$(t "Use:" "Use:") onis agent [ask \"task\"|default [command]|crashes on|off]"; return 1 ;;
+    esac
+}
+
+# Read-only system report for the user and for agents. Kept in English so
+# agents always see the same section names.
+section() {
+    printf '\n## %s\n\n```\n' "$1"; shift
+    "$@" 2>&1 | head -n 40
+    printf '```\n'
+}
+
+doctor() {
+    {
+        echo "# Oniscus diagnostics ($(date '+%F %H:%M'))"
+        section "System" sh -c '. /etc/os-release; echo "$PRETTY_NAME"; uname -r; uptime -p'
+        section "Failed services (system)" systemctl --failed --no-legend --plain
+        section "Failed services (user)" systemctl --user --failed --no-legend --plain
+        section "Errors since boot (system; empty if the user cannot read the journal)" \
+            journalctl -b -p err -n 25 --no-pager -q
+        section "Errors since boot (user)" journalctl --user -b -p err -n 25 --no-pager -q
+        section "Crashed programs (24h)" coredumpctl list --since -1d --no-pager -q
+        section "Disk" df -h / /home
+        section "Memory" free -h
+        section "Network" sh -c 'nmcli general status; echo; nmcli -t device'
+        section "Audio" sh -c 'wpctl status | sed -n "1,30p"'
+        section "Repositories" zypper --no-refresh lr -u
+        section "Flatpak apps" flatpak list --app --columns=application,origin
+        section "Snapshots (snapper)" snapper list
+        section "i3 config" i3 -C -c "$I3CFG"
+        section "End of ~/.xsession-errors" tail -n 20 "$HOME/.xsession-errors"
+        section "oniscus state" grep -H . "$STATE/accent" "$STATE/wallpaper" "$STATE/agent"
+        section "Language" sh -c 'echo "LANG=$LANG"'
+    } | if [ -t 1 ]; then page; else cat; fi
+}
+
+# ---------------------------------------------------------------------------
+# System
+
+# System packages with zypper dup (the only correct way on Tumbleweed), then
+# Flatpak apps. zypper shows its own summary and asks before changing anything,
+# unless --yes is given.
+update() {
+    local yes=0; [ "${1:-}" = --yes ] || [ "${1:-}" = -y ] && yes=1
+    heading "$(t "Update the system" "Atualizar o sistema")" \
+        "$(t "System packages with zypper dup, then Flatpak apps. zypper shows what will change and asks first." \
+             "Pacotes do sistema com zypper dup, depois os apps Flatpak. O zypper mostra o que vai mudar e pergunta antes.")"
+    if [ $yes = 0 ]; then confirm "$(t "Start the update?" "Começar a atualização?")" || return 0; fi
+    local failed=0
+
+    # Restore point: the snapper zypp plugin already takes pre/post snapshots;
+    # without it, take one by hand
+    if has snapper && ! rpm -q snapper-zypp-plugin >/dev/null 2>&1; then
+        run sudo snapper create --cleanup-algorithm number -d "\"before onis update\"" ||
+            warn "$(t "Could not create a snapshot; continuing." "Não foi possível criar o snapshot; continuando.")"
+    elif has snapper; then
+        note "$(t "snapper takes a snapshot before and after the update (undo with snapper or from the boot menu)." \
+                  "O snapper cria um snapshot antes e depois da atualização (dá para desfazer pelo snapper ou no menu de boot).")"
+    fi
+
+    echo
+    gum style --foreground "$ACCENT" --bold "$(t "1/2 System packages" "1/2 Pacotes do sistema")"
+    local dup="sudo zypper dist-upgrade"
+    [ $yes = 1 ] && dup="sudo zypper --non-interactive dist-upgrade --auto-agree-with-licenses"
+    if run sudo zypper refresh && run "$dup"; then
+        ok "$(t "System packages are up to date." "Pacotes do sistema atualizados.")"
+    else
+        failed=1; warn "$(t "zypper did not finish. The output above shows why." "O zypper não terminou. A saída acima mostra o motivo.")"
+    fi
+
+    echo
+    gum style --foreground "$ACCENT" --bold "$(t "2/2 Flatpak apps" "2/2 Apps Flatpak")"
+    if ! has flatpak; then
+        note "$(t "Flatpak is not installed." "O Flatpak não está instalado.")"
+    else
+        local ran=0
+        if [ -n "$(flatpak list --user --columns=application 2>/dev/null)" ]; then
+            ran=1; run flatpak update --user -y --noninteractive || failed=1
+        fi
+        if [ -n "$(flatpak list --system --columns=application 2>/dev/null)" ]; then
+            ran=1; run flatpak update --system -y --noninteractive || failed=1
+        fi
+        if [ $ran = 1 ]; then ok "$(t "Flatpak apps are up to date." "Apps Flatpak atualizados.")"
+        else note "$(t "No Flatpak apps installed." "Nenhum app Flatpak instalado.")"; fi
+    fi
+
+    # needs-rebooting exits with 102 when the kernel or systemd were updated
+    zypper needs-rebooting >/dev/null 2>&1
+    [ $? -eq 102 ] && { echo; warn "$(t "Restart the computer to use the new kernel." "Reinicie o computador para usar o kernel novo.")"; }
+    [ $failed = 0 ] && { echo; ok "$(t "Everything is up to date." "Tudo atualizado.")"; }
+    [ $yes = 1 ] || pause
+    return $failed
+}
+
+restart_bars() {
+    [ -x "$CONF/polybar/launch.sh" ] && setsid -f "$CONF/polybar/launch.sh" >/dev/null 2>&1
+    has xfce4-panel && setsid -f xfce4-panel -r >/dev/null 2>&1
+    pkill -x plank && setsid -f plank >/dev/null 2>&1
+    ok "$(t "Bars and dock restarted." "Barras e dock reiniciados.")"
+    sleep 1
+}
+
+about() {
+    clear
+    if has fastfetch; then fastfetch; else uname -a; fi
+    pause
+}
+
+help() {
+    [ -n "${1:-}" ] && { help_cmd "$1"; return; }
+    if [ "$L" = pt ]; then
+        cat <<'EOF'
+onis: Boas-vindas e canivete suíço do Oniscus
+
+Uso: onis [comando] [opções]
+     Sem comando, abre as Boas-vindas (menu no terminal).
+
+Apps
+  install [app]                 instala por categoria ou busca no Tumbleweed e no Flathub
+  uninstall [--purge] [app]     remove um app; --purge também tira dependências órfãs, dados e cache
+  uninstall --cleanup           remove pacotes órfãos, runtimes Flatpak sem uso e caches
+  drivers [nvidia|codecs]       driver da NVIDIA e codecs do Packman (opcionais)
+
+Sistema
+  update [--yes]                atualiza pacotes do sistema (zypper dup) e apps Flatpak
+  snapshot [list|create|diff|delete|rollback]   pontos de restauração (snapper)
+  doctor                        relatório do sistema, só leitura
+  restart-bars                  reinicia Polybar, painel e dock
+  about                         informações do sistema
+
+Agentes de IA
+  agent [ask "tarefa"]          abre o agente padrão com o guia do Oniscus
+  agent default [comando]       escolhe o agente padrão (claude, codex, gemini, opencode, hermes)
+  agent crashes on|off          oferece o agente quando um programa travar
+  agent link                    liga o guia e a skill nas pastas dos agentes
+
+Aparência e atalhos
+  accent [#hex|default]         troca a cor de realce do tema todo
+  wallpaper [--apply]           escolhe ou aplica o papel de parede
+  keys [show|change|new|remove|restore]   atalhos do i3
+
+Sessão
+  menu                          o mesmo menu no rofi (Super+Alt+Espaço)
+  welcome [on|off]              abrir as Boas-vindas ao entrar
+  help [comando]                esta ajuda, ou a ajuda de um comando
+
+Ajuda de um comando: onis help <comando> ou onis <comando> --help.
+Manual completo: man onis.
+O idioma do menu segue a LANG da sessão (pt_* = português, o resto = inglês).
+Os comandos são sempre em inglês. "oniscus" é um nome alternativo para "onis".
+EOF
+    else
+        cat <<'EOF'
+onis: Oniscus welcome screen and Swiss army knife
+
+Usage: onis [command] [options]
+       With no command, opens the welcome screen (menu in the terminal).
+
+Apps
+  install [app]                 install by category or search Tumbleweed and Flathub
+  uninstall [--purge] [app]     remove an app; --purge also removes orphaned deps, data and cache
+  uninstall --cleanup           remove orphaned packages, unused Flatpak runtimes and caches
+  drivers [nvidia|codecs]       NVIDIA driver and Packman codecs (optional)
+
+System
+  update [--yes]                update system packages (zypper dup) and Flatpak apps
+  snapshot [list|create|diff|delete|rollback]   restore points (snapper)
+  doctor                        read-only system report
+  restart-bars                  restart Polybar, panel and dock
+  about                         system information
+
+AI agents
+  agent [ask "task"]            open the default agent with the Oniscus guide
+  agent default [command]       pick the default agent (claude, codex, gemini, opencode, hermes)
+  agent crashes on|off          offer the agent when an app crashes
+  agent link                    link the guide and skill into the agents' folders
+
+Look and shortcuts
+  accent [#hex|default]         change the accent color across the theme
+  wallpaper [--apply]           pick or apply the wallpaper
+  keys [show|change|new|remove|restore]   i3 shortcuts
+
+Session
+  menu                          the same menu in rofi (Super+Alt+Space)
+  welcome [on|off]              open the welcome screen at login
+  help [command]                this help, or help for one command
+
+Help for one command: onis help <command> or onis <command> --help.
+Full manual: man onis.
+The menu language follows the session LANG (pt_* = Portuguese, anything else = English).
+Commands are always in English. "oniscus" is an alternative name for "onis".
+EOF
+    fi
+}
+
+# Help for one subcommand, in the session language
+help_cmd() {
+    local c=$1
+    if [ "$L" = pt ]; then
+        case "$c" in
+            install) cat <<'EOF'
+onis install [app]
+
+Sem argumento abre a aba de instalação: "Instalar outro pacote" no topo e as
+categorias (Agentes de IA, Navegadores, Pacote Office, Design, Desenvolvimento,
+Comunicação, Multimídia, Jogos, Utilitários, Drivers e codecs).
+
+Com um app (comando, pacote, ID do Flathub ou nome do catálogo), instala direto.
+Se não estiver no catálogo, busca nos repositórios e no Flathub.
+
+Origens: repositórios do Tumbleweed (zypper), Flathub (flatpak --user, sem sudo)
+e, para agentes de IA, o instalador oficial do projeto ou npm em ~/.local.
+O comando aparece antes de rodar.
+
+Exemplos:
+  onis install                abre o menu
+  onis install claude         instala o Claude Code
+  onis install gimp           GIMP pelos repositórios
+EOF
+;;
+            uninstall) cat <<'EOF'
+onis uninstall [--purge] [app]
+onis uninstall --cleanup
+
+Sem argumento abre um menu para escolher um app, agente ou pacote, com a opção
+de remover só o app ou remover e limpar tudo.
+
+  --purge     também remove dependências órfãs (zypper remove --clean-deps),
+              dados do Flatpak (--delete-data, --unused) e oferece apagar as
+              pastas do app em ~/.config, ~/.local/share e ~/.cache
+  --cleanup   remove pacotes que nada usa (zypper packages --unneeded), roda
+              zypper clean --all, flatpak uninstall --unused e apaga cópias
+              antigas da config do i3
+
+Antes de remover um pacote, faz um teste (dry run) e recusa se algo essencial
+do Oniscus (kernel, systemd, zypper, i3, XFCE, Ly, gum, flatpak...) for junto.
+
+Exemplos:
+  onis uninstall --purge com.spotify.Client
+  onis uninstall --cleanup
+EOF
+;;
+            update) cat <<'EOF'
+onis update [--yes]
+
+Atualiza tudo: primeiro os pacotes do sistema com zypper refresh e zypper dup
+(o jeito certo no Tumbleweed), depois os apps Flatpak do usuário e do sistema.
+O snapper cria pontos de restauração antes e depois; sem o plugin dele, o onis
+cria um antes. No fim avisa se é preciso reiniciar.
+
+  --yes, -y   não pergunta nada (zypper --non-interactive), bom para scripts
+EOF
+;;
+            snapshot) cat <<'EOF'
+onis snapshot [list|create|diff|delete|rollback]
+
+Pontos de restauração do sistema, feitos pelo snapper. O /home é separado,
+então nada disso mexe nos seus arquivos. Sem argumento abre um menu.
+
+  list                    mostra os snapshots (* em uso, + próximo boot)
+  create [descrição]      cria um snapshot agora
+  diff <n> [m]            arquivos que mudaram entre n e m (padrão: agora)
+  delete <n>              apaga um snapshot (não deixa apagar o em uso)
+  rollback <n>            o sistema volta ao snapshot n no próximo reinício;
+                          o estado atual fica guardado como snapshot
+
+Tudo pede a senha de administrador (sudo). Na ISO live não há snapshots.
+
+Exemplos:
+  onis snapshot create "antes do driver novo"
+  onis snapshot rollback 42
+EOF
+;;
+            drivers) cat <<'EOF'
+onis drivers [nvidia|codecs]
+
+Extras opcionais que não podem vir na ISO. Usam os mesmos comandos das telas
+opcionais do instalador.
+
+  nvidia   driver proprietário pelo repositório oficial da NVIDIA para openSUSE
+           (detecta a placa com lspci antes)
+  codecs   codecs de multimídia do Packman, repositório de terceiros; mostra o
+           aviso de patentes antes
+EOF
+;;
+            doctor) cat <<'EOF'
+onis doctor
+
+Relatório do sistema, só leitura: serviços com falha, erros do journal,
+programas que travaram, disco, memória, rede, som, repositórios, apps Flatpak,
+snapshots, validação da config do i3 e estado do onis. A saída é em inglês para
+os agentes de IA lerem sempre igual. Fora de um terminal, imprime em texto puro.
+EOF
+;;
+            agent) cat <<'EOF'
+onis agent [ask "tarefa"|default [comando]|crashes on|off|link]
+
+  (nada)             abre o agente padrão e pergunta o que resolver
+  ask "tarefa"       abre o agente padrão já com a tarefa
+  default [comando]  escolhe o agente padrão: claude, codex, gemini, opencode ou hermes
+  crashes on|off     oferecer o agente quando um programa travar (notificação)
+  link               liga o guia (AGENTS.md, CLAUDE.md, GEMINI.md) e a skill do
+                     Oniscus nas pastas dos agentes; roda a cada login
+
+O agente roda como o usuário. O guia exige um sim antes de qualquer sudo e um
+snapshot antes de mudar o sistema. Atalho: Super+Ctrl+Shift+a.
+EOF
+;;
+            accent) cat <<'EOF'
+onis accent [#hex|default]
+
+Sem argumento abre a escolha de cores (7 prontas ou qualquer hex). Troca bordas
+do i3, Polybar, tema GTK, prompt do Starship, cursor do terminal e fastfetch,
+nas cópias do usuário. A tela de login (Ly) só muda se você aceitar (sudo).
+
+Exemplos:
+  onis accent '#7AA2F7'
+  onis accent default
+EOF
+;;
+            wallpaper) cat <<'EOF'
+onis wallpaper [--apply]
+
+Sem argumento escolhe uma imagem de /usr/share/wallpapers, ~/Pictures ou
+~/Imagens. --apply aplica a escolha salva (o i3 chama isso ao iniciar).
+EOF
+;;
+            keys) cat <<'EOF'
+onis keys [show|change|new|remove|restore]
+
+  show      lista os atalhos do i3 (padrão)
+  change    troca a combinação de um atalho
+  new       cria um atalho que roda um comando
+  remove    desativa um atalho (vira comentário)
+  restore   volta a config do i3 original do Oniscus
+
+Toda mudança guarda uma cópia, recusa combinação já usada, valida com i3 -C e
+volta a cópia se o i3 recusar. Escreva as teclas como Super+Shift+t.
+EOF
+;;
+            welcome) cat <<'EOF'
+onis welcome [on|off|--autostart]
+
+  (nada)        abre as Boas-vindas
+  on | off      liga ou desliga a abertura automática ao entrar
+  --autostart   usado pelo i3 no login; abre num terminal flutuante
+EOF
+;;
+            menu) echo "onis menu: abre o menu no rofi (Super+Alt+Espaço). Ações que precisam de terminal abrem um flutuante." ;;
+            restart-bars) echo "onis restart-bars: reinicia a Polybar, o xfce4-panel e o Plank." ;;
+            about) echo "onis about: mostra o fastfetch com as informações do sistema." ;;
+            help) echo "onis help [comando]: ajuda geral ou de um comando. Manual completo: man onis." ;;
+            *) warn "Comando desconhecido: $c"; help; return 1 ;;
+        esac
+    else
+        case "$c" in
+            install) cat <<'EOF'
+onis install [app]
+
+With no argument, opens the install tab: "Install another package" at the top
+and the categories (AI agents, Browsers, Office, Design, Development,
+Communication, Media, Games, Utilities, Drivers and codecs).
+
+With an app (command, package, Flathub ID or catalog name), installs it
+directly. If it is not in the catalog, searches the repositories and Flathub.
+
+Sources: Tumbleweed repositories (zypper), Flathub (flatpak --user, no sudo)
+and, for AI agents, the project's official installer or npm into ~/.local.
+The command is shown before it runs.
+
+Examples:
+  onis install                open the menu
+  onis install claude         install Claude Code
+  onis install gimp           GIMP from the repositories
+EOF
+;;
+            uninstall) cat <<'EOF'
+onis uninstall [--purge] [app]
+onis uninstall --cleanup
+
+With no argument, opens a menu to pick an app, agent or package, then either
+remove the app only or remove and purge.
+
+  --purge     also removes orphaned dependencies (zypper remove --clean-deps),
+              Flatpak data (--delete-data, --unused) and offers to delete the
+              app's folders in ~/.config, ~/.local/share and ~/.cache
+  --cleanup   removes packages nothing needs (zypper packages --unneeded),
+              runs zypper clean --all, flatpak uninstall --unused and prunes
+              old i3 config backups
+
+Before removing a package it does a dry run and refuses if anything essential
+to Oniscus (kernel, systemd, zypper, i3, XFCE, Ly, gum, flatpak...) would go.
+
+Examples:
+  onis uninstall --purge com.spotify.Client
+  onis uninstall --cleanup
+EOF
+;;
+            update) cat <<'EOF'
+onis update [--yes]
+
+Updates everything: first system packages with zypper refresh and zypper dup
+(the right way on Tumbleweed), then user and system Flatpak apps. snapper takes
+restore points before and after; without its zypper plugin, onis takes one
+before. At the end it says whether a restart is needed.
+
+  --yes, -y   ask nothing (zypper --non-interactive), for scripts
+EOF
+;;
+            snapshot) cat <<'EOF'
+onis snapshot [list|create|diff|delete|rollback]
+
+System restore points, made by snapper. /home is separate, so none of this
+touches your files. With no argument, opens a menu.
+
+  list                    show snapshots (* running, + next boot)
+  create [description]    take a snapshot now
+  diff <n> [m]            files changed between n and m (default: now)
+  delete <n>              delete a snapshot (refuses the one in use)
+  rollback <n>            the system goes back to snapshot n at the next
+                          restart; the current state is kept as a snapshot
+
+Everything asks for the admin password (sudo). The live ISO has no snapshots.
+
+Examples:
+  onis snapshot create "before the new driver"
+  onis snapshot rollback 42
+EOF
+;;
+            drivers) cat <<'EOF'
+onis drivers [nvidia|codecs]
+
+Optional extras that cannot ship in the ISO. They use the same commands as the
+installer's optional screens.
+
+  nvidia   proprietary driver from NVIDIA's official openSUSE repository
+           (checks for the card with lspci first)
+  codecs   multimedia codecs from Packman, a third-party repository; shows the
+           patent warning first
+EOF
+;;
+            doctor) cat <<'EOF'
+onis doctor
+
+Read-only system report: failed services, journal errors, crashed programs,
+disk, memory, network, sound, repositories, Flatpak apps, snapshots, i3 config
+validation and onis state. Output is in English so AI agents always read it the
+same way. Outside a terminal it prints plain text.
+EOF
+;;
+            agent) cat <<'EOF'
+onis agent [ask "task"|default [command]|crashes on|off|link]
+
+  (none)             open the default agent and ask what to solve
+  ask "task"         open the default agent with the task
+  default [command]  pick the default agent: claude, codex, gemini, opencode or hermes
+  crashes on|off     offer the agent when an app crashes (notification)
+  link               link the Oniscus guide (AGENTS.md, CLAUDE.md, GEMINI.md) and
+                     skill into the agents' folders; runs at every login
+
+The agent runs as the user. The guide requires a yes before any sudo and a
+snapshot before changing the system. Shortcut: Super+Ctrl+Shift+a.
+EOF
+;;
+            accent) cat <<'EOF'
+onis accent [#hex|default]
+
+With no argument, opens the color picker (7 presets or any hex). Changes i3
+borders, Polybar, GTK theme, Starship prompt, terminal cursor and fastfetch in
+the user's copies. The login screen (Ly) changes only if you accept (sudo).
+
+Examples:
+  onis accent '#7AA2F7'
+  onis accent default
+EOF
+;;
+            wallpaper) cat <<'EOF'
+onis wallpaper [--apply]
+
+With no argument, picks an image from /usr/share/wallpapers, ~/Pictures or
+~/Imagens. --apply applies the saved choice (i3 calls this at startup).
+EOF
+;;
+            keys) cat <<'EOF'
+onis keys [show|change|new|remove|restore]
+
+  show      list i3 shortcuts (default)
+  change    change a shortcut's key combination
+  new       create a shortcut that runs a command
+  remove    disable a shortcut (comments it out)
+  restore   bring back the original Oniscus i3 config
+
+Every change keeps a backup, refuses a combination already in use, validates
+with i3 -C and restores the backup if i3 rejects it. Write keys as Super+Shift+t.
+EOF
+;;
+            welcome) cat <<'EOF'
+onis welcome [on|off|--autostart]
+
+  (none)        open the welcome screen
+  on | off      turn opening at login on or off
+  --autostart   used by i3 at login; opens in a floating terminal
+EOF
+;;
+            menu) echo "onis menu: opens the menu in rofi (Super+Alt+Space). Actions that need a terminal open a floating one." ;;
+            restart-bars) echo "onis restart-bars: restarts Polybar, xfce4-panel and Plank." ;;
+            about) echo "onis about: shows fastfetch with system information." ;;
+            help) echo "onis help [command]: general help or help for one command. Full manual: man onis." ;;
+            *) warn "Unknown command: $c"; help; return 1 ;;
+        esac
+    fi
+}
+
+main() {
+    local cmd=${1:-}; shift || true
+    # "onis <command> [sub] --help" shows that command's help (only the first two
+    # words are checked, so a task text for "onis agent ask" can contain -h)
+    case "${1:-} ${2:-}" in
+        --help\ *|-h\ *|*\ --help|*\ -h) [ -n "$cmd" ] && { help_cmd "$cmd"; return; } ;;
+    esac
+    case "$cmd" in
+        "")                          welcome ;;
+        welcome)       welcome "$@" ;;
+        menu)          UI=rofi; browse main ;;
+        install)       install "$@" ;;
+        uninstall)     uninstall "$@" ;;
+        agent)         agent "$@" ;;
+        doctor)        doctor ;;
+        accent)        accent "$@" ;;
+        wallpaper)     wallpaper "$@" ;;
+        keys)          keys "$@" ;;
+        update)        update "$@" ;;
+        snapshot)      snapshot "$@" ;;
+        drivers)       drivers "$@" ;;
+        restart-bars)  restart_bars ;;
+        about)         about ;;
+        help|-h|--help) help "$@" ;;
+        *)                           warn "$(t "Unknown command:" "Comando desconhecido:") $cmd"; help; return 1 ;;
+    esac
+}
+
+main "$@"

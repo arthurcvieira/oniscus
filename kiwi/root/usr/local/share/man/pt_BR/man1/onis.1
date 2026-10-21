@@ -1,0 +1,290 @@
+.\" onis(1), tradução em português do Brasil. A versão principal é a inglesa (man1/onis.1).
+.\" SPDX-License-Identifier: GPL-3.0-or-later
+.TH ONIS 1 "outubro de 2026" "Oniscus" "Manual do Oniscus"
+.nh
+.SH NOME
+onis, oniscus \- Boas-vindas e canivete suíço do Oniscus
+.SH SINOPSE
+.B onis
+.RI [ comando ]
+.RI [ opções ]
+.br
+.B onis help
+.RI [ comando ]
+.br
+.B onis
+.I comando
+.B \-\-help
+.SH DESCRIÇÃO
+.B onis
+é a central de controle do Oniscus no terminal. Sem comando, abre as
+Boas-vindas, um menu de teclado que instala e remove apps, atualiza o sistema,
+gerencia snapshots, troca a cor de realce e os atalhos do i3 e abre um agente
+de IA que conhece o sistema. Cada item do menu também é um subcomando, então as
+mesmas ações funcionam em scripts.
+.PP
+O menu abre sozinho no login e, de qualquer lugar, com
+.BR Super+Alt+Espaço ,
+quando aparece no
+.BR rofi (1).
+Ações que precisam de terminal abrem um terminal flutuante.
+.PP
+Comandos que mudam o sistema usam
+.BR sudo (8)
+e mostram o comando exato antes de rodar.
+.B oniscus
+é um nome alternativo para
+.BR onis .
+Os comandos são sempre em inglês.
+.SH COMANDOS
+.SS Apps
+.TP
+.BR install " [\fIapp\fR]"
+Sem argumento, abre a aba de instalação: "Instalar outro pacote" no topo e
+depois as categorias Agentes de IA, Navegadores, Pacote Office, Design,
+Desenvolvimento, Comunicação, Multimídia, Jogos, Utilitários e Drivers e codecs.
+Com
+.IR app ,
+instala direto. O app pode ser um comando (\fBclaude\fR), um nome de pacote,
+um ID do Flathub ou um nome do catálogo. Se não estiver no catálogo, busca nos
+repositórios do Tumbleweed e no Flathub.
+.IP
+Origens, em ordem de preferência: repositórios oficiais do Tumbleweed
+.RB ( zypper ),
+Flathub
+.RB ( "flatpak \-\-user" ,
+sem sudo; o remote é adicionado por usuário no primeiro uso) e, para agentes de
+IA, o instalador oficial do projeto ou npm em
+.IR ~/.local .
+.TP
+.BR uninstall " [\fB\-\-purge\fR] [\fIapp\fR]"
+Sem argumento, abre um menu para escolher um agente de IA, app Flatpak ou
+pacote do sistema, e depois remover só o app ou remover e limpar tudo. Antes de
+remover um pacote do sistema, faz um teste do zypper (dry run), mostra a lista
+e recusa se um pacote protegido (kernel, systemd, zypper, i3, XFCE, Ly, gum,
+flatpak e outros) for junto.
+.RS
+.TP
+.B \-\-purge
+Também remove dependências órfãs
+.RB ( "zypper remove \-\-clean\-deps" ),
+dados do app Flatpak e runtimes sem uso
+.RB ( "\-\-delete\-data" ", " "\-\-unused" ),
+e oferece apagar as pastas do app em
+.IR ~/.config ,
+.I ~/.local/share
+e
+.IR ~/.cache .
+.RE
+.TP
+.B uninstall \-\-cleanup
+Remove pacotes que nada mais usa
+.RB ( "zypper packages \-\-unneeded" ),
+roda
+.BR "zypper clean \-\-all" " e " "flatpak uninstall \-\-unused"
+e apaga cópias antigas da config do i3 feitas pelo
+.BR onis .
+.TP
+.BR drivers " [" nvidia | codecs ]
+Extras opcionais que não podem vir na ISO, com os mesmos comandos das telas
+opcionais do instalador.
+.B nvidia
+instala o driver proprietário pelo repositório oficial da NVIDIA para openSUSE
+(antes procura a placa com
+.BR lspci (8)).
+.B codecs
+adiciona o repositório de terceiros Packman e instala codecs de multimídia,
+depois de um aviso sobre patentes.
+.SS Sistema
+.TP
+.BR update " [\fB\-\-yes\fR]"
+Atualiza os pacotes do sistema com
+.B zypper refresh
+e
+.B zypper dup
+(o jeito certo no Tumbleweed) e depois os apps Flatpak do usuário e do sistema.
+O snapper cria pontos de restauração antes e depois; sem o plugin dele para o
+zypper, o
+.B onis
+cria um antes. No fim, avisa se é preciso reiniciar.
+.RS
+.TP
+.BR \-\-yes ", " \-y
+Não pergunta nada; o zypper roda sem interação. Para scripts.
+.RE
+.TP
+.BR snapshot " [" list | create | diff | delete | rollback ]
+Gerencia pontos de restauração do sistema feitos pelo
+.BR snapper (8)
+na raiz.
+.I /home
+é um subvolume separado, então nada disso mexe nos arquivos do usuário. Sem
+argumento, abre um menu.
+.RS
+.TP
+.B list
+Mostra os snapshots, do mais novo ao mais antigo.
+.B *
+marca o que está em uso,
+.B +
+o que será usado no próximo boot.
+.TP
+.BR create " [\fIdescrição\fR]"
+Cria um snapshot agora.
+.TP
+.BR diff " \fIn\fR [\fIm\fR]"
+Lista os arquivos que mudaram entre o snapshot
+.I n
+e o
+.I m
+(padrão: o sistema em uso).
+.TP
+.BR delete " \fIn\fR"
+Apaga o snapshot
+.IR n .
+Recusa o snapshot em uso e o padrão.
+.TP
+.BR rollback " \fIn\fR"
+Faz o sistema iniciar como era no snapshot
+.I n
+a partir do próximo reinício
+.RB ( "snapper rollback" ).
+O estado atual fica guardado como snapshot.
+.RE
+.TP
+.B doctor
+Mostra um relatório do sistema, só leitura: serviços com falha, erros do
+journal, programas que travaram, disco, memória, rede, som, repositórios, apps
+Flatpak, snapshots, validação da config do i3 e estado do
+.BR onis .
+A saída é sempre em inglês para os agentes de IA lerem sempre igual.
+.TP
+.B restart-bars
+Reinicia a Polybar, o xfce4-panel e o Plank.
+.TP
+.B about
+Mostra as informações do sistema com o
+.BR fastfetch (1).
+.SS Agentes de IA
+.TP
+.BR agent " [\fBask\fR \fItarefa\fR]"
+Abre o agente de IA padrão na pasta de trabalho dele,
+.IR ~/.local/share/oniscus/agent ,
+que tem o guia do Oniscus como
+.IR AGENTS.md ,
+.I CLAUDE.md
+e
+.IR GEMINI.md .
+Sem tarefa, pergunta antes o que resolver. Atalho:
+.BR Super+Ctrl+Shift+a .
+.TP
+.BR "agent default" " [\fIcomando\fR]"
+Escolhe o agente padrão:
+.BR claude ", " codex ", " gemini ", " opencode " ou " hermes .
+Instala antes, se precisar.
+.TP
+.BR "agent crashes" " " on | off
+Oferece o agente numa notificação quando um programa trava (acompanha as
+mensagens do systemd-coredump no journal do usuário).
+.TP
+.B agent link
+Liga o guia e a skill do Oniscus em
+.IR ~/.claude/skills ,
+.IR ~/.codex/skills ,
+.IR ~/.agents/skills ,
+.I ~/.config/opencode/skills
+e
+.IR ~/.hermes/skills .
+Roda a cada login.
+.SS Aparência e atalhos
+.TP
+.BR accent " [\fI#RRGGBB\fR|\fBdefault\fR]"
+Troca a cor de realce nas cópias do usuário da config do i3, Polybar,
+fastfetch, prompt do Starship, tema GTK e cursor do terminal. Sem argumento,
+abre a escolha entre sete cores prontas ou qualquer hex. A tela de login Ly só
+muda se o usuário aceitar (sudo).
+.TP
+.BR wallpaper " [\fB\-\-apply\fR]"
+Escolhe uma imagem de
+.IR /usr/share/wallpapers ,
+.I ~/Pictures
+ou
+.IR ~/Imagens .
+.B \-\-apply
+aplica a escolha salva com o
+.BR feh (1);
+o i3 roda isso ao iniciar.
+.TP
+.BR keys " [" show | change | new | remove | restore ]
+Gerencia os atalhos do i3 em
+.IR ~/.config/i3/config .
+Toda mudança guarda uma cópia, recusa combinação já usada, valida com
+.B i3 \-C
+e volta a cópia se o i3 recusar. Escreva as teclas como
+.BR Super+Shift+t .
+.B restore
+volta a config original do Oniscus.
+.SS Sessão
+.TP
+.B menu
+Mostra o menu no rofi.
+.TP
+.BR welcome " [" on | off | \-\-autostart ]
+Abre as Boas-vindas, ou liga e desliga a abertura no login.
+.B \-\-autostart
+é usado pelo i3 no login.
+.TP
+.BR help " [\fIcomando\fR]"
+Mostra a lista de comandos ou a ajuda de um comando. Também funciona como
+.IB comando " \-\-help" .
+.SH AMBIENTE
+.TP
+.B LANG
+O texto do menu segue o idioma da sessão:
+.B pt_*
+mostra português do Brasil, o resto mostra inglês. Comandos, nomes de arquivos
+e o guia dos agentes são sempre em inglês.
+.TP
+.B ONISCUS_LANG
+Substitui a
+.B LANG
+só para o
+.B onis
+(por exemplo
+.BR ONISCUS_LANG=en ).
+.SH ARQUIVOS
+.TP
+.I /usr/share/oniscus/catalog.tsv
+Catálogo de instalação, um app por linha (formato descrito no arquivo).
+.TP
+.I /usr/share/oniscus/agent/AGENTS.md
+Guia para agentes de IA: mapa das configs, regras de segurança e receitas.
+.TP
+.I ~/.config/oniscus/
+Estado do usuário: cor de realce, papel de parede, agente padrão, preferências
+e a cópia do prompt do Starship.
+.TP
+.I ~/.config/i3/config.oniscus\-*
+Cópias da config do i3 feitas pelo
+.BR "onis keys" .
+.SH STATUS DE SAÍDA
+0 em caso de sucesso, 1 quando um comando falha ou é recusado.
+.SH EXEMPLOS
+.nf
+onis install claude
+onis uninstall \-\-purge com.spotify.Client
+onis update \-\-yes
+onis snapshot create "antes do driver novo"
+onis snapshot rollback 42
+onis accent '#7AA2F7'
+onis agent ask "O Wi\-Fi parou depois da atualização"
+.fi
+.SH VEJA TAMBÉM
+.BR zypper (8),
+.BR flatpak (1),
+.BR snapper (8),
+.BR i3 (1),
+.BR rofi (1),
+.BR gum (1)
+.SH LICENÇA
+GPL\-3.0\-or\-later. Parte do Oniscus.

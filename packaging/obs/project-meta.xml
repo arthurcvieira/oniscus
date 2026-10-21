@@ -1,0 +1,10 @@
+<!-- Project settings for `osc meta prj home:oniscus -F project-meta.xml` -->
+<project name="home:oniscus">
+  <title>Oniscus</title>
+  <description>Packages of the Oniscus distribution (openSUSE Tumbleweed with XFCE and i3): onis, oniscus-branding, oniscus-desktop. Source: https://github.com/arthurcvieira/oniscus</description>
+  <person userid="oniscus" role="maintainer"/>
+  <repository name="openSUSE_Tumbleweed">
+    <path project="openSUSE:Factory" repository="snapshot"/>
+    <arch>x86_64</arch>
+  </repository>
+</project>

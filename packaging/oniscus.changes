@@ -1,0 +1,5 @@
+-------------------------------------------------------------------
+Wed Oct 21 21:00:00 UTC 2026 - Oniscus contributors <arthurcvieira@users.noreply.github.com>
+
+- First package release (0.1.0): onis, oniscus-branding and
+  oniscus-desktop, built from packaging/manifest.tsv

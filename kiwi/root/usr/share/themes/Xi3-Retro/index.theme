@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=X-GNOME-Metatheme
+Name=Xi3 Retro
+Name[pt_BR]=Xi3 Retrô
+Comment=Retro Oniscus theme: dark slate and yellow gel buttons. Original work, GPL-3.0-or-later.
+Comment[pt_BR]=Tema retrô do Oniscus: ardósia escura e botões em gel amarelo. Original, GPL-3.0-or-later.
+Encoding=UTF-8
+
+[X-GNOME-Metatheme]
+GtkTheme=Xi3-Retro
+IconTheme=oxygen

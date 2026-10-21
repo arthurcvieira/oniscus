@@ -1,0 +1,8 @@
+NAME="Oniscus"
+PRETTY_NAME="Oniscus (based on openSUSE Tumbleweed)"
+ID="oniscus"
+ID_LIKE="opensuse-tumbleweed opensuse suse"
+VERSION_ID="rolling"
+ANSI_COLOR="1;33"
+LOGO="oniscus-menu"
+DOCUMENTATION_URL="https://en.opensuse.org/Portal:Tumbleweed"

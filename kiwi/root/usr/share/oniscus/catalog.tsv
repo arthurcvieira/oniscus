@@ -1,0 +1,76 @@
+# Oniscus install catalog, read by `onis install`.
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+# One app per line, TAB-separated:
+#   category  method  target  command  needs  name  description (en)  description (pt-BR)
+#
+# method:  zypper  = package from the official Tumbleweed repositories (preferred)
+#          flatpak = app id on Flathub, installed per user (no sudo)
+#          npm     = npm package installed into ~/.local (official method of some AI agents)
+#          script  = the project's official install script (target is the shell command)
+# command: binary used to detect script/npm installs ("-" when not needed)
+# needs:   commands that must exist first; onis installs them with zypper ("-" for none)
+#
+# Package names were written for Tumbleweed and must be checked with `zypper info`
+# on the first real build. Prefer zypper; use Flathub only for apps not in the repos.
+
+ai	script	curl -fsSL https://claude.ai/install.sh | bash	claude	curl	Claude Code	Anthropic's coding agent, in the terminal.	Agente de programação da Anthropic, no terminal.
+ai	script	curl -fsSL https://hermes-agent.nousresearch.com/install.sh | bash	hermes	curl git tar	Hermes Agent	Nous Research's agent, in the terminal.	Agente da Nous Research, no terminal.
+ai	npm	@openai/codex	codex	npm	OpenAI Codex CLI	OpenAI's coding agent, in the terminal.	Agente de programação da OpenAI, no terminal.
+ai	npm	@google/gemini-cli	gemini	npm	Gemini CLI	Google's agent, in the terminal.	Agente do Google, no terminal.
+ai	script	curl -fsSL https://opencode.ai/install | bash	opencode	curl	opencode	Open source agent that works with many providers.	Agente de código aberto que aceita vários provedores.
+ai	zypper	ollama	-	-	Ollama	Runs open models on your own computer.	Roda modelos abertos no seu computador.
+ai	flatpak	com.jeffser.Alpaca	-	-	Alpaca	Desktop chat for local models (uses Ollama).	Chat de desktop para modelos locais (usa o Ollama).
+
+browsers	zypper	MozillaFirefox	-	-	Firefox	Mozilla's browser (comes with Oniscus).	Navegador da Mozilla (já vem no Oniscus).
+browsers	zypper	chromium	-	-	Chromium	Open source base of Google Chrome.	Base de código aberto do Google Chrome.
+browsers	flatpak	com.google.Chrome	-	-	Google Chrome	Google's browser.	Navegador do Google.
+browsers	flatpak	com.brave.Browser	-	-	Brave	Chromium-based browser that blocks ads.	Navegador baseado no Chromium que bloqueia anúncios.
+browsers	flatpak	app.zen_browser.zen	-	-	Zen Browser	Firefox-based browser with vertical tabs.	Navegador baseado no Firefox com abas verticais.
+browsers	flatpak	com.vivaldi.Vivaldi	-	-	Vivaldi	Highly customizable browser.	Navegador muito personalizável.
+
+office	zypper	libreoffice	-	-	LibreOffice	Writer, Calc, Impress and more.	Writer, Calc, Impress e mais.
+office	flatpak	org.onlyoffice.desktopeditors	-	-	ONLYOFFICE	Office suite close to Microsoft Office formats.	Pacote office próximo dos formatos do Microsoft Office.
+office	zypper	MozillaThunderbird	-	-	Thunderbird	Email and calendar.	E-mail e agenda.
+office	zypper	evince	-	-	Evince	PDF reader.	Leitor de PDF.
+office	flatpak	md.obsidian.Obsidian	-	-	Obsidian	Notes in Markdown.	Notas em Markdown.
+office	zypper	xournalpp	-	-	Xournal++	Handwritten notes and PDF annotation.	Anotações à mão e em PDF.
+
+design	zypper	gimp	-	-	GIMP	Photo and image editing.	Edição de fotos e imagens.
+design	zypper	inkscape	-	-	Inkscape	Vector drawing (SVG).	Desenho vetorial (SVG).
+design	zypper	krita	-	-	Krita	Digital painting.	Pintura digital.
+design	zypper	blender	-	-	Blender	3D modeling, animation and video.	Modelagem 3D, animação e vídeo.
+design	zypper	darktable	-	-	darktable	RAW photo development.	Revelação de fotos RAW.
+design	flatpak	com.github.PintaProject.Pinta	-	-	Pinta	Simple image editor.	Editor de imagens simples.
+
+dev	flatpak	com.visualstudio.code	-	-	Visual Studio Code	Microsoft's code editor.	Editor de código da Microsoft.
+dev	flatpak	com.vscodium.codium	-	-	VSCodium	VS Code without Microsoft telemetry.	VS Code sem a telemetria da Microsoft.
+dev	flatpak	dev.zed.Zed	-	-	Zed	Fast code editor.	Editor de código rápido.
+dev	zypper	neovim	-	-	Neovim	Editor in the terminal.	Editor no terminal.
+dev	zypper	git	-	-	Git	Version control.	Controle de versão.
+dev	zypper	podman	-	-	Podman	Containers without a daemon.	Containers sem daemon.
+dev	zypper	docker	-	-	Docker	Containers.	Containers.
+
+chat	flatpak	com.discordapp.Discord	-	-	Discord	Voice and text chat.	Chat de voz e texto.
+chat	flatpak	org.telegram.desktop	-	-	Telegram	Messenger.	Mensageiro.
+chat	flatpak	org.signal.Signal	-	-	Signal	Private messenger.	Mensageiro privado.
+chat	flatpak	com.slack.Slack	-	-	Slack	Team chat.	Chat de equipes.
+chat	flatpak	us.zoom.Zoom	-	-	Zoom	Video calls.	Chamadas de vídeo.
+
+media	zypper	vlc	-	-	VLC	Plays any video or audio.	Toca qualquer vídeo ou áudio.
+media	zypper	mpv	-	-	mpv	Minimal video player.	Player de vídeo minimalista.
+media	flatpak	com.spotify.Client	-	-	Spotify	Music streaming.	Streaming de música.
+media	flatpak	com.obsproject.Studio	-	-	OBS Studio	Screen recording and live streaming.	Gravação de tela e transmissão ao vivo.
+media	zypper	audacity	-	-	Audacity	Audio editing.	Edição de áudio.
+media	zypper	kdenlive	-	-	Kdenlive	Video editing.	Edição de vídeo.
+
+games	zypper	steam	-	-	Steam	Valve's game store (non-oss repository).	Loja de jogos da Valve (repositório non-oss).
+games	zypper	lutris	-	-	Lutris	Game launcher for many stores and emulators.	Lançador de jogos de várias lojas e emuladores.
+games	flatpak	com.heroicgameslauncher.hgl	-	-	Heroic	Epic, GOG and Amazon games.	Jogos da Epic, GOG e Amazon.
+games	flatpak	org.libretro.RetroArch	-	-	RetroArch	Emulators for classic consoles.	Emuladores de consoles clássicos.
+
+utils	flatpak	com.github.tchx84.Flatseal	-	-	Flatseal	Manage Flatpak app permissions.	Gerencia permissões dos apps Flatpak.
+utils	zypper	keepassxc	-	-	KeePassXC	Password manager.	Gerenciador de senhas.
+utils	zypper	btop	-	-	btop	System monitor in the terminal.	Monitor do sistema no terminal.
+utils	zypper	syncthing	-	-	Syncthing	Sync folders between devices.	Sincroniza pastas entre aparelhos.
+utils	zypper	gparted	-	-	GParted	Disk partition editor.	Editor de partições de disco.

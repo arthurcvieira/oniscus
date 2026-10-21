@@ -1,0 +1,290 @@
+.\" onis(1): Oniscus welcome screen and system Swiss army knife
+.\" SPDX-License-Identifier: GPL-3.0-or-later
+.TH ONIS 1 "October 2026" "Oniscus" "Oniscus Manual"
+.nh
+.SH NAME
+onis, oniscus \- Oniscus welcome screen and system Swiss army knife
+.SH SYNOPSIS
+.B onis
+.RI [ command ]
+.RI [ options ]
+.br
+.B onis help
+.RI [ command ]
+.br
+.B onis
+.I command
+.B \-\-help
+.SH DESCRIPTION
+.B onis
+is the Oniscus control center for the terminal. With no command it opens the
+welcome screen, a keyboard menu that installs and removes apps, updates the
+system, manages snapshots, changes the accent color and i3 shortcuts, and opens
+an AI agent that knows the system. Every menu item is also a subcommand, so the
+same actions work in scripts.
+.PP
+The menu opens by itself at login, and from anywhere with
+.BR Super+Alt+Space ,
+where it is shown in
+.BR rofi (1).
+Actions that need a terminal open in a floating one.
+.PP
+Commands that change the system run
+.BR sudo (8)
+and print the exact command before running it.
+.B oniscus
+is an alternative name for
+.BR onis .
+.SH COMMANDS
+.SS Apps
+.TP
+.BR install " [\fIapp\fR]"
+With no argument, opens the install tab: "Install another package" at the top,
+then the categories AI agents, Browsers, Office, Design, Development,
+Communication, Media, Games, Utilities and Drivers and codecs.
+With
+.IR app ,
+installs it directly. The app may be a command (\fBclaude\fR), a package name,
+a Flathub ID or a name from the catalog. If it is not in the catalog, the
+Tumbleweed repositories and Flathub are searched.
+.IP
+Sources, in order of preference: the official Tumbleweed repositories
+.RB ( zypper ),
+Flathub
+.RB ( "flatpak \-\-user" ,
+no sudo; the remote is added per user on first use), and for AI agents the
+project's official installer or npm into
+.IR ~/.local .
+.TP
+.BR uninstall " [\fB\-\-purge\fR] [\fIapp\fR]"
+With no argument, opens a menu to pick an AI agent, Flatpak app or system
+package, then either remove the app only or remove and purge. Before removing a
+system package it runs a zypper dry run, shows the list, and refuses if a
+protected package (kernel, systemd, zypper, i3, XFCE, Ly, gum, flatpak and
+others) would be removed.
+.RS
+.TP
+.B \-\-purge
+Also remove orphaned dependencies
+.RB ( "zypper remove \-\-clean\-deps" ),
+Flatpak app data and unused runtimes
+.RB ( "\-\-delete\-data" ", " "\-\-unused" ),
+and offer to delete the app's folders in
+.IR ~/.config ,
+.I ~/.local/share
+and
+.IR ~/.cache .
+.RE
+.TP
+.B uninstall \-\-cleanup
+Remove packages nothing needs anymore
+.RB ( "zypper packages \-\-unneeded" ),
+run
+.BR "zypper clean \-\-all" " and " "flatpak uninstall \-\-unused" ,
+and prune old i3 config backups made by
+.BR onis .
+.TP
+.BR drivers " [" nvidia | codecs ]
+Optional extras that cannot ship in the ISO, using the same commands as the
+installer's optional screens.
+.B nvidia
+installs the proprietary driver from NVIDIA's official openSUSE repository
+(checks for an NVIDIA card with
+.BR lspci (8)
+first).
+.B codecs
+adds the third-party Packman repository and installs multimedia codecs, after a
+patent warning.
+.SS System
+.TP
+.BR update " [\fB\-\-yes\fR]"
+Update system packages with
+.B zypper refresh
+and
+.B zypper dup
+(the correct way on Tumbleweed), then user and system Flatpak apps.
+snapper takes restore points before and after; without its zypper plugin,
+.B onis
+takes one before. At the end it says whether a restart is needed.
+.RS
+.TP
+.BR \-\-yes ", " \-y
+Ask nothing; zypper runs non-interactively. Meant for scripts.
+.RE
+.TP
+.BR snapshot " [" list | create | diff | delete | rollback ]
+Manage system restore points made by
+.BR snapper (8)
+on the root filesystem.
+.I /home
+is a separate subvolume, so these never touch user files. With no argument,
+opens a menu.
+.RS
+.TP
+.B list
+Show snapshots, newest first.
+.B *
+marks the running one,
+.B +
+the one used at the next boot.
+.TP
+.BR create " [\fIdescription\fR]"
+Take a snapshot now.
+.TP
+.BR diff " \fIn\fR [\fIm\fR]"
+List files changed between snapshot
+.I n
+and
+.I m
+(default: the running system).
+.TP
+.BR delete " \fIn\fR"
+Delete snapshot
+.IR n .
+Refuses the running and the default snapshot.
+.TP
+.BR rollback " \fIn\fR"
+Make the system boot as it was in snapshot
+.I n
+from the next restart
+.RB ( "snapper rollback" ).
+The current state is kept as a snapshot.
+.RE
+.TP
+.B doctor
+Print a read-only system report: failed services, journal errors, crashed
+programs, disk, memory, network, sound, repositories, Flatpak apps, snapshots,
+i3 config validation and
+.B onis
+state. The output is always in English so AI agents read it the same way.
+.TP
+.B restart-bars
+Restart Polybar, xfce4-panel and Plank.
+.TP
+.B about
+Show system information with
+.BR fastfetch (1).
+.SS AI agents
+.TP
+.BR agent " [\fBask\fR \fItask\fR]"
+Open the default AI agent in its working folder
+.IR ~/.local/share/oniscus/agent ,
+which holds the Oniscus guide as
+.IR AGENTS.md ,
+.I CLAUDE.md
+and
+.IR GEMINI.md .
+With no task, asks what to solve first. Shortcut:
+.BR Super+Ctrl+Shift+a .
+.TP
+.BR "agent default" " [\fIcommand\fR]"
+Pick the default agent:
+.BR claude ", " codex ", " gemini ", " opencode " or " hermes .
+Installs it first if needed.
+.TP
+.BR "agent crashes" " " on | off
+Offer the agent through a desktop notification when a program crashes
+(watches systemd-coredump messages in the user journal).
+.TP
+.B agent link
+Link the guide and the Oniscus skill into
+.IR ~/.claude/skills ,
+.IR ~/.codex/skills ,
+.IR ~/.agents/skills ,
+.I ~/.config/opencode/skills
+and
+.IR ~/.hermes/skills .
+Runs at every login.
+.SS Look and shortcuts
+.TP
+.BR accent " [\fI#RRGGBB\fR|\fBdefault\fR]"
+Change the accent color in the user's copies of the i3 config, Polybar,
+fastfetch, the Starship prompt, the GTK theme and the terminal cursor. With no
+argument, opens a picker with seven presets or any hex color. The Ly login
+screen changes only if the user accepts (sudo).
+.TP
+.BR wallpaper " [\fB\-\-apply\fR]"
+Pick an image from
+.IR /usr/share/wallpapers ,
+.I ~/Pictures
+or
+.IR ~/Imagens .
+.B \-\-apply
+sets the saved choice with
+.BR feh (1);
+i3 runs it at startup.
+.TP
+.BR keys " [" show | change | new | remove | restore ]
+Manage i3 shortcuts in
+.IR ~/.config/i3/config .
+Every change keeps a backup, refuses a key combination already in use,
+validates with
+.B i3 \-C
+and restores the backup if i3 rejects it. Write keys as
+.BR Super+Shift+t .
+.B restore
+brings back the original Oniscus config.
+.SS Session
+.TP
+.B menu
+Show the menu in rofi.
+.TP
+.BR welcome " [" on | off | \-\-autostart ]
+Open the welcome screen, or turn opening at login on or off.
+.B \-\-autostart
+is used by i3 at login.
+.TP
+.BR help " [\fIcommand\fR]"
+Show the command list, or the help for one command. Also available as
+.IB command " \-\-help" .
+.SH ENVIRONMENT
+.TP
+.B LANG
+The menu text follows the session language:
+.B pt_*
+shows Brazilian Portuguese, anything else shows English. Commands, file names
+and the agent guide are always in English.
+.TP
+.B ONISCUS_LANG
+Overrides
+.B LANG
+for
+.B onis
+only (for example
+.BR ONISCUS_LANG=en ).
+.SH FILES
+.TP
+.I /usr/share/oniscus/catalog.tsv
+Install catalog, one app per line (format described in the file).
+.TP
+.I /usr/share/oniscus/agent/AGENTS.md
+Guide for AI agents: config map, safety rules and recipes.
+.TP
+.I ~/.config/oniscus/
+User state: accent color, wallpaper, default agent, preferences and the
+Starship prompt copy.
+.TP
+.I ~/.config/i3/config.oniscus\-*
+Backups of the i3 config made by
+.BR "onis keys" .
+.SH EXIT STATUS
+0 on success, 1 when a command fails or is refused.
+.SH EXAMPLES
+.nf
+onis install claude
+onis uninstall \-\-purge com.spotify.Client
+onis update \-\-yes
+onis snapshot create "before the new driver"
+onis snapshot rollback 42
+onis accent '#7AA2F7'
+onis agent ask "Wi\-Fi stopped working after the update"
+.fi
+.SH SEE ALSO
+.BR zypper (8),
+.BR flatpak (1),
+.BR snapper (8),
+.BR i3 (1),
+.BR rofi (1),
+.BR gum (1)
+.SH LICENSE
+GPL\-3.0\-or\-later. Part of Oniscus.
