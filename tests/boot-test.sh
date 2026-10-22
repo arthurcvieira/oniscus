@@ -89,7 +89,7 @@ vm 'pkill -x rofi; onis accent "#7AA2F7" | tail -n 2; grep -E "^ *accent" ~/.loc
 shot rofi-menu-blue-accent
 vm 'pkill -x rofi; onis accent default | tail -n 2; ls ~/.local/share/rofi/themes/'
 
-vm 'setsid -f oniscus-install; sleep 45; pgrep -a calamares'
+vm 'setsid -f oniscus-install; sleep 45; pgrep -a calamares; findmnt /run/oniscus-root'
 shot install-01-welcome
 next_page 02-location
 next_page 03-keyboard
