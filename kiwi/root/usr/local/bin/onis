@@ -108,7 +108,7 @@ in_terminal() {
 menu_main() {
     # Live ISO: offer the installer first
     if grep -qw rd.live.image /proc/cmdline 2>/dev/null && has calamares; then
-        printf '%s\t%s\n' "$(t "Install Oniscus to this computer" "Instalar o Oniscus neste computador")" "app:pkexec calamares"
+        printf '%s\t%s\n' "$(t "Install Oniscus to this computer" "Instalar o Oniscus neste computador")" "app:oniscus-install"
     fi
     printf '%s\t%s\n' \
         "$(t "Ask the AI agent for help" "Pedir ajuda ao agente de IA")"  "agent" \
@@ -248,9 +248,18 @@ header() {
             "Super+Enter         terminal" \
             "onis help           $(t "every command" "todos os comandos")"
     )
-    if [ -r "$LOGO" ] && [ "$(tput cols 2>/dev/null || echo 80)" -ge 100 ]; then
+    # Mascot beside the text on wide terminals, above it on narrow ones
+    # (it used to vanish below 100 columns)
+    local cols
+    cols=$(stty size </dev/tty 2>/dev/null | cut -d' ' -f2)
+    [ "${cols:-0}" -gt 0 ] 2>/dev/null || cols=$(tput cols 2>/dev/null || echo 80)
+    if [ -r "$LOGO" ] && [ "$cols" -ge 92 ]; then
         gum join --horizontal --align center "$(cat "$LOGO")" \
             "$(gum style --padding "0 0 0 3" "$text")"
+    elif [ -r "$LOGO" ] && [ "$cols" -ge 40 ]; then
+        cat "$LOGO"
+        echo
+        echo "$text"
     else
         echo "$text"
     fi
@@ -264,9 +273,11 @@ welcome() {
         off) : > "$STATE/no-welcome"
              ok "$(t "The welcome screen won't open at login anymore (use Super+Alt+Space)." "As Boas-vindas não vão mais abrir ao entrar (use Super+Alt+Espaço).")"; return ;;
         --autostart)
-            # Called by i3 at login: open in a floating terminal
-            [ -e "$STATE/no-welcome" ] && exit 0
-            exec xfce4-terminal --title "$WELCOME_TITLE" --geometry 104x34 -x onis ;;
+            # Called by i3 at login: the session's one terminal. It shows the
+            # welcome menu and stays open as a shell after "Quit"
+            [ -e "$STATE/no-welcome" ] && exec xfce4-terminal
+            # (short pause so i3 has sized the window before the menu is drawn)
+            exec xfce4-terminal -x bash -c 'sleep 0.5; onis; exec bash -i' ;;
     esac
     browse main
     clear
@@ -1664,7 +1675,7 @@ onis welcome [on|off|--autostart]
 
   (nada)        abre as Boas-vindas
   on | off      liga ou desliga a abertura automática ao entrar
-  --autostart   usado pelo i3 no login; abre num terminal flutuante
+  --autostart   usado pelo i3 no login; abre o terminal da sessão com o menu
 EOF
 ;;
             menu) echo "onis menu: abre o menu no rofi (Super+Alt+Espaço). Ações que precisam de terminal abrem um flutuante." ;;
@@ -1820,7 +1831,7 @@ onis welcome [on|off|--autostart]
 
   (none)        open the welcome screen
   on | off      turn opening at login on or off
-  --autostart   used by i3 at login; opens in a floating terminal
+  --autostart   used by i3 at login; opens the session terminal with the menu
 EOF
 ;;
             menu) echo "onis menu: opens the menu in rofi (Super+Alt+Space). Actions that need a terminal open a floating one." ;;

@@ -130,8 +130,6 @@ no_focus [class="Xfce4-notifyd"]
 exec --no-startup-id picom --config ~/.config/picom/picom.conf -b
 exec --no-startup-id nm-applet
 exec --no-startup-id plank
-# Terminal-first system: the session starts with a terminal open
-exec --no-startup-id xfce4-terminal
 exec_always --no-startup-id sh ~/.config/polybar/launch.sh
 # Without xfdesktop, feh sets the wallpaper. onis reads the user's choice from
 # ~/.config/oniscus/wallpaper and falls back to xi3.jpg
@@ -140,6 +138,8 @@ exec_always --no-startup-id onis wallpaper --apply
 # Oniscus: menu and welcome screen (onis command)
 bindsym $mod+Mod1+space exec --no-startup-id onis menu
 for_window [title="^Oniscus Welcome$"] floating enable, resize set 960 660, move position center
+# Terminal-first system: the session starts with one terminal, showing the
+# welcome menu (with the installer on the live ISO) and then a shell
 exec --no-startup-id onis welcome --autostart
 
 # Oniscus: system-level AI agents. The Oniscus guide is linked into the agents'

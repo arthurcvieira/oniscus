@@ -17,7 +17,8 @@
 # Not packaged on purpose (they stay in kiwi/root and only reach the image):
 #   etc/ly/config.ini              owned by the ly package
 #   etc/dconf/profile/user         may be owned by dconf
-#   etc/calamares/, usr/share/applications/oniscus-install.desktop   live ISO only
+#   etc/calamares/, usr/share/applications/oniscus-install.desktop,
+#   usr/local/bin/oniscus-install                                    live ISO only
 #   etc/bash.bashrc.local          admin file; the Release image gets a stub that
 #                                  sources /usr/share/oniscus/shell/bashrc.sh
 

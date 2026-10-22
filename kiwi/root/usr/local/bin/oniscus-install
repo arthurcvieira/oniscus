@@ -1,0 +1,7 @@
+#!/bin/sh
+# Live ISO only: starts the installer (Calamares) as root. The live session has
+# no polkit agent, so "pkexec calamares" could not ask for permission and the
+# installer never opened; the live user has passwordless sudo instead.
+# Log: /tmp/oniscus-install.log (Calamares also writes /root/.cache/calamares/session.log)
+exec sudo --preserve-env=DISPLAY,XAUTHORITY,LANG,LANGUAGE,LC_ALL \
+    calamares -d "$@" >/tmp/oniscus-install.log 2>&1
