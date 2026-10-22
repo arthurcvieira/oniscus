@@ -89,5 +89,5 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git remote add origin "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git"
           git fetch -q --depth 1 origin iso-test-results && git reset -q --soft FETCH_HEAD || true
-          git add -A && git commit -qm "ISO test results for run ${{ github.run_id }} (${{ github.sha }})"
+          git add "$dir" && git commit -qm "ISO test results for run ${{ github.run_id }} (${{ github.sha }})"
           git push -q origin iso-test-results
