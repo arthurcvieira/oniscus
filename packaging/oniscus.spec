@@ -57,11 +57,14 @@ shortcuts, drivers and AI agent setup.
 %package -n oniscus-branding
 Summary:        Oniscus name, logo, mascot, wallpaper and themes
 License:        GPL-3.0-or-later AND CC-BY-SA-4.0
+# Boot splash with the mascot (script theme)
+Requires:       plymouth-plugin-script
 
 %description -n oniscus-branding
 The Oniscus identity: os-release name (kept by a boot service, since
 openSUSE-release owns /etc/os-release), mascot logo for the menu and fastfetch,
-wallpaper, and the Xi3 Retro GTK and Plank themes.
+wallpaper, the boot splash (Plymouth theme "oniscus", turn it on with
+"plymouth-set-default-theme -R oniscus"), and the Xi3 Retro GTK and Plank themes.
 
 %package -n oniscus-desktop
 Summary:        Oniscus desktop defaults (XFCE with i3)

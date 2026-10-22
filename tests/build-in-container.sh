@@ -37,7 +37,7 @@ desc=/out/description
 rm -rf "$desc" /out/image
 cp -a /src/kiwi "$desc"
 if [ "${SERIAL:-0}" = 1 ]; then
-    sed -i 's/kernelcmdline="splash quiet"/kernelcmdline="splash quiet console=tty0 console=ttyS0,115200"/' \
+    sed -i 's/kernelcmdline="splash quiet"/kernelcmdline="splash quiet plymouth.ignore-serial-consoles console=tty0 console=ttyS0,115200"/' \
         "$desc/config.kiwi"
 fi
 if [ "${LOCAL_RPMS:-0}" = 1 ]; then
