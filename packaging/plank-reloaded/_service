@@ -10,6 +10,7 @@
     <param name="revision">main</param>
     <param name="filename">oniscus-plank-reloaded</param>
     <param name="extract">packaging/plank-reloaded/plank-reloaded.spec</param>
+    <param name="extract">packaging/plank-reloaded/plank-override-redirect.patch</param>
   </service>
   <service name="download_files"/>
 </services>

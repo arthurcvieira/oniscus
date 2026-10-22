@@ -15,6 +15,8 @@ Summary:        Simple dock for X11 desktops (maintained fork of Plank)
 License:        GPL-3.0-or-later AND LGPL-2.1-or-later
 URL:            https://github.com/zquestz/plank-reloaded
 Source0:        https://github.com/zquestz/plank-reloaded/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+# Opt-in override-redirect dock window (PLANK_OVERRIDE_REDIRECT=1), for i3
+Patch0:         plank-override-redirect.patch
 BuildRequires:  desktop-file-utils
 BuildRequires:  fdupes
 BuildRequires:  gcc
