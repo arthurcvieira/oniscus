@@ -1,0 +1,236 @@
+
+$ export DISPLAY=:0 XAUTHORITY=/run/user/$(id -u)/lyxauth
+
+
+$ setsid -f rofi -show drun; sleep 4
+
+
+$ pkill -x rofi; onis accent "#7AA2F7" | tail -n 2; grep -E "^ *accent" ~/.local/share/rofi/themes/oniscus.rasi
+✔ Accent changed to #7AA2F7 ██████
+New terminals open with the prompt in the new color.
+    accent:       #7AA2F7;
+    accent-light: #B5CBFA;
+    accent-dark:  #5F7EC0;
+
+$ setsid -f onis menu; sleep 4
+
+
+$ pkill -x rofi; onis accent default | tail -n 2; ls ~/.local/share/rofi/themes/
+✔ Accent changed to #F7C948 ██████
+New terminals open with the prompt in the new color.
+
+$ setsid -f oniscus-install; sleep 45; pgrep -a calamares; findmnt /run/oniscus-root
+4346 calamares -d
+TARGET            SOURCE              FSTYPE OPTIONS
+/run/oniscus-root /dev/mapper/live-rw ext4   ro,relatime
+
+$ timeout 20 xdotool search --sync --onlyvisible --limit 1 --class calamares windowactivate --sync key --clearmodifiers alt+n
+
+
+$ timeout 20 xdotool search --sync --onlyvisible --limit 1 --class calamares windowactivate --sync key --clearmodifiers alt+n
+
+
+$ timeout 20 xdotool search --sync --onlyvisible --limit 1 --class calamares windowactivate --sync key --clearmodifiers alt+n
+
+
+$ timeout 20 xdotool search --sync --onlyvisible --limit 1 --class calamares windowactivate --sync key --clearmodifiers alt+n
+
+
+$ xdotool type --delay 80 'Oniscus Test'
+
+
+$ xdotool key Tab Tab Tab
+
+
+$ xdotool type --delay 80 'oniscus1'
+
+
+$ xdotool key Tab
+
+
+$ xdotool type --delay 80 'oniscus1'
+
+
+$ timeout 20 xdotool search --sync --onlyvisible --limit 1 --class calamares windowactivate --sync key --clearmodifiers alt+n
+
+
+$ timeout 20 xdotool search --sync --onlyvisible --limit 1 --class calamares windowactivate --sync key --clearmodifiers alt+n
+
+
+$ timeout 20 xdotool search --sync --onlyvisible --limit 1 --class calamares windowactivate --sync key --clearmodifiers alt+n
+
+
+$ timeout 20 xdotool search --sync --onlyvisible --limit 1 --class calamares windowactivate --sync key --clearmodifiers alt+i
+
+
+$ timeout 20 xdotool search --sync --onlyvisible --limit 1 --class calamares windowactivate --sync key --clearmodifiers alt+i
+
+
+$ echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"
+mounts=8 procs=1
+
+$ echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"
+mounts=8 procs=1
+
+$ echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"
+mounts=8 procs=1
+
+$ echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"
+mounts=8 procs=1
+
+$ echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"
+mounts=0 procs=1
+
+$ sudo grep -iE "error|fail|warning" /root/.cache/calamares/session.log | tail -n 60
+2026-10-22 - 18:46:42 [2]:     WARNING: the branding component "/etc/calamares/branding/oniscus" does not ship translations. 
+2026-10-22 - 18:46:42 [2]:     WARNING: The branding component "/etc/calamares/branding/oniscus" does not ship stylesheet.qss. 
+2026-10-22 - 18:46:42 [2]:     WARNING: GeneralRequirements entry 'internetCheckUrl' is undefined in welcome.conf, reverting to default ( "http://example.com" ). 
+2026-10-22 - 18:46:42 [2]:     WARNING: GeneralRequirements configuration map: 
+2026-10-22 - 18:46:44 [2]:     WARNING: Cannot open file "/etc/locale.gen" . Assuming the supported languages are already built into the locale archive. 
+2026-10-22 - 18:46:44 [2]:     WARNING: GeoIP style *none* does not do anything. 
+2026-10-22 - 18:46:44 [2]:     WARNING: GeoIP Style "none" is not recognized. 
+2026-10-22 - 18:46:45 [2]:     WARNING: Partition-module setting *luksGeneration* not found or invalid. Defaulting to luks1. 
+2026-10-22 - 18:46:45 [2]:     WARNING: Partition-module setting *defaultPartitionTableType* is unset, will use gpt for efi or msdos for bios 
+2026-10-22 - 18:46:46 [6]: DEBUG (Qt): smartctl initialization failed for  "/dev/vda" :  No such file or directory
+2026-10-22 - 18:46:46 [6]: DEBUG (Qt): error during smart output parsing for  "/dev/vda" :  No such file or directory
+2026-10-22 - 18:46:46 [2]: WARNING (Qt): unknown file system type  ""  on  "/dev/vda"
+2026-10-22 - 18:46:46 [2]: WARNING (Qt): beginResetModel called on BootLoaderModel(0x56300cf88dc0) without calling endResetModel first
+2026-10-22 - 18:46:46 [2]: WARNING (Qt): endResetModel called on BootLoaderModel(0x56300cf88dc0) without calling beginResetModel first
+2026-10-22 - 18:46:46 [2]:     WARNING: system is EFI but no EFI system partitions found. 
+2026-10-22 - 18:46:46 [2]:     WARNING: Invalid osprober count, labels and buttons not updated. 
+2026-10-22 - 18:46:46 [2]:     WARNING: System is EFI but there's no EFI system partition, DISABLING alongside and replace features. 
+2026-10-22 - 18:46:46 [2]: WARNING (Qt): beginResetModel called on BootLoaderModel(0x56300cf88dc0) without calling endResetModel first
+2026-10-22 - 18:46:46 [2]: WARNING (Qt): endResetModel called on BootLoaderModel(0x56300cf88dc0) without calling beginResetModel first
+2026-10-22 - 18:46:46 [2]:     WARNING: system is EFI but no EFI system partitions found. 
+2026-10-22 - 18:46:46 [2]: WARNING (Qt): beginResetModel called on BootLoaderModel(0x56300cf88dc0) without calling endResetModel first
+2026-10-22 - 18:46:46 [2]: WARNING (Qt): endResetModel called on BootLoaderModel(0x56300cf88dc0) without calling beginResetModel first
+2026-10-22 - 18:46:46 [2]: WARNING (Qt): beginResetModel called on BootLoaderModel(0x56300cf88dc0) without calling endResetModel first
+2026-10-22 - 18:46:46 [2]: WARNING (Qt): endResetModel called on BootLoaderModel(0x56300cf88dc0) without calling beginResetModel first
+2026-10-22 - 14:48:10 [2]: WARNING (Qt): QObject::setParent: Cannot set parent, new parent is in a different thread
+2026-10-22 - 14:48:10 [2]: WARNING (Qt): QLayout: Attempting to add QLayout "" to QWidget "", which already has a layout
+2026-10-22 - 14:48:10 [2]: WARNING (Qt): QObject::setParent: Cannot set parent, new parent is in a different thread
+2026-10-22 - 14:48:39 [2]:     WARNING: this system does not seem to have LVM2 tools. 
+2026-10-22 - 14:48:39 [2]:     WARNING: this system does not seem to have LVM2 tools. 
+Failed to disable unit: Unit display-manager.service does not exist
+Failed to disable unit: Unit display-manager.service does not exist
+2026-10-22 - 14:50:22 [2]: WARNING: [PYTHON JOB]: "Cannot disable systemd unit display-manager.service" 
+2026-10-22 - 14:50:22 [2]: WARNING: [PYTHON JOB]: "systemctl disable call in chroot returned error code 1" 
+dracut-install: WARNING: could not locate dlopen dependency for cryptsetup feature requested by '/usr/lib64/systemd/libsystemd-shared-261.4-1.1.so'
+Installation finished. No error reported.
+Warning: os-prober will not be executed to detect other bootable partitions.
+
+$ sudo tail -n 80 /root/.cache/calamares/session.log
+dracut-install: WARNING: could not locate dlopen dependency for cryptsetup feature requested by '/usr/lib64/systemd/libsystemd-shared-261.4-1.1.so'
+2026-10-22 - 14:50:40 [6]: virtual void Calamares::JobThread::run()
+2026-10-22 - 14:50:40 [6]:     Starting job "Performing contextual processes' job…" ( 27 / 29 ) 
+2026-10-22 - 14:50:40 [6]: virtual void Calamares::JobThread::run()
+2026-10-22 - 14:50:40 [6]:     Starting job "bootloader" ( 28 / 29 ) 
+2026-10-22 - 14:50:40 [6]: [PYTHON JOB]: Found gettext "en_US" in "/usr/share/locale/en_US" 
+2026-10-22 - 14:50:40 [6]: [PYTHON JOB]: "Bootloader: grub (efi)" 
+2026-10-22 - 14:50:40 [6]: [PYTHON JOB]: "install_hybrid_grub: False" 
+2026-10-22 - 14:50:40 [6]:     .. Running QList("grub2-install", "--target=x86_64-efi", "--efi-directory=/boot/efi", "--bootloader-id=Oniscus", "--force") 
+2026-10-22 - 14:50:42 [6]:     .. Finished. Exit code: 0 output:
+Installing for x86_64-efi platform.
+Installation finished. No error reported.
+2026-10-22 - 14:50:42 [6]: [PYTHON JOB]: "UEFI Fallback: True" 
+2026-10-22 - 14:50:42 [6]: [PYTHON JOB]: "  .. installing 'bootx64.efi' fallback firmware" 
+2026-10-22 - 14:50:42 [6]:     .. Running QList("grub2-mkconfig", "-o", "/boot/grub2/grub.cfg") 
+2026-10-22 - 14:50:44 [6]:     .. Finished. Exit code: 0 output:
+Generating grub configuration file ...
+Found linux image: /boot/vmlinuz-7.2.11-1-default
+Found initrd image: /boot/initrd-7.2.11-1-default
+Warning: os-prober will not be executed to detect other bootable partitions.
+Systems on them will not be added to the GRUB boot configuration.
+Check GRUB_DISABLE_OS_PROBER documentation entry.
+Adding boot menu entry for UEFI Firmware Settings ...
+Adding boot menu entry for EFI BootNext: UiApp (Boot0000)
+Adding boot menu entry for EFI BootNext: UEFI QEMU DVD-ROM QM00005  (Boot0001)
+Adding boot menu entry for EFI BootNext: UEFI Misc Device (Boot0002)
+Adding boot menu entry for EFI BootNext: UEFI PXEv4 (MAC:525400123456) (Boot0003)
+Adding boot menu entry for EFI BootNext: UEFI PXEv6 (MAC:525400123456) (Boot0004)
+Adding boot menu entry for EFI BootNext: UEFI HTTPv4 (MAC:525400123456) (Boot0005)
+Adding boot menu entry for EFI BootNext: UEFI HTTPv6 (MAC:525400123456) (Boot0006)
+Adding boot menu entry for EFI BootNext: EFI Internal Shell (Boot0007)
+done
+2026-10-22 - 14:50:44 [6]: virtual void Calamares::JobThread::run()
+2026-10-22 - 14:50:44 [6]:     Starting job "Unmounting file systems…" ( 29 / 29 ) 
+2026-10-22 - 14:50:44 [6]: Calamares::JobResult unmountTargetMounts(const QString&)
+2026-10-22 - 14:50:44 [6]:     Read 7 entries from "/tmp/calamares-root-icmymjvx/" 
+2026-10-22 - 14:50:44 [6]:     .. Running QList("umount", "-lv", "/tmp/calamares-root-icmymjvx/sys/firmware/efi/efivars") 
+2026-10-22 - 14:50:44 [6]:     .. Finished. Exit code: 0 output:
+umount: /tmp/calamares-root-icmymjvx/sys/firmware/efi/efivars (efivarfs) unmounted
+2026-10-22 - 14:50:44 [6]:     .. Running QList("udevadm", "settle") 
+2026-10-22 - 14:50:44 [6]:     .. Running QList("sync") 
+2026-10-22 - 14:50:44 [6]:     .. Running QList("umount", "-lv", "/tmp/calamares-root-icmymjvx/sys") 
+2026-10-22 - 14:50:44 [6]:     .. Finished. Exit code: 0 output:
+umount: /tmp/calamares-root-icmymjvx/sys (sys) unmounted
+2026-10-22 - 14:50:44 [6]:     .. Running QList("udevadm", "settle") 
+2026-10-22 - 14:50:44 [6]:     .. Running QList("sync") 
+2026-10-22 - 14:50:44 [6]:     .. Running QList("umount", "-lv", "/tmp/calamares-root-icmymjvx/run/udev") 
+2026-10-22 - 14:50:44 [6]:     .. Finished. Exit code: 0 output:
+umount: /tmp/calamares-root-icmymjvx/run/udev (tmpfs) unmounted
+2026-10-22 - 14:50:44 [6]:     .. Running QList("udevadm", "settle") 
+2026-10-22 - 14:50:44 [6]:     .. Running QList("sync") 
+2026-10-22 - 14:50:44 [6]:     .. Running QList("umount", "-lv", "/tmp/calamares-root-icmymjvx/run") 
+2026-10-22 - 14:50:44 [6]:     .. Finished. Exit code: 0 output:
+umount: /tmp/calamares-root-icmymjvx/run (tmpfs) unmounted
+2026-10-22 - 14:50:44 [6]:     .. Running QList("udevadm", "settle") 
+2026-10-22 - 14:50:44 [6]:     .. Running QList("sync") 
+2026-10-22 - 14:50:44 [6]:     .. Running QList("umount", "-lv", "/tmp/calamares-root-icmymjvx/proc") 
+2026-10-22 - 14:50:44 [6]:     .. Finished. Exit code: 0 output:
+umount: /tmp/calamares-root-icmymjvx/proc (proc) unmounted
+2026-10-22 - 14:50:44 [6]:     .. Running QList("udevadm", "settle") 
+2026-10-22 - 14:50:44 [6]:     .. Running QList("sync") 
+2026-10-22 - 14:50:44 [6]:     .. Running QList("umount", "-lv", "/tmp/calamares-root-icmymjvx/dev") 
+2026-10-22 - 14:50:44 [6]:     .. Finished. Exit code: 0 output:
+umount: /tmp/calamares-root-icmymjvx/dev (devtmpfs) unmounted
+2026-10-22 - 14:50:44 [6]:     .. Running QList("udevadm", "settle") 
+2026-10-22 - 14:50:44 [6]:     .. Running QList("sync") 
+2026-10-22 - 14:50:44 [6]:     .. Running QList("umount", "-lv", "/tmp/calamares-root-icmymjvx/boot/efi") 
+2026-10-22 - 14:50:44 [6]:     .. Finished. Exit code: 0 output:
+umount: /tmp/calamares-root-icmymjvx/boot/efi (/dev/vda1) unmounted
+2026-10-22 - 14:50:44 [6]:     .. Running QList("udevadm", "settle") 
+2026-10-22 - 14:50:44 [6]:     .. Running QList("sync") 
+2026-10-22 - 14:50:44 [6]:     .. Running QList("umount", "-lv", "/tmp/calamares-root-icmymjvx") 
+2026-10-22 - 14:50:44 [6]:     .. Finished. Exit code: 0 output:
+umount: /tmp/calamares-root-icmymjvx (/dev/vda2) unmounted
+2026-10-22 - 14:50:44 [6]:     .. Running QList("udevadm", "settle") 
+2026-10-22 - 14:50:45 [6]:     .. Running QList("sync") 
+2026-10-22 - 14:50:45 [6]: void Config::doNotify(bool, bool)
+2026-10-22 - 14:50:45 [6]:     Notification not sent; completion: succeeded 
+2026-10-22 - 14:50:45 [6]: void {anonymous}::PowerManagementInterface::uninhibitSleep()
+2026-10-22 - 14:50:45 [6]:     Sleep was never inhibited.
+
+$ tail -n 20 /tmp/oniscus-install.log
+.. Running QList("sync") 
+    .. Running QList("umount", "-lv", "/tmp/calamares-root-icmymjvx/dev") 
+    .. Finished. Exit code: 0 output:
+umount: /tmp/calamares-root-icmymjvx/dev (devtmpfs) unmounted
+    .. Running QList("udevadm", "settle") 
+    .. Running QList("sync") 
+    .. Running QList("umount", "-lv", "/tmp/calamares-root-icmymjvx/boot/efi") 
+    .. Finished. Exit code: 0 output:
+umount: /tmp/calamares-root-icmymjvx/boot/efi (/dev/vda1) unmounted
+    .. Running QList("udevadm", "settle") 
+    .. Running QList("sync") 
+    .. Running QList("umount", "-lv", "/tmp/calamares-root-icmymjvx") 
+    .. Finished. Exit code: 0 output:
+umount: /tmp/calamares-root-icmymjvx (/dev/vda2) unmounted
+    .. Running QList("udevadm", "settle") 
+    .. Running QList("sync") 
+14:50:45 [6]: void Config::doNotify(bool, bool)
+    Notification not sent; completion: succeeded 
+14:50:45 [6]: void {anonymous}::PowerManagementInterface::uninhibitSleep()
+    Sleep was never inhibited.
+
+$ sudo fdisk -l /dev/vda
+Disk /dev/vda: 24 GiB, 25769803776 bytes, 50331648 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: gpt
+Disk identifier: 2FF602C3-772E-4A79-B628-F6377114C7B7
+
+Device       Start      End  Sectors  Size Type
+/dev/vda1     4096  1052671  1048576  512M EFI System
+/dev/vda2  1052672 50331575 49278904 23.5G Linux filesystem
