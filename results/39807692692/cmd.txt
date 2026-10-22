@@ -1,0 +1,4 @@
+sudo grep -iE "error|fail|warning" /root/.cache/calamares/session.log | tail -n 60
+sudo tail -n 80 /root/.cache/calamares/session.log
+tail -n 20 /tmp/oniscus-install.log
+sudo fdisk -l /dev/vda
