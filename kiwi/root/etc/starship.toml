@@ -18,7 +18,7 @@ truncation_length = 3
 
 [git_branch]
 style = "#FFE58F"
-format = "[ $branch]($style) "
+format = "[on $branch]($style) "
 
 [git_status]
 style = "#F28C28"

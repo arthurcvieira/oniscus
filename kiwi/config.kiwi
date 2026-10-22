@@ -40,7 +40,7 @@
               volid="ONISCUS_LIVE"
               publisher="Oniscus"
               kernelcmdline="splash quiet">
-            <bootloader name="grub2" console="gfxterm" timeout="10"/>
+            <bootloader name="grub2" console="console" timeout="10"/>
         </type>
     </preferences>
 
@@ -145,6 +145,8 @@
         <package name="kf6-oxygen-icons"/>
         <package name="google-noto-sans-mono-fonts"/>
         <package name="google-noto-sans-fonts"/>
+        <!-- Symbols such as the prompt arrow -->
+        <package name="google-noto-sans-symbols2-fonts"/>
 
         <!-- i3 -->
         <package name="i3"/>

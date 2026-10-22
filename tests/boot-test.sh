@@ -66,7 +66,7 @@ shot desktop-060s
 # Terminal (Super+Enter): a few checks on screen
 hmp "sendkey meta_l-ret"
 sleep 5
-type_text "systemctl --failed --no-pager; onis doctor"
+type_text "systemctl --failed --no-pager; pgrep -l polybar; pgrep -l plank; pgrep -l picom; onis doctor"
 hmp "sendkey ret"
 sleep 5
 shot terminal-checks
