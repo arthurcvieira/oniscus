@@ -8,7 +8,7 @@ BdsDxe: starting Boot0001 "UEFI QEMU DVD-ROM QM00005 " from PciRoot(0x0)/Pci(0x1
 
 Loading kernel...
 Loading initrd...
-P+q6E616D65\[18t7[32766;32766H[6n8[!p]104\[0m[?7h[1G[0J]3008;start=92f3e3a59ab147cc89d311f485f4a754;user=root;hostname=localhost;machineid=d5ecce3e81394f2e89a8e412e9f9eaf8;bootid=f06cd88410be4035a4626a82ff50bb37;pid=1;pidfdid=1;comm=systemd;type=boot\P+q6E616D65\[18t7[32766;32766H[6n8[!p]104\[0m[?7h[1G[0J]3008;start=c0a57db1897745c6912311b90d3a000a;user=root;hostname=localhost;machineid=3f0c268c8fdd467ca95412408e185164;bootid=f06cd88410be4035a4626a82ff50bb37;pid=1;pidfdid=1;comm=systemd;type=boot\[!p]104\[0m[?7h[1G[0J7[32766;32766H[6n8[!p]104\[0m[?7h[1G[0J7[32766;32766H[6n8]3008;start=a1d700b351174961b157d04ec5dc4d89;user=root;hostname=localhost.localdomain;machineid=3f0c268c8fdd467ca95412408e185164;bootid=f06cd88410be4035a4626a82ff50bb37;pid=900;pidfdid=424;comm=(agetty);servicename=serial-getty@ttyS0.service;invocationid=d42de57fb02d43be935309176e6ffaa3;type=service\P+q6E616D65\
+P+q6E616D65\[18t7[32766;32766H[6n8[!p]104\[0m[?7h[1G[0J]3008;start=bb2f38a8a3ee441a9fc0f43ceeee2dfb;user=root;hostname=localhost;machineid=c5958ecc71394db1bd403596d50f8f2a;bootid=d7761b6e528a4a67b91a6c544311900b;pid=1;pidfdid=1;comm=systemd;type=boot\P+q6E616D65\[18t7[32766;32766H[6n8[!p]104\[0m[?7h[1G[0J]3008;start=360570e7ffdf4b8994b6194dd91bf2eb;user=root;hostname=localhost;machineid=184c3e6b5f1c400a9744db06072228a5;bootid=d7761b6e528a4a67b91a6c544311900b;pid=1;pidfdid=1;comm=systemd;type=boot\[!p]104\[0m[?7h[1G[0J7[32766;32766H[6n8[!p]104\[0m[?7h[1G[0J7[32766;32766H[6n8]3008;start=e1fb546d28a6421396e65dd3efe6c7a6;user=root;hostname=localhost.localdomain;machineid=184c3e6b5f1c400a9744db06072228a5;bootid=d7761b6e528a4a67b91a6c544311900b;pid=913;pidfdid=454;comm=(agetty);servicename=serial-getty@ttyS0.service;invocationid=acde38997cda4163ad76de10e68ab6c0;type=service\P+q6E616D65\
 Welcome to openSUSE Tumbleweed 20261020 - Kernel 7.2.11-1-default (ttyS0).
 
 enp0s2: 10.0.2.15
@@ -18,7 +18,7 @@ enp0s2: 10.0.2.15
 localhost login: 
 localhost login: live
 Password: 
-]3008;start=23c6b03dbc424911a536427d26f0bc7d;user=root;hostname=localhost.localdomain;machineid=3f0c268c8fdd467ca95412408e185164;bootid=f06cd88410be4035a4626a82ff50bb37;pid=900;pidfdid=424;comm=login;targetuser=live;sessionid=3;type=session\Have a lot of fun...
+]3008;start=6bce99a2853342769b7842d919c9a186;user=root;hostname=localhost.localdomain;machineid=184c3e6b5f1c400a9744db06072228a5;bootid=d7761b6e528a4a67b91a6c544311900b;pid=913;pidfdid=454;comm=login;targetuser=live;sessionid=3;type=session\Have a lot of fun...
 
 [1;38;2;;247;201;72mlive[0m[38;2;154;164;175m@localhost[0m [1;38;2;230;233;236m~[0m 
 [1;38;2;247;201;72m❯[0m export TERM=dumb PAGER=cat SYSTEMD_COLORS=0; stty cols 200
@@ -41,18 +41,18 @@ Starship disabled due to TERM=dumb > systemctl --failed --no-pager; echo "__DO""
 __DONE__
 sudo journalctl -b --no-pager -u 'ly@*' | tail -n 30; echo "__DO""NE__"
 Starship disabled due to TERM=dumb > sudo journalctl -b --no-pager -u 'ly@*' | tail -n 30; echo "__DO""NE__"
-Oct 22 05:54:53 localhost.localdomain systemd[1]: Started TUI display manager.
+Oct 22 06:28:53 localhost.localdomain systemd[1]: Started TUI display manager.
 __DONE__
 sudo ls -l /etc/ly/; echo "__DO""NE__"
 Starship disabled due to TERM=dumb > sudo ls -l /etc/ly/; echo "__DO""NE__"
 total 28
--rw-r--r-- 1 root root 1267 Oct 22 05:24 config.ini
-drwxr-xr-x 2 root root 4096 Oct 22 05:35 custom-sessions
--rwxr-xr-x 1 root root 2061 Oct 22 05:27 example.dur
-drwxr-xr-x 2 root root 4096 Oct 22 05:35 lang
--rw-r--r-- 1 root root   16 Oct 22 05:57 save.txt
--rwxr-xr-x 1 root root 3653 Oct 22 05:27 setup.sh
--rwxr-xr-x 1 root root 1167 Oct 22 05:27 startup.sh
+-rw-r--r-- 1 root root 1267 Oct 22 06:00 config.ini
+drwxr-xr-x 2 root root 4096 Oct 22 06:11 custom-sessions
+-rwxr-xr-x 1 root root 2061 Oct 22 06:03 example.dur
+drwxr-xr-x 2 root root 4096 Oct 22 06:11 lang
+-rw-r--r-- 1 root root   16 Oct 22 06:31 save.txt
+-rwxr-xr-x 1 root root 3653 Oct 22 06:03 setup.sh
+-rwxr-xr-x 1 root root 1167 Oct 22 06:03 startup.sh
 __DONE__
 grep -vE '^(#|$)' /etc/ly/config.ini | head -n 40; echo "__DO""NE__"
 Starship disabled due to TERM=dumb > grep -vE '^(#|$)' /etc/ly/config.ini | head -n 40; echo "__DO""NE__"
@@ -88,16 +88,28 @@ waylandsessions = /usr/share/oniscus/wayland-sessions
 __DONE__
 pgrep -a i3; pgrep -a xfce4-panel; pgrep -a polybar; pgrep -a plank; pgrep -a picom; echo "__DO""NE__"
 Starship disabled due to TERM=dumb > pgrep -a i3; pgrep -a xfce4-panel; pgrep -a polybar; pgrep -a plank; pgrep -a picom; echo "__DO""NE__"
-1173 i3
-1256 xfce4-panel
-1233 polybar xi3
-1177 plank
-1223 picom --config /home/live/.config/picom/picom.conf -b
+1169 i3
+1252 xfce4-panel
+1229 polybar xi3
+1173 plank
+1219 picom --config /home/live/.config/picom/picom.conf -b
 __DONE__
 cat ~/.cache/polybar.log; echo "__DO""NE__"
 Starship disabled due to TERM=dumb > cat ~/.cache/polybar.log; echo "__DO""NE__"
 polybar|notice:  Parsing config file: /home/live/.config/polybar/config.ini
-polybar|notice:  Listening for IPC messages (PID: 1233)
+polybar|notice:  Listening for IPC messages (PID: 1229)
+polybar|notice:  Loading module 'i3' of type 'internal/i3'
+polybar|notice:  Loading module 'divider' of type 'custom/text'
+polybar|notice:  Loading module 'cpu' of type 'internal/cpu'
+polybar|notice:  Loading module 'memory' of type 'internal/memory'
+polybar|notice:  Loaded 4 modules
+polybar|notice:  Loaded font "Noto Sans:size=10" (name=Noto Sans, offset=2, file=/usr/share/fonts/truetype/NotoSans-Regular.ttf)
+polybar|notice:  Loaded font "Noto Sans:weight=bold:size=10" (name=Noto Sans, offset=2, file=/usr/share/fonts/truetype/NotoSans-Bold.ttf)
+polybar|notice:  randr_screen_change_notify (1280x800)... reloading
+polybar|notice:  Termination signal received, shutting down...
+polybar|warn:  module/i3: Attempting to reconnect socket (reason: Unexpected EOF while reading header)
+polybar|notice:  Parsing config file: /home/live/.config/polybar/config.ini
+polybar|notice:  Listening for IPC messages (PID: 1229)
 polybar|warn:  No monitor specified, using "Virtual-1"
 polybar|notice:  Loading module 'i3' of type 'internal/i3'
 polybar|notice:  Loading module 'divider' of type 'custom/text'
@@ -110,8 +122,8 @@ __DONE__
 ls -l ~/.config/polybar/; echo "__DO""NE__"
 Starship disabled due to TERM=dumb > ls -l ~/.config/polybar/; echo "__DO""NE__"
 total 8
--rw-r--r-- 1 live users 1594 Oct 22 05:24 [0m[00mconfig.ini[0m
--rwxr-xr-x 1 live users  215 Oct 22 05:24 [01;32mlaunch.sh[0m
+-rw-r--r-- 1 live users 1594 Oct 22 06:00 [0m[00mconfig.ini[0m
+-rwxr-xr-x 1 live users  215 Oct 22 06:00 [01;32mlaunch.sh[0m
 __DONE__
 export DISPLAY=:0 XAUTHORITY=/run/user/$(id -u)/lyxauth; echo "__DO""NE__"
 Starship disabled due to TERM=dumb > export DISPLAY=:0 XAUTHORITY=/run/user/$(id -u)/lyxauth; echo "__DO""NE__"
@@ -119,7 +131,7 @@ __DONE__
 timeout 5 polybar xi3 2>&1 | head -n 20; echo "__DO""NE__"
 Starship disabled due to TERM=dumb > timeout 5 polybar xi3 2>&1 | head -n 20; echo "__DO""NE__"
 polybar|notice:  Parsing config file: /home/live/.config/polybar/config.ini
-polybar|notice:  Listening for IPC messages (PID: 2439)
+polybar|notice:  Listening for IPC messages (PID: 2459)
 polybar|warn:  No monitor specified, using "Virtual-1"
 polybar|notice:  Loading module 'i3' of type 'internal/i3'
 polybar|notice:  Loading module 'divider' of type 'custom/text'
@@ -133,49 +145,49 @@ __DONE__
 ps -u live -o pid,args --forest | grep -v ' \[' | tail -n 60; echo "__DO""NE__"
 Starship disabled due to TERM=dumb > ps -u live -o pid,args --forest | grep -v ' \[' | tail -n 60; echo "__DO""NE__"
     PID COMMAND
-   1118 /usr/bin/ly
-   1120  \_ /usr/bin/Xorg.bin :0 vt2 -auth /run/user/1000/lyxauth
-   1128  \_ xfce4-session
-   1173      \_ i3
-   1176      |   \_ nm-applet
-   1177      |   \_ plank
-   1178      |   \_ xfce4-terminal
-   1475      |   |   \_ bash
-   1179      |   \_ xfce4-terminal --title Oniscus Welcome --geometry 104x34 -x onis
-   1471      |   |   \_ /bin/bash /usr/local/bin/onis
-   1658      |   |       \_ /bin/bash /usr/local/bin/onis
-   1685      |   |           \_ /bin/bash /usr/local/bin/onis
-   1687      |   |               \_ gum choose --height 12
-   1181      |   \_ /bin/bash /usr/local/bin/onis agent watch-crashes
-   1221      |       \_ journalctl --user -f -n 0 -o json MESSAGE_ID=fc2e22bc6ee647b6b90729ab34a250b1
-   1222      |       \_ /bin/bash /usr/local/bin/onis agent watch-crashes
-   1254      \_ xfsettingsd
-   1256      \_ xfce4-panel
-   1318      |   \_ /usr/libexec/xfce4/panel/wrapper-2.0 /usr/lib64/xfce4/panel/plugins/libwhiskermenu.so 1 13631495 whiskermenu Whisker Menu Show a menu to easily access installed applications
-   1361      |   \_ /usr/libexec/xfce4/panel/wrapper-2.0 /usr/lib64/xfce4/panel/plugins/libgenmon.so 2 13631496 genmon Generic Monitor Show output of a command.
-   1389      |   \_ /usr/libexec/xfce4/panel/wrapper-2.0 /usr/lib64/xfce4/panel/plugins/libsystray.so 5 13631497 systray Status Tray Plugin Provides status notifier items (application indicators) and legacy systray items
-   1390      |   \_ /usr/libexec/xfce4/panel/wrapper-2.0 /usr/lib64/xfce4/panel/plugins/libbattery.so 6 13631498 battery Battery Monitor Show and monitor the battery status
-   1273      \_ Thunar --daemon
-   1302      \_ xfce4-power-manager
-   2190 -bash
-   2506  \_ ps -u live -o pid,args --forest
-   2507  \_ grep -v  \[
-   2508  \_ tail -n 60
+   1114 /usr/bin/ly
+   1116  \_ /usr/bin/Xorg.bin :0 vt2 -auth /run/user/1000/lyxauth
+   1124  \_ xfce4-session
+   1169      \_ i3
+   1172      |   \_ nm-applet
+   1173      |   \_ plank
+   1174      |   \_ xfce4-terminal
+   1397      |   |   \_ bash
+   1175      |   \_ xfce4-terminal --title Oniscus Welcome --geometry 104x34 -x onis
+   1399      |   |   \_ /bin/bash /usr/local/bin/onis
+   1585      |   |       \_ /bin/bash /usr/local/bin/onis
+   1637      |   |           \_ /bin/bash /usr/local/bin/onis
+   1639      |   |               \_ gum choose --height 12
+   1177      |   \_ /bin/bash /usr/local/bin/onis agent watch-crashes
+   1216      |       \_ journalctl --user -f -n 0 -o json MESSAGE_ID=fc2e22bc6ee647b6b90729ab34a250b1
+   1217      |       \_ /bin/bash /usr/local/bin/onis agent watch-crashes
+   1250      \_ xfsettingsd
+   1252      \_ xfce4-panel
+   1441      |   \_ /usr/libexec/xfce4/panel/wrapper-2.0 /usr/lib64/xfce4/panel/plugins/libwhiskermenu.so 1 12582919 whiskermenu Whisker Menu Show a menu to easily access installed applications
+   1457      |   \_ /usr/libexec/xfce4/panel/wrapper-2.0 /usr/lib64/xfce4/panel/plugins/libgenmon.so 2 12582920 genmon Generic Monitor Show output of a command.
+   1465      |   \_ /usr/libexec/xfce4/panel/wrapper-2.0 /usr/lib64/xfce4/panel/plugins/libsystray.so 5 12582921 systray Status Tray Plugin Provides status notifier items (application indicators) and legacy systray items
+   1466      |   \_ /usr/libexec/xfce4/panel/wrapper-2.0 /usr/lib64/xfce4/panel/plugins/libbattery.so 6 12582922 battery Battery Monitor Show and monitor the battery status
+   1266      \_ Thunar --daemon
+   1325      \_ xfce4-power-manager
+   2215 -bash
+   2531  \_ ps -u live -o pid,args --forest
+   2532  \_ grep -v  \[
+   2533  \_ tail -n 60
    1365 /usr/bin/gnome-keyring-daemon --start --components=secrets
-   1233 polybar xi3
-   1223 picom --config /home/live/.config/picom/picom.conf -b
-   1172 /usr/bin/gpg-agent --sh --daemon
-   1167 /usr/bin/ssh-agent -s
-   1107 /usr/lib/systemd/systemd --user
-   1108  \_ (sd-pam)
-   1147  \_ /usr/bin/dbus-broker-launch --scope user
-   1148  |   \_ dbus-broker --log 11 --controller 10 --machine-id 3f0c268c8fdd467ca95412408e185164 --max-bytes 100000000000000 --max-fds 25000000000000 --max-matches 5000000000
-   1159  \_ /usr/libexec/xfce4/xfconf/xfconfd
-   1234  \_ /usr/libexec/gvfs/gvfsd
-   1277  \_ /usr/libexec/dconf-service
-   1323  \_ /usr/libexec/xfce4/notifyd/xfce4-notifyd
-   1377  \_ /usr/libexec/bamf/bamfdaemon
-   1378  \_ /usr/libexec/gvfs/gvfsd-metadata
+   1229 polybar xi3
+   1219 picom --config /home/live/.config/picom/picom.conf -b
+   1168 /usr/bin/gpg-agent --sh --daemon
+   1163 /usr/bin/ssh-agent -s
+   1103 /usr/lib/systemd/systemd --user
+   1104  \_ (sd-pam)
+   1143  \_ /usr/bin/dbus-broker-launch --scope user
+   1144  |   \_ dbus-broker --log 11 --controller 10 --machine-id 184c3e6b5f1c400a9744db06072228a5 --max-bytes 100000000000000 --max-fds 25000000000000 --max-matches 5000000000
+   1155  \_ /usr/libexec/xfce4/xfconf/xfconfd
+   1230  \_ /usr/libexec/gvfs/gvfsd
+   1294  \_ /usr/libexec/bamf/bamfdaemon
+   1327  \_ /usr/libexec/dconf-service
+   1359  \_ /usr/libexec/xfce4/notifyd/xfce4-notifyd
+   1372  \_ /usr/libexec/gvfs/gvfsd-metadata
 __DONE__
 i3-msg -t get_tree | python3 -c 'import json,sys; t=json.load(sys.stdin); w=lambda n,d=0: [print("  "*d+str(n.get("type"))+" "+str(n.get("name"))+" "+str((n.get("window_properties") or {}).get("class"))+" "+str(n["rect"])) or [w(c,d+1) for c in n["nodes"]+n["floating_nodes"]] for _ in [0]]; w(t)'; echo "__DO""NE__"
 Starship disabled due to TERM=dumb > <{}).get("class"))+" "+str(n["rect"])) or [w(c,d+1) for c in n["nodes"]+n["floating_nodes"]] for _ in [0]]; w(t)'; echo "__DO""NE__"
@@ -189,8 +201,8 @@ root root None {'x': 0, 'y': 0, 'width': 1280, 'height': 800}
     con content None {'x': 0, 'y': 25, 'width': 1280, 'height': 775}
       workspace 1 None {'x': 0, 'y': 25, 'width': 1280, 'height': 725}
         con Terminal - live@localhost:~ Xfce4-terminal {'x': 6, 'y': 31, 'width': 1268, 'height': 713}
-        floating_con None None {'x': 160, 'y': 59, 'width': 960, 'height': 657}
-          con Oniscus Welcome Xfce4-terminal {'x': 160, 'y': 59, 'width': 960, 'height': 657}
+        floating_con None None {'x': 160, 'y': 47, 'width': 960, 'height': 657}
+          con Oniscus Welcome Xfce4-terminal {'x': 160, 'y': 47, 'width': 960, 'height': 657}
     dockarea bottomdock None {'x': 0, 'y': 800, 'width': 1280, 'height': 0}
 __DONE__
 xfconf-query -c xfce4-panel -lv | head -n 40; echo "__DO""NE__"
@@ -233,12 +245,12 @@ user-db:user
 system-db:local
 /etc/dconf/db/:
 total 8
--rw-r--r-- 1 root root  952 Oct 22 05:35 [0m[00mlocal[0m
-drwxr-xr-x 2 root root 4096 Oct 22 05:24 [01;34mlocal.d[0m
+-rw-r--r-- 1 root root  952 Oct 22 06:11 [0m[00mlocal[0m
+drwxr-xr-x 2 root root 4096 Oct 22 06:00 [01;34mlocal.d[0m
 
 /etc/dconf/db/local.d/:
 total 4
--rw-r--r-- 1 root root 427 Oct 22 05:24 [00m10-xi3-plank[0m
+-rw-r--r-- 1 root root 427 Oct 22 06:00 [00m10-xi3-plank[0m
 __DONE__
 gsettings get net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ position; echo "__DO""NE__"
 Starship disabled due to TERM=dumb > gsettings get net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ position; echo "__DO""NE__"
@@ -312,40 +324,44 @@ ls -la ~/.local/state/ ~/.cache/ 2>/dev/null; tail -n 40 ~/.local/state/ly-sessi
 Starship disabled due to TERM=dumb > ls -la ~/.local/state/ ~/.cache/ 2>/dev/null; tail -n 40 ~/.local/state/ly-session.log ~/.xsession-errors 2>/dev/null; echo "__DO""NE__"
 /home/live/.cache/:
 total 40
-drwx------  9 live users 4096 Oct 22 05:57 [0m[01;34m.[0m
-drwxr-xr-x 11 live users 4096 Oct 22 05:57 [01;34m..[0m
-drwxr-xr-x  2 live users 4096 Oct 22 05:57 [01;34mfontconfig[0m
-drwxr-xr-x  3 live users 4096 Oct 22 05:57 [01;34mglycin[0m
-drwx------ 12 live users 4096 Oct 22 05:57 [01;34mmesa_shader_cache[0m
-drwxr-xr-x  2 live users 4096 Oct 22 05:57 [01;34mplank[0m
--rw-r--r--  1 live users  739 Oct 22 05:57 [00mpolybar.log[0m
-drwx------  2 live users 4096 Oct 22 05:57 [01;34msessions[0m
-drwxr-xr-x  2 live users 4096 Oct 22 05:58 [01;34mstarship[0m
-drwxr-xr-x  3 live users 4096 Oct 22 05:57 [01;34mxfce4[0m
+drwx------  9 live users 4096 Oct 22 06:31 [0m[01;34m.[0m
+drwxr-xr-x 11 live users 4096 Oct 22 06:31 [01;34m..[0m
+drwxr-xr-x  2 live users 4096 Oct 22 06:31 [01;34mfontconfig[0m
+drwxr-xr-x  3 live users 4096 Oct 22 06:31 [01;34mglycin[0m
+drwx------ 12 live users 4096 Oct 22 06:31 [01;34mmesa_shader_cache[0m
+drwxr-xr-x  2 live users 4096 Oct 22 06:31 [01;34mplank[0m
+-rw-r--r--  1 live users 1657 Oct 22 06:31 [00mpolybar.log[0m
+drwx------  2 live users 4096 Oct 22 06:31 [01;34msessions[0m
+drwxr-xr-x  2 live users 4096 Oct 22 06:32 [01;34mstarship[0m
+drwxr-xr-x  3 live users 4096 Oct 22 06:31 [01;34mxfce4[0m
 
 /home/live/.local/state/:
 total 8
 drwx------ 2 live users 4096 Mar  2  2026 [01;34m.[0m
-drwx------ 5 live users 4096 Oct 22 05:32 [01;34m..[0m
+drwx------ 5 live users 4096 Oct 22 06:07 [01;34m..[0m
 __DONE__
 journalctl --user -b --no-pager -p warning | tail -n 40; echo "__DO""NE__"
 Starship disabled due to TERM=dumb > journalctl --user -b --no-pager -p warning | tail -n 40; echo "__DO""NE__"
-Oct 22 05:57:29 localhost.localdomain dbus-broker-launch[1147]: Service file '/usr/share//dbus-1/services/org.xfce.Thunar.FileManager1.service' is not named after the D-Bus name 'org.freedesktop.FileManager1'.
-Oct 22 05:57:29 localhost.localdomain dbus-broker-launch[1147]: Service file '/usr/share//dbus-1/services/org.xfce.Tumbler.Cache1.service' is not named after the D-Bus name 'org.freedesktop.thumbnails.Cache1'.
-Oct 22 05:57:29 localhost.localdomain dbus-broker-launch[1147]: Service file '/usr/share//dbus-1/services/org.xfce.Tumbler.Manager1.service' is not named after the D-Bus name 'org.freedesktop.thumbnails.Manager1'.
-Oct 22 05:57:29 localhost.localdomain dbus-broker-launch[1147]: Service file '/usr/share//dbus-1/services/org.xfce.Tumbler.Thumbnailer1.service' is not named after the D-Bus name 'org.freedesktop.thumbnails.Thumbnailer1'.
-Oct 22 05:57:29 localhost.localdomain dbus-broker-launch[1147]: Service file '/usr/share//dbus-1/services/org.xfce.xfce4-notifyd.Notifications.service' is not named after the D-Bus name 'org.freedesktop.Notifications'.
-Oct 22 05:57:29 localhost.localdomain dbus-broker-launch[1147]: Service file '/usr/share//dbus-1/services/org.xfce.xfce4-notifyd.Notifyd.service' is not named after the D-Bus name 'org.xfce.Notifyd'.
-Oct 22 05:57:33 localhost.localdomain systemd[1107]: Dependency failed for Portal service.
-Oct 22 05:57:34 localhost.localdomain gnome-keyring-daemon[1362]: discover_other_daemon: 0
-Oct 22 05:57:34 localhost.localdomain gnome-keyring-daemon[1365]: discover_other_daemon: 0
-Oct 22 05:57:34 localhost.localdomain gnome-keyring-daemon[1366]: discover_other_daemon: 0
-Oct 22 05:57:34 localhost.localdomain xfce4-notifyd[1323]: AT-SPI: Error retrieving accessibility bus address: org.freedesktop.DBus.Error.ServiceUnknown: The name is not activatable
-Oct 22 05:57:34 localhost.localdomain bamfdaemon[1377]: AT-SPI: Error retrieving accessibility bus address: org.freedesktop.DBus.Error.ServiceUnknown: The name is not activatable
+Oct 22 06:31:30 localhost.localdomain dbus-broker-launch[1143]: Service file '/usr/share//dbus-1/services/org.xfce.Thunar.FileManager1.service' is not named after the D-Bus name 'org.freedesktop.FileManager1'.
+Oct 22 06:31:30 localhost.localdomain dbus-broker-launch[1143]: Service file '/usr/share//dbus-1/services/org.xfce.Tumbler.Cache1.service' is not named after the D-Bus name 'org.freedesktop.thumbnails.Cache1'.
+Oct 22 06:31:30 localhost.localdomain dbus-broker-launch[1143]: Service file '/usr/share//dbus-1/services/org.xfce.Tumbler.Manager1.service' is not named after the D-Bus name 'org.freedesktop.thumbnails.Manager1'.
+Oct 22 06:31:30 localhost.localdomain dbus-broker-launch[1143]: Service file '/usr/share//dbus-1/services/org.xfce.Tumbler.Thumbnailer1.service' is not named after the D-Bus name 'org.freedesktop.thumbnails.Thumbnailer1'.
+Oct 22 06:31:30 localhost.localdomain dbus-broker-launch[1143]: Service file '/usr/share//dbus-1/services/org.xfce.xfce4-notifyd.Notifications.service' is not named after the D-Bus name 'org.freedesktop.Notifications'.
+Oct 22 06:31:30 localhost.localdomain dbus-broker-launch[1143]: Service file '/usr/share//dbus-1/services/org.xfce.xfce4-notifyd.Notifyd.service' is not named after the D-Bus name 'org.xfce.Notifyd'.
+Oct 22 06:31:33 localhost.localdomain bamfdaemon[1294]: AT-SPI: Error retrieving accessibility bus address: org.freedesktop.DBus.Error.ServiceUnknown: The name is not activatable
+Oct 22 06:31:33 localhost.localdomain gnome-keyring-daemon[1365]: discover_other_daemon: 0
+Oct 22 06:31:33 localhost.localdomain gnome-keyring-daemon[1374]: discover_other_daemon: 1
+Oct 22 06:31:33 localhost.localdomain gnome-keyring-daemon[1375]: discover_other_daemon: 1
+Oct 22 06:31:33 localhost.localdomain systemd[1103]: Dependency failed for Portal service.
+Oct 22 06:31:33 localhost.localdomain xfce4-notifyd[1359]: AT-SPI: Error retrieving accessibility bus address: org.freedesktop.DBus.Error.ServiceUnknown: The name is not activatable
 __DONE__
 sudo journalctl -b --no-pager -p err | tail -n 40; echo "__DO""NE__"
 Starship disabled due to TERM=dumb > sudo journalctl -b --no-pager -p err | tail -n 40; echo "__DO""NE__"
 -- No entries --
+__DONE__
+i3-msg workspace 9; sleep 3; echo "__DO""NE__"
+Starship disabled due to TERM=dumb > i3-msg workspace 9; sleep 3; echo "__DO""NE__"
+[{"success":true}]
 __DONE__
 pkill picom; sleep 2; echo "__DO""NE__"
 Starship disabled due to TERM=dumb > pkill picom; sleep 2; echo "__DO""NE__"
