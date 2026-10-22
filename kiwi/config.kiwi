@@ -188,12 +188,9 @@
         <package name="polkit"/>
     </packages>
 
-    <!-- Keep xfwm4 and xfdesktop out even if something recommends them -->
-    <packages type="delete">
-        <package name="xfwm4"/>
-        <package name="xfdesktop"/>
-        <!-- openSUSE artwork packages are removed and locked in config.sh -->
-    </packages>
+    <!-- xfwm4 and xfdesktop are removed in config.sh if anything pulled them in
+         (a type="delete" section fails the build when they are not installed),
+         and the openSUSE artwork packages are removed and locked there too -->
 
     <packages type="bootstrap">
         <package name="filesystem"/>
