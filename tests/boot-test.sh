@@ -1,7 +1,8 @@
 #!/bin/bash
 # Boots an Oniscus ISO in QEMU (UEFI, headless), takes screenshots of the boot,
 # the Ly greeter and the desktop after logging in as the live user, and saves
-# them with the serial log in the output directory.
+# them with the serial log and the output of tests/checks.txt (run on the serial
+# console) in the output directory.
 #   tests/boot-test.sh path/to/oniscus.iso out-dir
 set -uo pipefail
 
@@ -21,7 +22,8 @@ qemu-system-x86_64 "${accel[@]}" \
     -cdrom "$iso" -boot d \
     -vga std -display none \
     -netdev user,id=net0 -device virtio-net-pci,netdev=net0 \
-    -serial file:"$out/serial.log" \
+    -chardev socket,id=ser0,path="$out/serial.sock",server=on,wait=off,logfile="$out/serial.log" \
+    -serial chardev:ser0 \
     -monitor unix:"$mon",server,nowait &
 qemu=$!
 
@@ -63,13 +65,10 @@ shot desktop-030s
 sleep 30
 shot desktop-060s
 
-# Terminal (Super+Enter): a few checks on screen
-hmp "sendkey meta_l-ret"
-sleep 5
-type_text "systemctl --failed --no-pager; pgrep -l polybar; pgrep -l plank; pgrep -l picom; onis doctor"
-hmp "sendkey ret"
-sleep 5
-shot terminal-checks
+# Diagnostics through the serial console (logs in there as live too)
+python3 "$(dirname "$0")/serial-run.py" "$out/serial.sock" "$(dirname "$0")/checks.txt" \
+    | tee "$out/checks.txt"
+shot desktop-after-checks
 
 hmp "quit"
 wait $qemu
