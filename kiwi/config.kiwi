@@ -45,7 +45,7 @@
     </preferences>
 
     <users>
-        <!-- Live session user: login "live", password "live" in the greeter -->
+        <!-- Live session user: login "live", password "live" in Ly -->
         <user name="live" groups="users,wheel,audio,video" home="/home/live" password="live" pwdformat="plain"/>
     </users>
 
@@ -107,7 +107,6 @@
         <package name="xfce4-terminal-lang"/>
         <package name="xfce4-power-manager-lang"/>
         <package name="xfce4-whiskermenu-plugin-lang"/>
-        <package name="xfce4-docklike-plugin-lang"/>
         <package name="thunar-lang"/>
         <package name="mousepad-lang"/>
         <package name="MozillaFirefox-translations-common"/>
@@ -116,9 +115,7 @@
         <namedCollection name="x11"/>
         <package name="xorg-x11-server"/>
         <package name="xinit"/>
-        <!-- Login: greetd with the tuigreet terminal greeter -->
-        <package name="greetd"/>
-        <package name="tuigreet"/>
+        <package name="ly"/>
 
         <!-- XFCE (without xfwm4 or xfdesktop) -->
         <package name="xfce4-session"/>
@@ -152,8 +149,7 @@
         <package name="starship"/>
         <package name="fastfetch"/>
         <package name="polybar"/>
-        <!-- Dock: a second xfce4-panel with the docklike taskbar -->
-        <package name="xfce4-docklike-plugin"/>
+        <package name="plank"/>
         <package name="xdotool"/>
         <package name="dconf"/>
         <package name="xfce4-genmon-plugin"/>

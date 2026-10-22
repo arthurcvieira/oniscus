@@ -61,21 +61,22 @@ License:        GPL-3.0-or-later AND CC-BY-SA-4.0
 %description -n oniscus-branding
 The Oniscus identity: os-release name (kept by a boot service, since
 openSUSE-release owns /etc/os-release), mascot logo for the menu and fastfetch,
-wallpaper, and the Xi3 Retro GTK theme.
+wallpaper, and the Xi3 Retro GTK and Plank themes.
 
 %package -n oniscus-desktop
 Summary:        Oniscus desktop defaults (XFCE with i3)
 License:        GPL-3.0-or-later
+Requires:       dconf
 Requires:       feh
 Requires:       i3
 Requires:       onis = %{version}
 Requires:       oniscus-branding = %{version}
 Requires:       picom
+Requires:       plank
 Requires:       polybar
 Requires:       rofi
 Requires:       starship
 Requires:       xdotool
-Requires:       xfce4-docklike-plugin
 Requires:       xfce4-genmon-plugin
 Requires:       xfce4-panel
 Requires:       xfce4-session
@@ -84,8 +85,8 @@ Recommends:     fastfetch
 
 %description -n oniscus-desktop
 System defaults for the Oniscus session: XFCE settings, panel layout, default
-apps, Starship prompt, the dock panel, the greeter session entry and the user
-configs copied to new accounts (i3, Polybar, picom, fastfetch, dock).
+apps, Starship prompt, Plank defaults, the Ly session entry and the user
+configs copied to new accounts (i3, Polybar, picom, fastfetch, Plank).
 Defaults live in /etc/xdg/oniscus, which the Oniscus session puts first in
 XDG_CONFIG_DIRS. Files changed by the admin are kept on update (.rpmnew).
 
