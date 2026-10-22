@@ -1,0 +1,1 @@
+echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"

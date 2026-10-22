@@ -1,0 +1,608 @@
+[2J[01;01H[=3h[2J[01;01H[2J[01;01H[=3h[2J[01;01H[2J[01;01H[=3h[2J[01;01HBdsDxe: loading Boot0001 "UEFI QEMU DVD-ROM QM00005 " from PciRoot(0x0)/Pci(0x1F,0x2)/Sata(0x2,0xFFFF,0x0)
+BdsDxe: starting Boot0001 "UEFI QEMU DVD-ROM QM00005 " from PciRoot(0x0)/Pci(0x1F,0x2)/Sata(0x2,0xFFFF,0x0)
+[0m[30m[40m[2J[01;01H[0m[37m[40m[0m[30m[40m[2J[01;01H[0m[37m[40m[02;40HGNU GRUB  version 2.16
+
+[04;02H┌────────────────────────────────────────────────────────────────────────────────────────────────┐[05;02H││[06;02H││[07;02H││[08;02H││[09;02H││[10;02H││[11;02H││[12;02H││[13;02H││[14;02H││[15;02H││[16;02H││[17;02H││[18;02H││[19;02H││[20;02H││[21;02H││[22;02H││[23;02H││[24;02H└────────────────────────────────────────────────────────────────────────────────────────────────┘[25;02H[26;02H     Use the ▲ and ▼ keys to select which entry is highlighted.                              
+      Press enter to boot the selected OS, `e' to edit the commands before booting or `c' for 
+      a command-line. ESC to return previous menu.                                             [0m[30m[47m[05;03H*Oniscus                                                                                        [0m[37m[40m[06;03H Failsafe -- Oniscus                                                                            [07;03H Boot from Hard Disk                                                                            [08;03H                                                                                                [09;03H                                                                                                [10;03H                                                                                                [11;03H                                                                                                [12;03H                                                                                                [13;03H                                                                                                [14;03H                                                                                                [15;03H                                                                                                [16;03H                                                                                                [17;03H                                                                                                [18;03H                                                                                                [19;03H                                                                                                [20;03H                                                                                                [21;03H                                                                                                [22;03H                                                                                                [23;03H                                                                                                 [29;01H   The highlighted entry will be executed automatically in 10s.                                    [29;01H   The highlighted entry will be executed automatically in 9s.                                     [29;01H   The highlighted entry will be executed automatically in 8s.                                     [29;01H   The highlighted entry will be executed automatically in 7s.                                     [29;01H   The highlighted entry will be executed automatically in 6s.                                     [29;01H   The highlighted entry will be executed automatically in 5s.                                     [29;01H   The highlighted entry will be executed automatically in 4s.                                     [29;01H   The highlighted entry will be executed automatically in 3s.                                     [29;01H   The highlighted entry will be executed automatically in 2s.                                     [29;01H   The highlighted entry will be executed automatically in 1s.                                     [29;01H   The highlighted entry will be executed automatically in 0s.                                     [0m[30m[40m[2J[01;01H[0m[37m[40m  Booting `Oniscus'
+
+Loading kernel...
+Loading initrd...
+P+q6E616D65\[18t7[32766;32766H[6n8[!p]104\[0m[?7h[1G[0J]3008;start=e577e9a94f73458e8bdd7892c5d2be57;user=root;hostname=localhost;machineid=5d6464fba00c4e1a872650bb69862c50;bootid=eafa6921f2a840d48c991b2e06420ee6;pid=1;pidfdid=1;comm=systemd;type=boot\P+q6E616D65\[18t7[32766;32766H[6n8[!p]104\[0m[?7h[1G[0J]3008;start=9d9a52541d524c5499cc9373e9294704;user=root;hostname=localhost;machineid=9f4d285001f84f18a2419776b2804d54;bootid=eafa6921f2a840d48c991b2e06420ee6;pid=1;pidfdid=1;comm=systemd;type=boot\[!p]104\[0m[?7h[1G[0J7[32766;32766H[6n8[!p]104\[0m[?7h[1G[0J7[32766;32766H[6n8]3008;start=18fefb819a5447a2a00c3ee6b0adc364;user=root;hostname=localhost.localdomain;machineid=9f4d285001f84f18a2419776b2804d54;bootid=eafa6921f2a840d48c991b2e06420ee6;pid=896;pidfdid=4566;comm=(agetty);servicename=serial-getty@ttyS0.service;invocationid=0992a2b091e44ead8ef21bd15eb95312;type=service\P+q6E616D65\
+Welcome to openSUSE Tumbleweed 20261020 - Kernel 7.2.11-1-default (ttyS0).
+
+enp0s2: 10.0.2.15
+
+
+
+localhost login: 
+localhost login: live
+Password: 
+]3008;start=5e854d1170344e8782ae56e745f04810;user=root;hostname=localhost.localdomain;machineid=9f4d285001f84f18a2419776b2804d54;bootid=eafa6921f2a840d48c991b2e06420ee6;pid=896;pidfdid=4566;comm=login;targetuser=live;sessionid=3;type=session\Have a lot of fun...
+[m[1m                    [38;2;79;66;60m▄[0m[38;2;106;90;82m▄[0m[38;2;106;90;82m▄[0m[38;2;58;48;43m[48;2;106;90;82m▀[0m[38;2;79;66;60m█[0m[38;2;106;90;82m[48;2;79;66;60m▀[0m[38;2;106;90;82m█[0m[38;2;106;90;82m[48;2;79;66;60m▀[0m[38;2;58;48;43m█[0m[38;2;58;48;43m[48;2;106;90;82m▀[0m[38;2;79;66;60m▄[0m[38;2;58;48;43m▄[0m[38;2;79;66;60m▄[0m[m         [m[1m[38;2;247;201;72mlive[m@[1m[38;2;247;201;72mlocalhost[m
+[1m[0m               [38;2;79;66;60m▄[0m[38;2;106;90;82m▄[0m[38;2;106;90;82m█[0m[38;2;106;90;82m█[0m[38;2;106;90;82m█[0m[38;2;58;48;43m[48;2;79;66;60m▀[0m[38;2;106;90;82m[48;2;79;66;60m▀[0m[38;2;106;90;82m█[0m[38;2;79;66;60m█[0m[38;2;58;48;43m[48;2;79;66;60m▀[0m[38;2;106;90;82m[48;2;79;66;60m▀[0m[38;2;79;66;60m[48;2;106;90;82m▀[0m[38;2;79;66;60m█[0m[38;2;79;66;60m[48;2;58;48;43m▀[0m[38;2;106;90;82m█[0m[38;2;79;66;60m█[0m[38;2;79;66;60m[48;2;58;48;43m▀[0m[38;2;79;66;60m[48;2;106;90;82m▀[0m[38;2;58;48;43m▄[0m[m       --------------
+[1m[0m             [38;2;79;66;60m▄[0m[38;2;106;90;82m[48;2;79;66;60m▀[0m[38;2;106;90;82m[48;2;79;66;60m▀[0m[38;2;79;66;60m█[0m[38;2;79;66;60m█[0m[38;2;79;66;60m█[0m[38;2;79;66;60m█[0m[38;2;79;66;60m█[0m[38;2;58;48;43m[48;2;79;66;60m▀[0m[38;2;106;90;82m[48;2;79;66;60m▀[0m[38;2;79;66;60m[48;2;106;90;82m▀[0m[38;2;79;66;60m█[0m[38;2;58;48;43m[48;2;79;66;60m▀[0m[38;2;106;90;82m[48;2;79;66;60m▀[0m[38;2;79;66;60m█[0m[38;2;79;66;60m█[0m[38;2;79;66;60m[48;2;58;48;43m▀[0m[38;2;79;66;60m[48;2;106;90;82m▀[0m[38;2;58;48;43m[48;2;79;66;60m▀[0m[38;2;79;66;60m[48;2;58;48;43m▀[0m[38;2;79;66;60m█[0m[38;2;58;48;43m█[0m[38;2;58;48;43m▄[0m[m     [m[1m[38;2;247;201;72mos[m[m  [mOniscus (based on openSUSE Tumbleweed) x86_64
+[1m[0m          [38;2;58;48;43m▄[0m[38;2;227;169;47m▄[0m[38;2;79;66;60m[48;2;255;229;143m▀[0m[38;2;106;90;82m[48;2;255;229;143m▀[0m[38;2;106;90;82m[48;2;255;229;143m▀[0m[38;2;79;66;60m[48;2;255;229;143m▀[0m[38;2;79;66;60m[48;2;227;169;47m▀[0m[38;2;79;66;60m[48;2;106;90;82m▀[0m[38;2;79;66;60m█[0m[38;2;79;66;60m█[0m[38;2;79;66;60m█[0m[38;2;79;66;60m█[0m[38;2;58;48;43m[48;2;79;66;60m▀[0m[38;2;79;66;60m[48;2;58;48;43m▀[0m[38;2;79;66;60m█[0m[38;2;79;66;60m█[0m[38;2;58;48;43m█[0m[38;2;106;90;82m[48;2;79;66;60m▀[0m[38;2;79;66;60m█[0m[38;2;58;48;43m[48;2;79;66;60m▀[0m[38;2;79;66;60m[48;2;58;48;43m▀[0m[38;2;79;66;60m█[0m[38;2;58;48;43m[48;2;79;66;60m▀[0m[38;2;79;66;60m█[0m[38;2;79;66;60m█[0m[38;2;58;48;43m█[0m[38;2;58;48;43m▄[0m[m    [m[1m[38;2;247;201;72mkernel[m[m  [mLinux 7.2.11-1-default
+[1m[0m        [38;2;247;201;72m▄[0m[38;2;227;169;47m[48;2;255;229;143m▀[0m[38;2;255;229;143m█[0m[38;2;255;229;143m█[0m[38;2;255;229;143m█[0m[38;2;255;229;143m█[0m[38;2;255;229;143m█[0m[38;2;255;229;143m[48;2;247;201;72m▀[0m[38;2;255;229;143m[48;2;247;201;72m▀[0m[38;2;247;201;72m█[0m[38;2;106;90;82m[48;2;247;201;72m▀[0m[38;2;79;66;60m[48;2;106;90;82m▀[0m[38;2;79;66;60m█[0m[38;2;79;66;60m█[0m[38;2;79;66;60m█[0m[38;2;58;48;43m█[0m[38;2;79;66;60m█[0m[38;2;79;66;60m█[0m[38;2;79;66;60m█[0m[38;2;58;48;43m█[0m[38;2;79;66;60m█[0m[38;2;79;66;60m█[0m[38;2;58;48;43m█[0m[38;2;79;66;60m█[0m[38;2;79;66;60m█[0m[38;2;58;48;43m█[0m[38;2;79;66;60m█[0m[38;2;58;48;43m█[0m[38;2;79;66;60m[48;2;106;90;82m▀[0m[38;2;106;90;82m▄[0m[m   [m[1m[38;2;247;201;72mshell[m[m  [mbash 5.3.20
+[1m[0m     [38;2;58;48;43m▄[0m[38;2;58;48;43m[48;2;247;201;72m▀[0m[38;2;247;201;72m█[0m[38;2;255;229;143m[48;2;247;201;72m▀[0m[38;2;255;229;143m[48;2;247;201;72m▀[0m[38;2;255;229;143m[48;2;247;201;72m▀[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;106;90;82m[48;2;227;169;47m▀[0m[38;2;79;66;60m[48;2;106;90;82m▀[0m[38;2;79;66;60m█[0m[38;2;79;66;60m█[0m[38;2;58;48;43m█[0m[38;2;79;66;60m█[0m[38;2;79;66;60m█[0m[38;2;58;48;43m[48;2;79;66;60m▀[0m[38;2;79;66;60m[48;2;58;48;43m▀[0m[38;2;79;66;60m█[0m[38;2;79;66;60m█[0m[38;2;58;48;43m█[0m[38;2;79;66;60m█[0m[38;2;58;48;43m█[0m[38;2;79;66;60m[48;2;58;48;43m▀[0m[38;2;79;66;60m█[0m[38;2;106;90;82m█[0m[38;2;237;227;207m█[0m[38;2;79;66;60m▄[0m[m  [m[1m[38;2;247;201;72mterminal[m[m  [mvt220
+[1m[0m    [38;2;247;201;72m▄[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;227;169;47m[48;2;247;201;72m▀[0m[38;2;79;66;60m[48;2;106;90;82m▀[0m[38;2;79;66;60m█[0m[38;2;58;48;43m[48;2;79;66;60m▀[0m[38;2;58;48;43m█[0m[38;2;79;66;60m[48;2;58;48;43m▀[0m[38;2;79;66;60m[48;2;58;48;43m▀[0m[38;2;58;48;43m█[0m[38;2;79;66;60m[48;2;58;48;43m▀[0m[38;2;58;48;43m█[0m[38;2;58;48;43m█[0m[38;2;79;66;60m[48;2;58;48;43m▀[0m[38;2;58;48;43m█[0m[38;2;58;48;43m█[0m[38;2;58;48;43m█[0m[38;2;58;48;43m█[0m[38;2;79;66;60m▀[0m[m   [m[1m[38;2;247;201;72mcpu[m[m  [mAMD EPYC 7763 64-Core (2) @ 2.44 GHz
+[1m[0m  [38;2;58;48;43m▄[0m[38;2;227;169;47m[48;2;247;201;72m▀[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;106;90;82m[48;2;227;169;47m▀[0m[38;2;58;48;43m[48;2;79;66;60m▀[0m[38;2;58;48;43m█[0m[38;2;58;48;43m█[0m[38;2;58;48;43m█[0m[38;2;58;48;43m█[0m[38;2;58;48;43m█[0m[38;2;58;48;43m█[0m[38;2;58;48;43m█[0m[38;2;58;48;43m█[0m[38;2;58;48;43m█[0m[38;2;58;48;43m█[0m[38;2;58;48;43m[48;2;106;90;82m▀[0m[m     [m[1m[38;2;247;201;72mmemory[m[m  [m803.47 MiB / 3.82 GiB ([32m21%[m)
+[1m[0m  [38;2;106;90;82m[48;2;227;169;47m▀[0m[38;2;247;201;72m[48;2;227;169;47m▀[0m[38;2;247;201;72m[48;2;106;90;82m▀[0m[38;2;247;201;72m[48;2;240;122;42m▀[0m[38;2;227;169;47m[48;2;240;122;42m▀[0m[38;2;227;169;47m[48;2;240;122;42m▀[0m[38;2;227;169;47m[48;2;240;122;42m▀[0m[38;2;227;169;47m[48;2;240;122;42m▀[0m[38;2;227;169;47m█[0m[38;2;247;201;72m[48;2;240;122;42m▀[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m█[0m[38;2;247;201;72m[48;2;227;169;47m▀[0m[38;2;227;169;47m█[0m[38;2;58;48;43m[48;2;106;90;82m▀[0m[38;2;58;48;43m█[0m[38;2;58;48;43m█[0m[38;2;58;48;43m█[0m[38;2;58;48;43m█[0m[38;2;58;48;43m█[0m[38;2;58;48;43m█[0m[38;2;58;48;43m[48;2;106;90;82m▀[0m[38;2;58;48;43m█[0m[m       [m[1m[38;2;247;201;72mdisk[m[m  [m3.30 GiB / 4.56 GiB ([93m72%[m) - ext4
+[1m[0m  [38;2;106;90;82m▀[0m[38;2;227;169;47m[48;2;106;90;82m▀[0m[38;2;18;12;10m[48;2;247;201;72m▀[0m[38;2;240;122;42m█[0m[38;2;240;122;42m█[0m[38;2;240;122;42m█[0m[38;2;240;122;42m█[0m[38;2;240;122;42m█[0m[38;2;240;122;42m█[0m[38;2;240;122;42m█[0m[38;2;240;122;42m[48;2;106;90;82m▀[0m[38;2;247;201;72m[48;2;227;169;47m▀[0m[38;2;247;201;72m[48;2;227;169;47m▀[0m[38;2;247;201;72m[48;2;227;169;47m▀[0m[38;2;247;201;72m[48;2;227;169;47m▀[0m[38;2;247;201;72m[48;2;227;169;47m▀[0m[38;2;247;201;72m[48;2;227;169;47m▀[0m[38;2;227;169;47m█[0m[38;2;227;169;47m█[0m[38;2;227;169;47m█[0m[38;2;227;169;47m█[0m[38;2;227;169;47m█[0m[38;2;227;169;47m█[0m[38;2;227;169;47m█[0m[38;2;58;48;43m[48;2;106;90;82m▀[0m[38;2;58;48;43m▀[0m[38;2;58;48;43m▀[0m[38;2;58;48;43m[48;2;79;66;60m▀[0m[38;2;58;48;43m[48;2;106;90;82m▀[0m [38;2;58;48;43m▀[0m[m        [m[1m[38;2;247;201;72mdisk[m[m  [m1.64 GiB / 1.64 GiB ([91m100%[m) - iso9660 [Read-only]
+[1m[0m [38;2;106;90;82m▀[0m[38;2;106;90;82m▀[0m[38;2;79;66;60m▀[0m[38;2;79;66;60m▀[0m[38;2;79;66;60m▀[0m[38;2;240;122;42m▀[0m[38;2;240;122;42m▀[0m[38;2;240;122;42m[48;2;106;90;82m▀[0m[38;2;240;122;42m█[0m[38;2;240;122;42m█[0m[38;2;106;90;82m[48;2;240;122;42m▀[0m[38;2;18;12;10m[48;2;227;169;47m▀[0m[38;2;227;169;47m█[0m[38;2;227;169;47m█[0m[38;2;227;169;47m█[0m[38;2;227;169;47m█[0m[38;2;227;169;47m█[0m[38;2;227;169;47m█[0m[38;2;227;169;47m█[0m[38;2;227;169;47m█[0m[38;2;227;169;47m█[0m[38;2;227;169;47m█[0m[38;2;227;169;47m█[0m[38;2;227;169;47m█[0m[38;2;227;169;47m█[0m[38;2;227;169;47m█[0m[m              
+[1m[0m          [38;2;58;48;43m▀[0m[38;2;106;90;82m█[0m[38;2;227;169;47m[48;2;79;66;60m▀[0m[38;2;227;169;47m█[0m[38;2;227;169;47m█[0m[38;2;227;169;47m█[0m[38;2;227;169;47m█[0m[38;2;227;169;47m█[0m[38;2;227;169;47m█[0m[38;2;227;169;47m█[0m[38;2;227;169;47m█[0m[38;2;227;169;47m█[0m[38;2;227;169;47m[48;2;240;122;42m▀[0m[38;2;227;169;47m[48;2;79;66;60m▀[0m[38;2;227;169;47m▀[0m[38;2;227;169;47m▀[0m[m               [m[40m   [41m   [42m   [43m   [44m   [45m   [46m   [47m   [m
+[1m[0m           [38;2;58;48;43m▀[0m[38;2;79;66;60m█[0m[38;2;79;66;60m▄[0m[38;2;106;90;82m▀[0m[38;2;227;169;47m▀[0m[38;2;227;169;47m▀[0m[38;2;227;169;47m▀[0m[38;2;106;90;82m▀[0m[38;2;79;66;60m▀[0m[38;2;58;48;43m▀[0m[m                    [5m[100m   [101m   [102m   [103m   [104m   [105m   [106m   [107m   [m
+[1m[0m             [38;2;58;48;43m▀[0m[38;2;58;48;43m▀[0m[m
+
+[m
+[1;38;2;247;201;72mlive[0m[38;2;154;164;175m@localhost[0m [1;38;2;230;233;236m~[0m [38;2;154;164;175m4s[0m 
+[1;38;2;247;201;72m❯[0m export TERM=dumb PAGER=cat SYSTEMD_COLORS=0; stty cols 200
+[[31mERROR[0m] - (starship::print): Under a 'dumb' terminal (TERM=dumb).
+Starship disabled due to TERM=dumb > cat /etc/os-release; echo "__DO""NE__"
+NAME="Oniscus"
+PRETTY_NAME="Oniscus (based on openSUSE Tumbleweed)"
+ID="oniscus"
+ID_LIKE="opensuse-tumbleweed opensuse suse"
+VERSION_ID="rolling"
+ANSI_COLOR="1;33"
+LOGO="oniscus-menu"
+DOCUMENTATION_URL="https://en.opensuse.org/Portal:Tumbleweed"
+__DONE__
+systemctl --failed --no-pager; echo "__DO""NE__"
+Starship disabled due to TERM=dumb > systemctl --failed --no-pager; echo "__DO""NE__"
+  UNIT LOAD ACTIVE SUB DESCRIPTION
+
+0 loaded units listed.
+__DONE__
+sudo journalctl -b --no-pager -u 'ly@*' | tail -n 30; echo "__DO""NE__"
+Starship disabled due to TERM=dumb > sudo journalctl -b --no-pager -u 'ly@*' | tail -n 30; echo "__DO""NE__"
+Oct 22 15:59:09 localhost.localdomain systemd[1]: Started TUI display manager.
+__DONE__
+sudo ls -l /etc/ly/; echo "__DO""NE__"
+Starship disabled due to TERM=dumb > sudo ls -l /etc/ly/; echo "__DO""NE__"
+total 28
+-rw-r--r-- 1 root root 1267 Oct 22 15:38 config.ini
+drwxr-xr-x 2 root root 4096 Oct 22 15:48 custom-sessions
+-rwxr-xr-x 1 root root 2061 Oct 22 15:41 example.dur
+drwxr-xr-x 2 root root 4096 Oct 22 15:48 lang
+-rw-r--r-- 1 root root   16 Oct 22 16:01 save.txt
+-rwxr-xr-x 1 root root 3653 Oct 22 15:41 setup.sh
+-rwxr-xr-x 1 root root 1167 Oct 22 15:41 startup.sh
+__DONE__
+grep -vE '^(#|$)' /etc/ly/config.ini | head -n 40; echo "__DO""NE__"
+Starship disabled due to TERM=dumb > grep -vE '^(#|$)' /etc/ly/config.ini | head -n 40; echo "__DO""NE__"
+lang = en
+animation = colormix
+animation_timeout_sec = 0
+colormix_col1 = 0x00121519
+colormix_col2 = 0x004E3527
+colormix_col3 = 0x00C99412
+box_title = Oniscus
+fg = 0x00E6E9EC
+bg = 0x00121519
+border_fg = 0x00F7C948
+error_fg = 0x01F28C28
+error_bg = 0x00121519
+margin_box_h = 3
+margin_box_v = 2
+input_len = 34
+asterisk = *
+clear_password = true
+blank_box = true
+hide_borders = false
+hide_key_hints = false
+text_in_center = false
+bigclock = en
+clock = %a %d %b  %H:%M
+initial_info_text = Oniscus live: user live, password live
+save = true
+default_input = login
+numlock = false
+xsessions = /usr/share/oniscus/xsessions
+waylandsessions = /usr/share/oniscus/wayland-sessions
+__DONE__
+pgrep -a i3; pgrep -a xfce4-panel; pgrep -a polybar; pgrep -a plank; pgrep -a picom; echo "__DO""NE__"
+Starship disabled due to TERM=dumb > pgrep -a i3; pgrep -a xfce4-panel; pgrep -a polybar; pgrep -a plank; pgrep -a picom; echo "__DO""NE__"
+1179 i3
+1289 xfce4-panel
+1229 polybar xi3
+1183 plank
+1228 picom --config /home/live/.config/picom/picom.conf -b
+__DONE__
+cat ~/.cache/polybar.log; echo "__DO""NE__"
+Starship disabled due to TERM=dumb > cat ~/.cache/polybar.log; echo "__DO""NE__"
+polybar|notice:  Parsing config file: /home/live/.config/polybar/config.ini
+polybar|notice:  Listening for IPC messages (PID: 1229)
+polybar|notice:  Loading module 'i3' of type 'internal/i3'
+polybar|notice:  Loading module 'divider' of type 'custom/text'
+polybar|notice:  Loading module 'cpu' of type 'internal/cpu'
+polybar|notice:  Loading module 'memory' of type 'internal/memory'
+polybar|notice:  Loaded 4 modules
+polybar|notice:  Loaded font "Noto Sans:size=10" (name=Noto Sans, offset=2, file=/usr/share/fonts/truetype/NotoSans-Regular.ttf)
+polybar|notice:  Loaded font "Noto Sans:weight=bold:size=10" (name=Noto Sans, offset=2, file=/usr/share/fonts/truetype/NotoSans-Bold.ttf)
+polybar|notice:  randr_screen_change_notify (1280x800)... reloading
+polybar|notice:  Termination signal received, shutting down...
+polybar|notice:  Parsing config file: /home/live/.config/polybar/config.ini
+polybar|notice:  Listening for IPC messages (PID: 1229)
+polybar|warn:  No monitor specified, using "Virtual-1"
+polybar|notice:  Loading module 'i3' of type 'internal/i3'
+polybar|notice:  Loading module 'divider' of type 'custom/text'
+polybar|notice:  Loading module 'cpu' of type 'internal/cpu'
+polybar|notice:  Loading module 'memory' of type 'internal/memory'
+polybar|notice:  Loaded 4 modules
+polybar|notice:  Loaded font "Noto Sans:size=10" (name=Noto Sans, offset=2, file=/usr/share/fonts/truetype/NotoSans-Regular.ttf)
+polybar|notice:  Loaded font "Noto Sans:weight=bold:size=10" (name=Noto Sans, offset=2, file=/usr/share/fonts/truetype/NotoSans-Bold.ttf)
+__DONE__
+ls -l ~/.config/polybar/; echo "__DO""NE__"
+Starship disabled due to TERM=dumb > ls -l ~/.config/polybar/; echo "__DO""NE__"
+total 8
+-rw-r--r-- 1 live users 1658 Oct 22 15:38 [0m[00mconfig.ini[0m
+-rwxr-xr-x 1 live users  215 Oct 22 15:38 [01;32mlaunch.sh[0m
+__DONE__
+export DISPLAY=:0 XAUTHORITY=/run/user/$(id -u)/lyxauth; echo "__DO""NE__"
+Starship disabled due to TERM=dumb > export DISPLAY=:0 XAUTHORITY=/run/user/$(id -u)/lyxauth; echo "__DO""NE__"
+__DONE__
+timeout 5 polybar xi3 2>&1 | head -n 20; echo "__DO""NE__"
+Starship disabled due to TERM=dumb > timeout 5 polybar xi3 2>&1 | head -n 20; echo "__DO""NE__"
+polybar|notice:  Parsing config file: /home/live/.config/polybar/config.ini
+polybar|notice:  Listening for IPC messages (PID: 2439)
+polybar|warn:  No monitor specified, using "Virtual-1"
+polybar|notice:  Loading module 'i3' of type 'internal/i3'
+polybar|notice:  Loading module 'divider' of type 'custom/text'
+polybar|notice:  Loading module 'cpu' of type 'internal/cpu'
+polybar|notice:  Loading module 'memory' of type 'internal/memory'
+polybar|notice:  Loaded 4 modules
+polybar|notice:  Loaded font "Noto Sans:size=10" (name=Noto Sans, offset=2, file=/usr/share/fonts/truetype/NotoSans-Regular.ttf)
+polybar|notice:  Loaded font "Noto Sans:weight=bold:size=10" (name=Noto Sans, offset=2, file=/usr/share/fonts/truetype/NotoSans-Bold.ttf)
+Terminated                 timeout 5 polybar xi3 2>&1 | head -n 20
+__DONE__
+ps -u live -o pid,args --forest | grep -v ' \[' | tail -n 60; echo "__DO""NE__"
+Starship disabled due to TERM=dumb > ps -u live -o pid,args --forest | grep -v ' \[' | tail -n 60; echo "__DO""NE__"
+    PID COMMAND
+   1124 /usr/bin/ly
+   1126  \_ /usr/bin/Xorg.bin :0 vt2 -auth /run/user/1000/lyxauth
+   1134  \_ xfce4-session
+   1179      \_ i3
+   1182      |   \_ nm-applet
+   1183      |   \_ plank
+   1184      |   \_ xfce4-terminal -x bash -c sleep 0.5; onis; exec bash -i
+   1354      |   |   \_ bash -c sleep 0.5; onis; exec bash -i
+   1450      |   |       \_ /bin/bash /usr/local/bin/onis
+   1626      |   |           \_ /bin/bash /usr/local/bin/onis
+   1648      |   |               \_ /bin/bash /usr/local/bin/onis
+   1650      |   |                   \_ gum choose --height 12
+   1186      |   \_ /bin/bash /usr/local/bin/onis agent watch-crashes
+   1226      |       \_ journalctl --user -f -n 0 -o json MESSAGE_ID=fc2e22bc6ee647b6b90729ab34a250b1
+   1227      |       \_ /bin/bash /usr/local/bin/onis agent watch-crashes
+   1255      \_ xfsettingsd
+   1289      \_ xfce4-panel
+   1394      |   \_ /usr/libexec/xfce4/panel/wrapper-2.0 /usr/lib64/xfce4/panel/plugins/libwhiskermenu.so 1 12582919 whiskermenu Whisker Menu Show a menu to easily access installed applications
+   1403      |   \_ /usr/libexec/xfce4/panel/wrapper-2.0 /usr/lib64/xfce4/panel/plugins/libgenmon.so 2 12582920 genmon Generic Monitor Show output of a command.
+   1436      |   \_ /usr/libexec/xfce4/panel/wrapper-2.0 /usr/lib64/xfce4/panel/plugins/libsystray.so 5 12582921 systray Status Tray Plugin Provides status notifier items (application indicators) and legacy systray items
+   1437      |   \_ /usr/libexec/xfce4/panel/wrapper-2.0 /usr/lib64/xfce4/panel/plugins/libbattery.so 6 12582922 battery Battery Monitor Show and monitor the battery status
+   1320      \_ Thunar --daemon
+   1371      \_ xfce4-power-manager
+   2189 -bash
+   2506  \_ ps -u live -o pid,args --forest
+   2507  \_ grep -v  \[
+   2508  \_ tail -n 60
+   1385 /usr/bin/gnome-keyring-daemon --start --components=pkcs11
+   1229 polybar xi3
+   1228 picom --config /home/live/.config/picom/picom.conf -b
+   1178 /usr/bin/gpg-agent --sh --daemon
+   1173 /usr/bin/ssh-agent -s
+   1113 /usr/lib/systemd/systemd --user
+   1114  \_ (sd-pam)
+   1153  \_ /usr/bin/dbus-broker-launch --scope user
+   1154  |   \_ dbus-broker --log 11 --controller 10 --machine-id 9f4d285001f84f18a2419776b2804d54 --max-bytes 100000000000000 --max-fds 25000000000000 --max-matches 5000000000
+   1165  \_ /usr/libexec/xfce4/xfconf/xfconfd
+   1239  \_ /usr/libexec/gvfs/gvfsd
+   1294  \_ /usr/libexec/dconf-service
+   1307  \_ /usr/libexec/bamf/bamfdaemon
+   1327  \_ /usr/libexec/gvfs/gvfsd-metadata
+   1381  \_ /usr/libexec/xfce4/notifyd/xfce4-notifyd
+__DONE__
+i3-msg -t get_tree | python3 -c 'import json,sys; t=json.load(sys.stdin); w=lambda n,d=0: [print("  "*d+str(n.get("type"))+" "+str(n.get("name"))+" "+str((n.get("window_properties") or {}).get("class"))+" "+str(n["rect"])) or [w(c,d+1) for c in n["nodes"]+n["floating_nodes"]] for _ in [0]]; w(t)'; echo "__DO""NE__"
+Starship disabled due to TERM=dumb > <{}).get("class"))+" "+str(n["rect"])) or [w(c,d+1) for c in n["nodes"]+n["floating_nodes"]] for _ in [0]]; w(t)'; echo "__DO""NE__"
+root root None {'x': 0, 'y': 0, 'width': 1280, 'height': 800}
+  output __i3 None {'x': 0, 'y': 0, 'width': 1280, 'height': 800}
+    con content None {'x': 0, 'y': 0, 'width': 0, 'height': 0}
+      workspace __i3_scratch None {'x': 0, 'y': 0, 'width': 0, 'height': 0}
+  output Virtual-1 None {'x': 0, 'y': 0, 'width': 1280, 'height': 800}
+    dockarea topdock None {'x': 0, 'y': 0, 'width': 1280, 'height': 25}
+      con xfce4-panel Xfce4-panel {'x': 0, 'y': 0, 'width': 1280, 'height': 25}
+    con content None {'x': 0, 'y': 25, 'width': 1280, 'height': 775}
+      workspace 1 None {'x': 0, 'y': 25, 'width': 1280, 'height': 725}
+        con Terminal Xfce4-terminal {'x': 6, 'y': 31, 'width': 1268, 'height': 713}
+    dockarea bottomdock None {'x': 0, 'y': 800, 'width': 1280, 'height': 0}
+__DONE__
+xfconf-query -c xfce4-panel -lv | head -n 40; echo "__DO""NE__"
+Starship disabled due to TERM=dumb > xfconf-query -c xfce4-panel -lv | head -n 40; echo "__DO""NE__"
+/configver                             2
+/panels                                [1]
+/panels/dark-mode                      true
+/panels/panel-1/icon-size              16
+/panels/panel-1/length                 100.000000
+/panels/panel-1/plugin-ids             [1,2,3,5,6,8,7]
+/panels/panel-1/position               p=6;x=0;y=0
+/panels/panel-1/position-locked        true
+/panels/panel-1/size                   24
+/plugins/plugin-1                      whiskermenu
+/plugins/plugin-1/button-icon          /usr/share/pixmaps/oniscus-menu.svg
+/plugins/plugin-1/show-button-title    false
+/plugins/plugin-2                      genmon
+/plugins/plugin-2/command              xi3-active-app
+/plugins/plugin-2/font                 Noto Sans Bold 10
+/plugins/plugin-2/update-period        500
+/plugins/plugin-2/use-label            false
+/plugins/plugin-3                      separator
+/plugins/plugin-3/expand               true
+/plugins/plugin-3/style                0
+/plugins/plugin-5                      systray
+/plugins/plugin-5/icon-size            16
+/plugins/plugin-5/known-legacy-items   [ethernet network connection “wired connection 1” active]
+/plugins/plugin-5/square-icons         true
+/plugins/plugin-6                      battery
+/plugins/plugin-7                      launcher
+/plugins/plugin-7/items                [xi3-search.desktop]
+/plugins/plugin-8                      clock
+/plugins/plugin-8/digital-layout       3
+/plugins/plugin-8/digital-time-format  %a %-d %b   %H:%M
+/plugins/plugin-8/mode                 2
+__DONE__
+cat /etc/dconf/profile/user; ls -l /etc/dconf/db/ /etc/dconf/db/local.d/; echo "__DO""NE__"
+Starship disabled due to TERM=dumb > cat /etc/dconf/profile/user; ls -l /etc/dconf/db/ /etc/dconf/db/local.d/; echo "__DO""NE__"
+user-db:user
+system-db:local
+/etc/dconf/db/:
+total 8
+-rw-r--r-- 1 root root 1004 Oct 22 15:48 [0m[00mlocal[0m
+drwxr-xr-x 2 root root 4096 Oct 22 15:38 [01;34mlocal.d[0m
+
+/etc/dconf/db/local.d/:
+total 4
+-rw-r--r-- 1 root root 504 Oct 22 15:38 [00m10-xi3-plank[0m
+__DONE__
+gsettings get net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ position; echo "__DO""NE__"
+Starship disabled due to TERM=dumb > gsettings get net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ position; echo "__DO""NE__"
+'left'
+__DONE__
+gsettings get net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ hide-mode; echo "__DO""NE__"
+Starship disabled due to TERM=dumb > gsettings get net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ hide-mode; echo "__DO""NE__"
+'intelligent'
+__DONE__
+ls /usr/lib64/gio/modules/; dconf dump /net/launchpad/plank/; echo "__DO""NE__"
+Starship disabled due to TERM=dumb > ls /usr/lib64/gio/modules/; dconf dump /net/launchpad/plank/; echo "__DO""NE__"
+[0m[00mgiomodule.cache[0m  [01;32mlibdconfsettings.so[0m  [01;32mlibgiognomeproxy.so[0m  [01;32mlibgiognutls.so[0m  [01;32mlibgiolibproxy.so[0m  [01;32mlibgioremote-volume-monitor.so[0m  [01;32mlibgvfsdbus.so[0m  [01;32mlibxfconfgsettingsbackend.so[0m
+[docks/dock1]
+alignment='center'
+dock-items=['xfce4-terminal.dockitem', 'thunar.dockitem', 'firefox.dockitem', 'org.xfce.mousepad.dockitem', 'xfce-settings-manager.dockitem']
+hide-delay=300
+hide-mode='intelligent'
+icon-size=48
+position='left'
+pressure-reveal=false
+show-dock-item=false
+theme='Xi3-Retro'
+unhide-delay=0
+zoom-enabled=true
+zoom-percent=160
+__DONE__
+systemctl --user --failed --no-pager; echo "__DO""NE__"
+Starship disabled due to TERM=dumb > systemctl --user --failed --no-pager; echo "__DO""NE__"
+  UNIT LOAD ACTIVE SUB DESCRIPTION
+
+0 loaded units listed.
+__DONE__
+env | grep -E "^(DISPLAY|XAUTHORITY|XDG_)"; systemctl --user show-environment | grep -E "^(DISPLAY|XAUTHORITY)"; echo "__DO""NE__"
+Starship disabled due to TERM=dumb > env | grep -E "^(DISPLAY|XAUTHORITY|XDG_)"; systemctl --user show-environment | grep -E "^(DISPLAY|XAUTHORITY)"; echo "__DO""NE__"
+XDG_CONFIG_DIRS=/etc/xdg:/usr/local/etc/xdg:/usr/etc/xdg
+XDG_DATA_HOME=/home/live/.local/share
+XDG_CONFIG_HOME=/home/live/.config
+XDG_SESSION_TYPE=tty
+XAUTHORITY=/run/user/1000/lyxauth
+XDG_CACHE_HOME=/home/live/.cache
+XDG_SESSION_CLASS=user
+DISPLAY=:0
+XDG_SESSION_ID=3
+XDG_STATE_HOME=/home/live/.local/state
+XDG_RUNTIME_DIR=/run/user/1000
+XDG_DATA_DIRS=/home/live/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share
+DISPLAY=:0
+XAUTHORITY=/run/user/1000/lyxauth
+__DONE__
+ls /usr/share/xsessions/ /usr/share/oniscus/xsessions/; echo "__DO""NE__"
+Starship disabled due to TERM=dumb > ls /usr/share/xsessions/ /usr/share/oniscus/xsessions/; echo "__DO""NE__"
+/usr/share/oniscus/xsessions/:
+[0m[00moniscus.desktop[0m
+
+/usr/share/xsessions/:
+[01;36mdefault.desktop[0m  [00mi3.desktop[0m  [00mi3-with-shmlog.desktop[0m  [00mxfce.desktop[0m
+__DONE__
+ls /usr/lib64/xfce4/panel/plugins/ /usr/share/xfce4/panel/plugins/; echo "__DO""NE__"
+Starship disabled due to TERM=dumb > ls /usr/lib64/xfce4/panel/plugins/ /usr/share/xfce4/panel/plugins/; echo "__DO""NE__"
+/usr/lib64/xfce4/panel/plugins/:
+[0m[01;32mlibactions.so[0m           [01;32mlibbattery.so[0m  [01;32mlibdirectorymenu.so[0m  [01;32mliblauncher.so[0m             [01;32mlibpager.so[0m              [01;32mlibseparator.so[0m    [01;32mlibsystray.so[0m   [01;32mlibthunar-tpa.so[0m   [01;32mlibwindowmenu.so[0m
+[01;32mlibapplicationsmenu.so[0m  [01;32mlibclock.so[0m    [01;32mlibgenmon.so[0m         [01;32mlibnotification-plugin.so[0m  [01;32mlibpulseaudio-plugin.so[0m  [01;32mlibshowdesktop.so[0m  [01;32mlibtasklist.so[0m  [01;32mlibwhiskermenu.so[0m
+
+/usr/share/xfce4/panel/plugins/:
+[00mactions.desktop[0m           [00mbattery.desktop[0m  [00mdirectorymenu.desktop[0m  [00mlauncher.desktop[0m             [00mpager.desktop[0m       [00mseparator.desktop[0m    [00msystray.desktop[0m   [00mthunar-tpa.desktop[0m   [00mwindowmenu.desktop[0m
+[00mapplicationsmenu.desktop[0m  [00mclock.desktop[0m    [00mgenmon.desktop[0m         [00mnotification-plugin.desktop[0m  [00mpulseaudio.desktop[0m  [00mshowdesktop.desktop[0m  [00mtasklist.desktop[0m  [00mwhiskermenu.desktop[0m
+__DONE__
+rpm -ql xfce4-power-manager | grep -i plugin; echo "__DO""NE__"
+Starship disabled due to TERM=dumb > rpm -ql xfce4-power-manager | grep -i plugin; echo "__DO""NE__"
+__DONE__
+ls -la ~/.local/state/ ~/.cache/ 2>/dev/null; tail -n 40 ~/.local/state/ly-session.log ~/.xsession-errors 2>/dev/null; echo "__DO""NE__"
+Starship disabled due to TERM=dumb > ls -la ~/.local/state/ ~/.cache/ 2>/dev/null; tail -n 40 ~/.local/state/ly-session.log ~/.xsession-errors 2>/dev/null; echo "__DO""NE__"
+/home/live/.cache/:
+total 40
+drwx------  9 live users 4096 Oct 22 16:02 [0m[01;34m.[0m
+drwxr-xr-x 11 live users 4096 Oct 22 16:02 [01;34m..[0m
+drwxr-xr-x  2 live users 4096 Oct 22 16:02 [01;34mfontconfig[0m
+drwxr-xr-x  3 live users 4096 Oct 22 16:02 [01;34mglycin[0m
+drwx------ 12 live users 4096 Oct 22 16:02 [01;34mmesa_shader_cache[0m
+drwxr-xr-x  2 live users 4096 Oct 22 16:02 [01;34mplank[0m
+-rw-r--r--  1 live users 1554 Oct 22 16:02 [00mpolybar.log[0m
+drwx------  2 live users 4096 Oct 22 16:02 [01;34msessions[0m
+drwxr-xr-x  2 live users 4096 Oct 22 16:03 [01;34mstarship[0m
+drwxr-xr-x  3 live users 4096 Oct 22 16:02 [01;34mxfce4[0m
+
+/home/live/.local/state/:
+total 8
+drwx------ 2 live users 4096 Mar  2  2026 [01;34m.[0m
+drwx------ 5 live users 4096 Oct 22 15:45 [01;34m..[0m
+__DONE__
+journalctl --user -b --no-pager -p warning | tail -n 40; echo "__DO""NE__"
+Starship disabled due to TERM=dumb > journalctl --user -b --no-pager -p warning | tail -n 40; echo "__DO""NE__"
+Oct 22 16:02:01 localhost.localdomain dbus-broker-launch[1153]: Service file '/usr/share//dbus-1/services/org.xfce.Thunar.FileManager1.service' is not named after the D-Bus name 'org.freedesktop.FileManager1'.
+Oct 22 16:02:01 localhost.localdomain dbus-broker-launch[1153]: Service file '/usr/share//dbus-1/services/org.xfce.Tumbler.Cache1.service' is not named after the D-Bus name 'org.freedesktop.thumbnails.Cache1'.
+Oct 22 16:02:01 localhost.localdomain dbus-broker-launch[1153]: Service file '/usr/share//dbus-1/services/org.xfce.Tumbler.Manager1.service' is not named after the D-Bus name 'org.freedesktop.thumbnails.Manager1'.
+Oct 22 16:02:01 localhost.localdomain dbus-broker-launch[1153]: Service file '/usr/share//dbus-1/services/org.xfce.Tumbler.Thumbnailer1.service' is not named after the D-Bus name 'org.freedesktop.thumbnails.Thumbnailer1'.
+Oct 22 16:02:01 localhost.localdomain dbus-broker-launch[1153]: Service file '/usr/share//dbus-1/services/org.xfce.xfce4-notifyd.Notifications.service' is not named after the D-Bus name 'org.freedesktop.Notifications'.
+Oct 22 16:02:01 localhost.localdomain dbus-broker-launch[1153]: Service file '/usr/share//dbus-1/services/org.xfce.xfce4-notifyd.Notifyd.service' is not named after the D-Bus name 'org.xfce.Notifyd'.
+Oct 22 16:02:04 localhost.localdomain bamfdaemon[1307]: AT-SPI: Error retrieving accessibility bus address: org.freedesktop.DBus.Error.ServiceUnknown: The name is not activatable
+Oct 22 16:02:04 localhost.localdomain systemd[1113]: Dependency failed for Portal service.
+Oct 22 16:02:04 localhost.localdomain gnome-keyring-daemon[1385]: discover_other_daemon: 0
+Oct 22 16:02:04 localhost.localdomain gnome-keyring-daemon[1391]: discover_other_daemon: 1
+Oct 22 16:02:04 localhost.localdomain gnome-keyring-daemon[1392]: discover_other_daemon: 1
+Oct 22 16:02:05 localhost.localdomain xfce4-notifyd[1381]: AT-SPI: Error retrieving accessibility bus address: org.freedesktop.DBus.Error.ServiceUnknown: The name is not activatable
+__DONE__
+sudo journalctl -b --no-pager -p err | tail -n 40; echo "__DO""NE__"
+Starship disabled due to TERM=dumb > sudo journalctl -b --no-pager -p err | tail -n 40; echo "__DO""NE__"
+-- No entries --
+__DONE__
+i3-msg workspace 9; sleep 3; echo "__DO""NE__"
+Starship disabled due to TERM=dumb > i3-msg workspace 9; sleep 3; echo "__DO""NE__"
+[{"success":true}]
+__DONE__
+picom --version; pgrep -a picom; echo "__DO""NE__"
+Starship disabled due to TERM=dumb > picom --version; pgrep -a picom; echo "__DO""NE__"
+v13
+1228 picom --config /home/live/.config/picom/picom.conf -b
+__DONE__
+Starship disabled due to TERM=dumb > export DISPLAY=:0 XAUTHORITY=/run/user/$(id -u)/lyxauth; echo "__DO""NE__"
+__DONE__
+setsid -f rofi -show drun; sleep 4; echo "__DO""NE__"
+Starship disabled due to TERM=dumb > setsid -f rofi -show drun; sleep 4; echo "__DO""NE__"
+__DONE__
+Starship disabled due to TERM=dumb > pkill -x rofi; onis accent "#7AA2F7" | tail -n 2; grep -E "^ *accent" ~/.local/share/rofi/themes/oniscus.rasi; echo "__DO""NE__"
+[38;2;76;194;121m✔ Accent changed to #7AA2F7 [38;2;122;162;247m██████[0m[0m
+[38;2;154;163;175mNew terminals open with the prompt in the new color.[0m
+    accent:       #7AA2F7;
+    accent-light: #B5CBFA;
+    accent-dark:  #5F7EC0;
+__DONE__
+setsid -f onis menu; sleep 4; echo "__DO""NE__"
+Starship disabled due to TERM=dumb > setsid -f onis menu; sleep 4; echo "__DO""NE__"
+__DONE__
+Starship disabled due to TERM=dumb > pkill -x rofi; onis accent default | tail -n 2; ls ~/.local/share/rofi/themes/; echo "__DO""NE__"
+[38;2;76;194;121m✔ Accent changed to #F7C948 [38;2;247;201;72m██████[0m[0m
+[38;2;154;163;175mNew terminals open with the prompt in the new color.[0m
+__DONE__
+Starship disabled due to TERM=dumb > setsid -f oniscus-install; sleep 45; pgrep -a calamares; echo "__DO""NE__"
+3332 calamares -d
+__DONE__
+Starship disabled due to TERM=dumb > timeout 20 xdotool search --sync --onlyvisible --limit 1 --class calamares windowactivate --sync key --clearmodifiers alt+n; echo "__DO""NE__"
+__DONE__
+Starship disabled due to TERM=dumb > timeout 20 xdotool search --sync --onlyvisible --limit 1 --class calamares windowactivate --sync key --clearmodifiers alt+n; echo "__DO""NE__"
+__DONE__
+Starship disabled due to TERM=dumb > timeout 20 xdotool search --sync --onlyvisible --limit 1 --class calamares windowactivate --sync key --clearmodifiers alt+n; echo "__DO""NE__"
+__DONE__
+Starship disabled due to TERM=dumb > timeout 20 xdotool search --sync --onlyvisible --limit 1 --class calamares windowactivate --sync key --clearmodifiers alt+n; echo "__DO""NE__"
+__DONE__
+Starship disabled due to TERM=dumb > xdotool type --delay 80 'Oniscus Test'; echo "__DO""NE__"
+__DONE__
+xdotool key Tab Tab Tab; echo "__DO""NE__"
+Starship disabled due to TERM=dumb > xdotool key Tab Tab Tab; echo "__DO""NE__"
+__DONE__
+xdotool type --delay 80 'oniscus1'; echo "__DO""NE__"
+Starship disabled due to TERM=dumb > xdotool type --delay 80 'oniscus1'; echo "__DO""NE__"
+__DONE__
+xdotool key Tab; echo "__DO""NE__"
+Starship disabled due to TERM=dumb > xdotool key Tab; echo "__DO""NE__"
+__DONE__
+xdotool type --delay 80 'oniscus1'; echo "__DO""NE__"
+Starship disabled due to TERM=dumb > xdotool type --delay 80 'oniscus1'; echo "__DO""NE__"
+__DONE__
+Starship disabled due to TERM=dumb > timeout 20 xdotool search --sync --onlyvisible --limit 1 --class calamares windowactivate --sync key --clearmodifiers alt+n; echo "__DO""NE__"
+__DONE__
+Starship disabled due to TERM=dumb > timeout 20 xdotool search --sync --onlyvisible --limit 1 --class calamares windowactivate --sync key --clearmodifiers alt+n; echo "__DO""NE__"
+__DONE__
+Starship disabled due to TERM=dumb > timeout 20 xdotool search --sync --onlyvisible --limit 1 --class calamares windowactivate --sync key --clearmodifiers alt+n; echo "__DO""NE__"
+__DONE__
+Starship disabled due to TERM=dumb > timeout 20 xdotool search --sync --onlyvisible --limit 1 --class calamares windowactivate --sync key --clearmodifiers alt+i; echo "__DO""NE__"
+__DONE__
+Starship disabled due to TERM=dumb > timeout 20 xdotool search --sync --onlyvisible --limit 1 --class calamares windowactivate --sync key --clearmodifiers alt+i; echo "__DO""NE__"
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > echo "mounts=$(findmnt -rn -o TARGET | grep -c calamares-root) procs=$(pgrep -c calamares)"; echo "__DO""NE__"
+mounts=0 procs=1
+__DONE__
+Starship disabled due to TERM=dumb > 
