@@ -1,0 +1,16 @@
+--- a/lib/Widgets/DockWindow.vala	2026-10-22 05:23:03.995176898 +0000
++++ b/lib/Widgets/DockWindow.vala	2026-10-22 05:23:04.021015105 +0000
+@@ -83,7 +83,12 @@
+      * Creates a new dock window.
+      */
+     public DockWindow (DockController controller) {
+-      GLib.Object (controller : controller, type : Gtk.WindowType.TOPLEVEL, type_hint : Gdk.WindowTypeHint.DOCK);
++      // PLANK_OVERRIDE_REDIRECT=1: the window manager leaves the dock alone. Tiling
++      // window managers such as i3 put every dock window in a top or bottom bar
++      // area, which breaks a dock on the left or right edge.
++      GLib.Object (controller : controller,
++        type : (Environment.get_variable ("PLANK_OVERRIDE_REDIRECT") == "1" ? Gtk.WindowType.POPUP : Gtk.WindowType.TOPLEVEL),
++        type_hint : Gdk.WindowTypeHint.DOCK);
+     }
+ 
+     construct

@@ -2,7 +2,10 @@
 # Starts the Oniscus session (XFCE with i3) from the login screen.
 # System defaults in /etc/xdg/oniscus come first.
 export XDG_CONFIG_DIRS=/etc/xdg/oniscus:/etc/xdg
+# i3 puts every dock window in its top or bottom bar area, which breaks a dock
+# on the left edge. With this set, the Oniscus Plank build skips the WM.
+export PLANK_OVERRIDE_REDIRECT=1
 # Services started by systemd or D-Bus (notifications, the dock's BAMF daemon)
 # need the X display too
-dbus-update-activation-environment --systemd DISPLAY XAUTHORITY XDG_CONFIG_DIRS 2>/dev/null
+dbus-update-activation-environment --systemd DISPLAY XAUTHORITY XDG_CONFIG_DIRS PLANK_OVERRIDE_REDIRECT 2>/dev/null
 exec startxfce4
