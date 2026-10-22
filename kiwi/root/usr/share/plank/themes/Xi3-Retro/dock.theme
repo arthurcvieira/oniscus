@@ -1,26 +1,38 @@
-# Xi3 Retro: dark graphite shelf for Plank (GPL-3.0-or-later, original Oniscus work)
+# Xi3 Retro: smoked-glass shelf in the style of the classic Mac OS X dock
+# (GPL-3.0-or-later, original Oniscus work). Translucency needs picom.
 [PlankTheme]
-TopRoundness=6
-BottomRoundness=6
+# "Top" is the side facing the screen; the side on the screen edge stays square
+TopRoundness=12
+BottomRoundness=0
 LineWidth=1
-OuterStrokeColor=58;;66;;76;;255
-FillStartColor=42;;48;;56;;235
-FillEndColor=28;;32;;38;;220
-InnerStrokeColor=255;;255;;255;;15
+# Thin bright rim and a soft inner highlight, like glass
+OuterStrokeColor=255;;255;;255;;80
+FillStartColor=92;;99;;110;;150
+FillEndColor=34;;38;;46;;195
+InnerStrokeColor=255;;255;;255;;38
 
 [PlankDockTheme]
-HorizPadding=4
-TopPadding=4
-BottomPadding=4
-ItemPadding=6
-IndicatorSize=5
-IconShadowSize=2
+HorizPadding=6
+TopPadding=6
+BottomPadding=6
+ItemPadding=8
+SeparatorPadding=-1
+# Glowing blue-white dot under running apps
+IndicatorStyle=1
+IndicatorColor=190;;225;;255;;255
+IndicatorSize=6
+IconShadowSize=3
+BadgeColor=0;;0;;0;;0
+BadgeStyle=0
+BadgeTextColor=0;;0;;0;;0
+ActiveItemStyle=0
+ActiveItemColor=0;;0;;0;;255
 UrgentBounceHeight=1.6666666666666667
-LaunchBounceHeight=0.625
+LaunchBounceHeight=1
 FadeOpacity=1
 ClickTime=300
 UrgentBounceTime=600
-LaunchBounceTime=600
+LaunchBounceTime=700
 ActiveTime=300
 SlideTime=300
 FadeTime=250

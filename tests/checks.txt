@@ -26,5 +26,5 @@ journalctl --user -b --no-pager -p warning | tail -n 40
 sudo journalctl -b --no-pager -p err | tail -n 40
 # Empty workspace, so Plank's intelligent hide shows the dock in the last screenshot
 i3-msg workspace 9; sleep 3
-# Last: stop the compositor, so the next screenshot shows whether picom hid anything
-pkill picom; sleep 2
+# The compositor should still be running with the Oniscus config
+picom --version; pgrep -a picom
