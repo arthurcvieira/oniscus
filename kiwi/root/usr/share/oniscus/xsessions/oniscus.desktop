@@ -3,6 +3,6 @@ Type=XSession
 Name=Oniscus
 Comment=XFCE with i3 as the window manager
 Comment[pt_BR]=XFCE com i3 como gerenciador de janelas
-Exec=env XDG_CONFIG_DIRS=/etc/xdg/oniscus:/etc/xdg startxfce4
+Exec=oniscus-session
 TryExec=startxfce4
 DesktopNames=XFCE

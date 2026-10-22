@@ -77,6 +77,7 @@ Requires:       polybar
 Requires:       rofi
 Requires:       starship
 Requires:       xdotool
+Requires:       xfce4-battery-plugin
 Requires:       xfce4-genmon-plugin
 Requires:       xfce4-panel
 Requires:       xfce4-session
