@@ -81,7 +81,7 @@ key() { vm "timeout 20 xdotool search --sync --onlyvisible --limit 1 --class cal
 next_page() { key alt+n; sleep 5; shot "install-$1"; }
 
 vm 'export DISPLAY=:0 XAUTHORITY=/run/user/$(id -u)/lyxauth' \
-   'setsid -f oniscus-install; sleep 45; pgrep -a calamares'
+   'setsid -f oniscus-install; sleep 45; pgrep -a calamares; findmnt /run/oniscus-root'
 shot install-01-welcome
 next_page 02-location
 next_page 03-keyboard

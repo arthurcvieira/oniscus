@@ -3,5 +3,14 @@
 # no polkit agent, so "pkexec calamares" could not ask for permission and the
 # installer never opened; the live user has passwordless sudo instead.
 # Log: /tmp/oniscus-install.log (Calamares also writes /root/.cache/calamares/session.log)
+
+# The installer copies the system from /run/oniscus-root, a plain bind mount of
+# / without the mounts on top of it (/proc, /sys, /run, ...). Copying straight
+# from / made the copy step fail while it listed /proc.
+src=/run/oniscus-root
+if ! mountpoint -q "$src"; then
+    sudo mkdir -p "$src" && sudo mount --bind -o ro / "$src"
+fi
+
 exec sudo --preserve-env=DISPLAY,XAUTHORITY,LANG,LANGUAGE,LC_ALL \
     calamares -d "$@" >/tmp/oniscus-install.log 2>&1
