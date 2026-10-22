@@ -34,6 +34,7 @@ oniscus-branding	kiwi/root/usr/share/pixmaps/oniscus-menu.svg	/usr/share/pixmaps
 oniscus-branding	kiwi/root/usr/share/wallpapers/xi3.jpg	/usr/share/wallpapers/xi3.jpg	-
 oniscus-branding	kiwi/root/usr/share/themes/Xi3-Retro	/usr/share/themes/Xi3-Retro	own
 oniscus-branding	kiwi/root/usr/share/plank/themes/Xi3-Retro	/usr/share/plank/themes/Xi3-Retro	own
+oniscus-branding	kiwi/root/usr/share/plymouth/themes/oniscus	/usr/share/plymouth/themes/oniscus	own
 oniscus-branding	kiwi/root/usr/lib/os-release.oniscus	/usr/lib/os-release.oniscus	-
 oniscus-branding	kiwi/root/usr/libexec/oniscus	/usr/libexec/oniscus	exec,own
 oniscus-branding	kiwi/root/usr/lib/systemd/system/oniscus-os-release.service	/usr/lib/systemd/system/oniscus-os-release.service	-

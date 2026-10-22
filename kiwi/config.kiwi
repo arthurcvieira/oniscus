@@ -31,7 +31,7 @@
         <timezone>UTC</timezone>
         <rpm-excludedocs>false</rpm-excludedocs>
         <rpm-check-signatures>true</rpm-check-signatures>
-        <bootsplash-theme>bgrt</bootsplash-theme>
+        <bootsplash-theme>oniscus</bootsplash-theme>
         <type image="iso"
               primary="true"
               flags="dmsquash"
@@ -103,6 +103,10 @@
              ones, so they keep them out. -->
         <package name="branding-upstream"/>
         <package name="plymouth-branding-upstream"/>
+        <!-- Boot splash: the Oniscus theme (usr/share/plymouth/themes/oniscus) uses the script plugin -->
+        <package name="plymouth"/>
+        <package name="plymouth-plugin-script"/>
+        <package name="plymouth-dracut"/>
         <package name="MozillaFirefox-branding-upstream"/>
 
         <!-- Languages: English is the default, Portuguese (Brazil) is the second

@@ -50,6 +50,16 @@ cp -a /tmp/oniscus-xdg/. /etc/xdg/ && rm -rf /tmp/oniscus-xdg
 find /etc/xdg -name '*.rpmsave' -delete
 : > /etc/motd
 
+# Boot splash with the mascot (KIWI's bootsplash-theme sets it too)
+command -v plymouth-set-default-theme >/dev/null && plymouth-set-default-theme oniscus || true
+
+# The installer has one entry, "Install Oniscus" (oniscus-install.desktop):
+# hide the "Install System" entry that the calamares package ships
+for f in /usr/share/applications/*calamares*.desktop; do
+    [ -f "$f" ] || continue
+    grep -q '^NoDisplay=true' "$f" || sed -i '/^\[Desktop Entry\]/a NoDisplay=true' "$f"
+done
+
 # Passwordless sudo for the live user (live ISO only)
 echo "live ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/10-live
 chmod 0440 /etc/sudoers.d/10-live

@@ -1,0 +1,61 @@
+# Oniscus boot splash: the mascot in the middle of a charcoal screen and three
+# amber dots that pulse below it. Also shows the disk password prompt and messages.
+
+Window.SetBackgroundTopColor(0.071, 0.082, 0.098);     # #121519
+Window.SetBackgroundBottomColor(0.071, 0.082, 0.098);
+
+cx = Window.GetX() + Window.GetWidth() / 2;
+cy = Window.GetY() + Window.GetHeight() * 0.45;
+
+mascot.image = Image("mascot.png");
+mascot.sprite = Sprite(mascot.image);
+mascot.sprite.SetPosition(cx - mascot.image.GetWidth() / 2, cy - mascot.image.GetHeight() / 2, 1);
+
+dot_image = Image("dot.png");
+dots_y = cy + mascot.image.GetHeight() / 2 + 40;
+for (i = 0; i < 3; i++) {
+    dot[i] = Sprite(dot_image);
+    dot[i].SetPosition(cx - 30 + i * 24, dots_y, 1);
+    dot[i].SetOpacity(0.3);
+}
+
+frame = 0;
+fun refresh_callback() {
+    frame++;
+    for (i = 0; i < 3; i++) {
+        phase = Math.Sin((frame / 12) - i * 0.8);
+        dot[i].SetOpacity(0.3 + 0.7 * Math.Max(phase, 0));
+    }
+}
+Plymouth.SetRefreshFunction(refresh_callback);
+
+# Messages (for example from fsck) under the dots
+message_sprite = Sprite();
+message_sprite.SetPosition(cx, dots_y + 50, 2);
+fun message_callback(text) {
+    image = Image.Text(text, 0.90, 0.91, 0.93);
+    message_sprite.SetImage(image);
+    message_sprite.SetX(cx - image.GetWidth() / 2);
+}
+Plymouth.SetMessageFunction(message_callback);
+
+# Disk password: the prompt and one bullet per typed character
+prompt_sprite = Sprite();
+bullets_sprite = Sprite();
+fun display_password_callback(prompt, bullets) {
+    for (i = 0; i < 3; i++) dot[i].SetOpacity(0);
+    p = Image.Text(prompt, 0.90, 0.91, 0.93);
+    prompt_sprite.SetImage(p);
+    prompt_sprite.SetPosition(cx - p.GetWidth() / 2, dots_y, 3);
+    text = "";
+    for (i = 0; i < bullets; i++) text += "*";
+    b = Image.Text(text + " ", 0.97, 0.79, 0.28);
+    bullets_sprite.SetImage(b);
+    bullets_sprite.SetPosition(cx - b.GetWidth() / 2, dots_y + 30, 3);
+}
+fun display_normal_callback() {
+    prompt_sprite.SetImage(Image.Text("", 0, 0, 0));
+    bullets_sprite.SetImage(Image.Text("", 0, 0, 0));
+}
+Plymouth.SetDisplayPasswordFunction(display_password_callback);
+Plymouth.SetDisplayNormalFunction(display_normal_callback);

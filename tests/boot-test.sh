@@ -51,19 +51,14 @@ type_text() {
 }
 
 sleep 5
-# Boot: GRUB menu, then the system until the greeter
-for t in 005 020 040 060 090 120 150 180; do
+# Boot: GRUB menu, splash, then the system until the desktop
+for t in 005 012 020 030 040 060 090 120; do
     sleep $((10#$t - ${last:-0}))
     last=$((10#$t))
     shot "boot-${t}s"
 done
 
-# Ly starts with the login field focused: user, Down to password, Enter
-type_text live
-hmp "sendkey down"
-type_text live
-shot greeter-filled
-hmp "sendkey ret"
+# The live ISO logs in on its own (Ly autologin), so no greeter here
 sleep 30
 shot desktop-030s
 sleep 30
@@ -141,7 +136,7 @@ qemu-system-x86_64 "${accel[@]}" \
     -monitor unix:"$mon",server,nowait &
 qemu=$!
 last=0
-for t in 010 030 060 090 120; do
+for t in 008 015 030 060 090 120; do
     sleep $((10#$t - last))
     last=$((10#$t))
     shot "installed-boot-${t}s"

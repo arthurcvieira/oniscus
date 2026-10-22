@@ -1,0 +1,8 @@
+[Plymouth Theme]
+Name=Oniscus
+Description=The Oniscus mascot on a dark background, with three amber dots
+ModuleName=script
+
+[script]
+ImageDir=/usr/share/plymouth/themes/oniscus
+ScriptFile=/usr/share/plymouth/themes/oniscus/oniscus.script

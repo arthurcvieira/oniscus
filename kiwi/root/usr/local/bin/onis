@@ -106,16 +106,19 @@ in_terminal() {
 # "app:cmd" starts a graphical program, anything else is an onis subcommand.
 
 menu_main() {
-    # Live ISO: offer the installer first
-    if grep -qw rd.live.image /proc/cmdline 2>/dev/null && has calamares; then
-        printf '%s\t%s\n' "$(t "Install Oniscus to this computer" "Instalar o Oniscus neste computador")" "app:oniscus-install"
+    # Each action appears in one menu only. On the live ISO the installer comes
+    # first, and updates and snapshots (which make no sense there) are hidden.
+    local live=
+    grep -qw rd.live.image /proc/cmdline 2>/dev/null && live=1
+    if [ -n "$live" ] && has calamares; then
+        printf '%s\t%s\n' "$(t "Install Oniscus on this computer" "Instalar o Oniscus neste computador")" "app:oniscus-install"
     fi
     printf '%s\t%s\n' \
+        "$(t "Install apps" "Instalar apps")"  "install" \
+        "$(t "Remove apps" "Remover apps")"    "uninstall"
+    [ -z "$live" ] && printf '%s\t%s\n' "$(t "Update everything" "Atualizar tudo")" "update"
+    printf '%s\t%s\n' \
         "$(t "Ask the AI agent for help" "Pedir ajuda ao agente de IA")"  "agent" \
-        "$(t "Install" "Instalar")"            "install" \
-        "$(t "Uninstall" "Desinstalar")"       "uninstall" \
-        "$(t "Update everything" "Atualizar tudo")"  "update" \
-        "$(t "Snapshots (restore points)" "Snapshots (pontos de restauração)")"  "snapshot" \
         "$(t "Style" "Estilo")"                "menu:style" \
         "$(t "i3 shortcuts" "Atalhos do i3")"  "menu:keys" \
         "$(t "System" "Sistema")"              "menu:system" \
@@ -139,10 +142,10 @@ menu_keys() {
 }
 
 menu_system() {
+    grep -qw rd.live.image /proc/cmdline 2>/dev/null ||
+        printf '%s\t%s\n' "$(t "Snapshots (restore points)" "Snapshots (pontos de restauração)")" "snapshot"
     printf '%s\t%s\n' \
-        "$(t "Update the system" "Atualizar o sistema")"         "update" \
         "$(t "Diagnostics report" "Diagnóstico (relatório)")"    "doctor" \
-        "$(t "Snapshots (restore points)" "Snapshots (pontos de restauração)")" "snapshot" \
         "$(t "Drivers and codecs" "Drivers e codecs")"           "drivers" \
         "$(t "Network and Wi-Fi" "Rede e Wi-Fi")"                "app:nm-connection-editor" \
         "$(t "Sound" "Som")"                                     "app:pavucontrol" \
@@ -153,7 +156,6 @@ menu_system() {
 
 menu_learn() {
     printf '%s\t%s\n' \
-        "$(t "Essential shortcuts" "Atalhos essenciais")"       "keys" \
         "$(t "i3 user guide (web)" "Guia do i3 (site)")"        "app:xdg-open https://i3wm.org/docs/userguide.html" \
         "$(t "openSUSE wiki (web)" "Wiki do openSUSE (site)")"  "app:xdg-open https://en.opensuse.org/Portal:Tumbleweed"
 }
