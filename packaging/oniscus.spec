@@ -67,6 +67,7 @@ wallpaper, and the Xi3 Retro GTK and Plank themes.
 Summary:        Oniscus desktop defaults (XFCE with i3)
 License:        GPL-3.0-or-later
 Requires:       dconf
+Requires:       gsettings-backend-dconf
 Requires:       feh
 Requires:       i3
 Requires:       onis = %{version}
