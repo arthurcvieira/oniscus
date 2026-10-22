@@ -36,7 +36,7 @@ jobs:
       - name: Build ISO (KIWI NG, Dev profile)
         run: |
           sudo docker run --rm --privileged -v /dev:/dev \
-            -v "$PWD":/src:ro -v /mnt/oniscus:/out -e SERIAL=1 \
+            -v "$PWD":/src:ro -v /mnt/oniscus:/out -e SERIAL=1 -e SEARCH="greetd tuigreet lightdm-gtk-greeter docky cairo-dock latte xfce4-docklike" \
             registry.opensuse.org/opensuse/tumbleweed:latest \
             bash /src/tests/build-in-container.sh 2>&1 | tee build.log
           exit "${PIPESTATUS[0]}"
