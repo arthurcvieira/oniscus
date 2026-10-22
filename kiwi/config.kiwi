@@ -163,6 +163,7 @@
         <package name="xdotool"/>
         <package name="dconf"/>
         <package name="xfce4-genmon-plugin"/>
+        <package name="xfce4-battery-plugin"/>
         <package name="feh"/>
         <!-- Welcome app (onis command) -->
         <package name="gum"/>

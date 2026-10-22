@@ -1,0 +1,8 @@
+#!/bin/sh
+# Starts the Oniscus session (XFCE with i3) from the login screen.
+# System defaults in /etc/xdg/oniscus come first.
+export XDG_CONFIG_DIRS=/etc/xdg/oniscus:/etc/xdg
+# Services started by systemd or D-Bus (notifications, the dock's BAMF daemon)
+# need the X display too
+dbus-update-activation-environment --systemd DISPLAY XAUTHORITY XDG_CONFIG_DIRS 2>/dev/null
+exec startxfce4

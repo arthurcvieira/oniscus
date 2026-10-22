@@ -37,6 +37,7 @@ oniscus-branding	kiwi/root/usr/lib/os-release.oniscus	/usr/lib/os-release.oniscu
 oniscus-branding	kiwi/root/usr/libexec/oniscus	/usr/libexec/oniscus	exec,own
 oniscus-branding	kiwi/root/usr/lib/systemd/system/oniscus-os-release.service	/usr/lib/systemd/system/oniscus-os-release.service	-
 oniscus-desktop	kiwi/root/usr/local/bin/xi3-active-app	/usr/bin/xi3-active-app	exec
+oniscus-desktop	kiwi/root/usr/local/bin/oniscus-session	/usr/bin/oniscus-session	exec
 oniscus-desktop	kiwi/root/usr/share/oniscus/xsessions	/usr/share/oniscus/xsessions	own
 oniscus-desktop	kiwi/root/usr/share/oniscus/wayland-sessions	/usr/share/oniscus/wayland-sessions	own
 oniscus-desktop	kiwi/root/etc/bash.bashrc.local	/usr/share/oniscus/shell/bashrc.sh	-

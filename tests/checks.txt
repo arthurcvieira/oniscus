@@ -5,6 +5,10 @@ sudo journalctl -b --no-pager -u 'ly@*' | tail -n 30
 sudo ls -l /etc/ly/
 grep -vE '^(#|$)' /etc/ly/config.ini | head -n 40
 pgrep -a i3; pgrep -a xfce4-panel; pgrep -a polybar; pgrep -a plank; pgrep -a picom
+cat ~/.cache/polybar.log
+systemctl --user --failed --no-pager
+env | grep -E "^(DISPLAY|XAUTHORITY|XDG_)"; systemctl --user show-environment | grep -E "^(DISPLAY|XAUTHORITY)"
+ls /usr/share/xsessions/ /usr/share/oniscus/xsessions/
 ls /usr/lib64/xfce4/panel/plugins/ /usr/share/xfce4/panel/plugins/
 rpm -ql xfce4-power-manager | grep -i plugin
 ls -la ~/.local/state/ ~/.cache/ 2>/dev/null; tail -n 40 ~/.local/state/ly-session.log ~/.xsession-errors 2>/dev/null
