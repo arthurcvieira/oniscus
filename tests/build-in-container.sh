@@ -50,6 +50,8 @@ s = open(p).read()
 s = re.sub(r'<repository ([^>]*alias="oniscus"[^>]*)>\s*<source path="[^"]*"/>',
            r'<repository \1 package_gpgcheck="false" repository_gpgcheck="false">\n        <source path="dir:///out/rpms"/>',
            s)
+# A local directory can't be kept in the image's repository list
+s = s.replace('alias="oniscus" imageinclude="true"', 'alias="oniscus"')
 open(p, "w").write(s)
 PY
     grep -A1 'alias="oniscus"' "$desc/config.kiwi"
