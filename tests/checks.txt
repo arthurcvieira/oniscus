@@ -12,6 +12,10 @@ timeout 5 polybar xi3 2>&1 | head -n 20
 ps -u live -o pid,args --forest | grep -v ' \[' | tail -n 60
 i3-msg -t get_tree | python3 -c 'import json,sys; t=json.load(sys.stdin); w=lambda n,d=0: [print("  "*d+str(n.get("type"))+" "+str(n.get("name"))+" "+str((n.get("window_properties") or {}).get("class"))+" "+str(n["rect"])) or [w(c,d+1) for c in n["nodes"]+n["floating_nodes"]] for _ in [0]]; w(t)'
 xfconf-query -c xfce4-panel -lv | head -n 40
+cat /etc/dconf/profile/user; ls -l /etc/dconf/db/ /etc/dconf/db/local.d/
+gsettings get net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ position
+gsettings get net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ hide-mode
+xprop -name plank _NET_WM_WINDOW_TYPE _NET_WM_STRUT_PARTIAL; xwininfo -name plank | grep -E "Absolute|Width|Height"
 systemctl --user --failed --no-pager
 env | grep -E "^(DISPLAY|XAUTHORITY|XDG_)"; systemctl --user show-environment | grep -E "^(DISPLAY|XAUTHORITY)"
 ls /usr/share/xsessions/ /usr/share/oniscus/xsessions/
