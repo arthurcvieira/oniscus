@@ -17,17 +17,17 @@ UNIT LOAD ACTIVE SUB DESCRIPTION
 0 loaded units listed.
 
 $ sudo journalctl -b --no-pager -u 'ly@*' | tail -n 30
-Oct 22 04:46:17 localhost.localdomain systemd[1]: Started TUI display manager.
+Oct 22 05:17:35 localhost.localdomain systemd[1]: Started TUI display manager.
 
 $ sudo ls -l /etc/ly/
 total 28
--rw-r--r-- 1 root root 1267 Oct 22 04:11 config.ini
-drwxr-xr-x 2 root root 4096 Oct 22 04:22 custom-sessions
--rwxr-xr-x 1 root root 2061 Oct 22 04:14 example.dur
-drwxr-xr-x 2 root root 4096 Oct 22 04:22 lang
--rw-r--r-- 1 root root   16 Oct 22 04:48 save.txt
--rwxr-xr-x 1 root root 3653 Oct 22 04:14 setup.sh
--rwxr-xr-x 1 root root 1167 Oct 22 04:14 startup.sh
+-rw-r--r-- 1 root root 1267 Oct 22 04:51 config.ini
+drwxr-xr-x 2 root root 4096 Oct 22 05:03 custom-sessions
+-rwxr-xr-x 1 root root 2061 Oct 22 04:56 example.dur
+drwxr-xr-x 2 root root 4096 Oct 22 05:03 lang
+-rw-r--r-- 1 root root   16 Oct 22 05:20 save.txt
+-rwxr-xr-x 1 root root 3653 Oct 22 04:56 setup.sh
+-rwxr-xr-x 1 root root 1167 Oct 22 04:56 startup.sh
 
 $ grep -vE '^(#|$)' /etc/ly/config.ini | head -n 40
 lang = en
@@ -61,15 +61,15 @@ xsessions = /usr/share/oniscus/xsessions
 waylandsessions = /usr/share/oniscus/wayland-sessions
 
 $ pgrep -a i3; pgrep -a xfce4-panel; pgrep -a polybar; pgrep -a plank; pgrep -a picom
-1168 i3
-1253 xfce4-panel
-1223 polybar xi3
-1172 plank
-1218 picom --config /home/live/.config/picom/picom.conf -b
+1180 i3
+1263 xfce4-panel
+1231 polybar xi3
+1184 plank
+1230 picom --config /home/live/.config/picom/picom.conf -b
 
 $ cat ~/.cache/polybar.log
 polybar|notice:  Parsing config file: /home/live/.config/polybar/config.ini
-polybar|notice:  Listening for IPC messages (PID: 1223)
+polybar|notice:  Listening for IPC messages (PID: 1231)
 polybar|notice:  Loading module 'i3' of type 'internal/i3'
 polybar|notice:  Loading module 'divider' of type 'custom/text'
 polybar|notice:  Loading module 'cpu' of type 'internal/cpu'
@@ -79,9 +79,8 @@ polybar|notice:  Loaded font "Noto Sans:size=10" (name=Noto Sans, offset=2, file
 polybar|notice:  Loaded font "Noto Sans:weight=bold:size=10" (name=Noto Sans, offset=2, file=/usr/share/fonts/truetype/NotoSans-Bold.ttf)
 polybar|notice:  randr_screen_change_notify (1280x800)... reloading
 polybar|notice:  Termination signal received, shutting down...
-polybar|warn:  module/i3: Attempting to reconnect socket (reason: Unexpected EOF while reading header)
 polybar|notice:  Parsing config file: /home/live/.config/polybar/config.ini
-polybar|notice:  Listening for IPC messages (PID: 1223)
+polybar|notice:  Listening for IPC messages (PID: 1231)
 polybar|warn:  No monitor specified, using "Virtual-1"
 polybar|notice:  Loading module 'i3' of type 'internal/i3'
 polybar|notice:  Loading module 'divider' of type 'custom/text'
@@ -93,15 +92,15 @@ polybar|notice:  Loaded font "Noto Sans:weight=bold:size=10" (name=Noto Sans, of
 
 $ ls -l ~/.config/polybar/
 total 8
--rw-r--r-- 1 live users 1594 Oct 22 04:11 config.ini
--rwxr-xr-x 1 live users  215 Oct 22 04:11 launch.sh
+-rw-r--r-- 1 live users 1594 Oct 22 04:51 config.ini
+-rwxr-xr-x 1 live users  215 Oct 22 04:51 launch.sh
 
 $ export DISPLAY=:0 XAUTHORITY=/run/user/$(id -u)/lyxauth
 
 
 $ timeout 5 polybar xi3 2>&1 | head -n 20
 polybar|notice:  Parsing config file: /home/live/.config/polybar/config.ini
-polybar|notice:  Listening for IPC messages (PID: 2417)
+polybar|notice:  Listening for IPC messages (PID: 2480)
 polybar|warn:  No monitor specified, using "Virtual-1"
 polybar|notice:  Loading module 'i3' of type 'internal/i3'
 polybar|notice:  Loading module 'divider' of type 'custom/text'
@@ -114,48 +113,49 @@ Terminated                 timeout 5 polybar xi3 2>&1 | head -n 20
 
 $ ps -u live -o pid,args --forest | grep -v ' \[' | tail -n 60
 PID COMMAND
-   1113 /usr/bin/ly
-   1115  \_ /usr/bin/Xorg.bin :0 vt2 -auth /run/user/1000/lyxauth
-   1123  \_ xfce4-session
-   1168      \_ i3
-   1171      |   \_ nm-applet
-   1172      |   \_ plank
-   1173      |   \_ xfce4-terminal
-   1405      |   |   \_ bash
-   1174      |   \_ xfce4-terminal --title Oniscus Welcome --geometry 104x34 -x onis
-   1404      |   |   \_ /bin/bash /usr/local/bin/onis
-   1572      |   |       \_ /bin/bash /usr/local/bin/onis
-   1595      |   |           \_ /bin/bash /usr/local/bin/onis
-   1597      |   |               \_ gum choose --height 12
-   1176      |   \_ /bin/bash /usr/local/bin/onis agent watch-crashes
-   1216      |       \_ journalctl --user -f -n 0 -o json MESSAGE_ID=fc2e22bc6ee647b6b90729ab34a250b1
-   1217      |       \_ /bin/bash /usr/local/bin/onis agent watch-crashes
-   1251      \_ xfsettingsd
-   1253      \_ xfce4-panel
-   1390      |   \_ /usr/libexec/xfce4/panel/wrapper-2.0 /usr/lib64/xfce4/panel/plugins/libwhiskermenu.so 1 12582919 whiskermenu Whisker Menu Show a menu to easily access installed applications
-   1402      |   \_ /usr/libexec/xfce4/panel/wrapper-2.0 /usr/lib64/xfce4/panel/plugins/libgenmon.so 2 12582920 genmon Generic Monitor Show output of a command.
-   1448      |   \_ /usr/libexec/xfce4/panel/wrapper-2.0 /usr/lib64/xfce4/panel/plugins/libsystray.so 5 12582921 systray Status Tray Plugin Provides status notifier items (application indicators) and legacy systray items
-   1449      |   \_ /usr/libexec/xfce4/panel/wrapper-2.0 /usr/lib64/xfce4/panel/plugins/libbattery.so 6 12582922 battery Battery Monitor Show and monitor the battery status
-   1269      \_ Thunar --daemon
-   1309      \_ xfce4-power-manager
-   2168 -bash
-   2484  \_ ps -u live -o pid,args --forest
-   2485  \_ grep -v  \[
-   2486  \_ tail -n 60
-   1354 /usr/bin/gnome-keyring-daemon --start --components=secrets
-   1223 polybar xi3
-   1218 picom --config /home/live/.config/picom/picom.conf -b
-   1167 /usr/bin/gpg-agent --sh --daemon
-   1162 /usr/bin/ssh-agent -s
-   1102 /usr/lib/systemd/systemd --user
-   1103  \_ (sd-pam)
-   1142  \_ /usr/bin/dbus-broker-launch --scope user
-   1143  |   \_ dbus-broker --log 11 --controller 10 --machine-id 39978f36eda24db0b3e30e1b0c55d02d --max-bytes 100000000000000 --max-fds 25000000000000 --max-matches 5000000000
-   1154  \_ /usr/libexec/xfce4/xfconf/xfconfd
-   1229  \_ /usr/libexec/gvfs/gvfsd
-   1312  \_ /usr/libexec/xfce4/notifyd/xfce4-notifyd
-   1328  \_ /usr/libexec/gvfs/gvfsd-metadata
-   1372  \_ /usr/libexec/bamf/bamfdaemon
+   1125 /usr/bin/ly
+   1127  \_ /usr/bin/Xorg.bin :0 vt2 -auth /run/user/1000/lyxauth
+   1135  \_ xfce4-session
+   1180      \_ i3
+   1183      |   \_ nm-applet
+   1184      |   \_ plank
+   1185      |   \_ xfce4-terminal
+   1430      |   |   \_ bash
+   1186      |   \_ xfce4-terminal --title Oniscus Welcome --geometry 104x34 -x onis
+   1427      |   |   \_ /bin/bash /usr/local/bin/onis
+   1622      |   |       \_ /bin/bash /usr/local/bin/onis
+   1650      |   |           \_ /bin/bash /usr/local/bin/onis
+   1652      |   |               \_ gum choose --height 12
+   1188      |   \_ /bin/bash /usr/local/bin/onis agent watch-crashes
+   1228      |       \_ journalctl --user -f -n 0 -o json MESSAGE_ID=fc2e22bc6ee647b6b90729ab34a250b1
+   1229      |       \_ /bin/bash /usr/local/bin/onis agent watch-crashes
+   1261      \_ xfsettingsd
+   1263      \_ xfce4-panel
+   1367      |   \_ /usr/libexec/xfce4/panel/wrapper-2.0 /usr/lib64/xfce4/panel/plugins/libwhiskermenu.so 1 12582919 whiskermenu Whisker Menu Show a menu to easily access installed applications
+   1378      |   \_ /usr/libexec/xfce4/panel/wrapper-2.0 /usr/lib64/xfce4/panel/plugins/libgenmon.so 2 12582920 genmon Generic Monitor Show output of a command.
+   1393      |   \_ /usr/libexec/xfce4/panel/wrapper-2.0 /usr/lib64/xfce4/panel/plugins/libsystray.so 5 12582921 systray Status Tray Plugin Provides status notifier items (application indicators) and legacy systray items
+   1394      |   \_ /usr/libexec/xfce4/panel/wrapper-2.0 /usr/lib64/xfce4/panel/plugins/libbattery.so 6 12582922 battery Battery Monitor Show and monitor the battery status
+   1273      \_ Thunar --daemon
+   1318      \_ xfce4-power-manager
+   2236 -bash
+   2547  \_ ps -u live -o pid,args --forest
+   2548  \_ grep -v  \[
+   2549  \_ tail -n 60
+   1337 /usr/bin/gnome-keyring-daemon --start --components=ssh
+   1231 polybar xi3
+   1230 picom --config /home/live/.config/picom/picom.conf -b
+   1179 /usr/bin/gpg-agent --sh --daemon
+   1174 /usr/bin/ssh-agent -s
+   1114 /usr/lib/systemd/systemd --user
+   1115  \_ (sd-pam)
+   1154  \_ /usr/bin/dbus-broker-launch --scope user
+   1155  |   \_ dbus-broker --log 11 --controller 10 --machine-id cd63fc4df3c645e69847e9ce7f7d2e66 --max-bytes 100000000000000 --max-fds 25000000000000 --max-matches 5000000000
+   1166  \_ /usr/libexec/xfce4/xfconf/xfconfd
+   1241  \_ /usr/libexec/gvfs/gvfsd
+   1285  \_ /usr/libexec/dconf-service
+   1353  \_ /usr/libexec/xfce4/notifyd/xfce4-notifyd
+   1380  \_ /usr/libexec/gvfs/gvfsd-metadata
+   1384  \_ /usr/libexec/bamf/bamfdaemon
 
 $ i3-msg -t get_tree | python3 -c 'import json,sys; t=json.load(sys.stdin); w=lambda n,d=0: [print("  "*d+str(n.get("type"))+" "+str(n.get("name"))+" "+str((n.get("window_properties") or {}).get("class"))+" "+str(n["rect"])) or [w(c,d+1) for c in n["nodes"]+n["floating_nodes"]] for _ in [0]]; w(t)'
 root root None {'x': 0, 'y': 0, 'width': 1280, 'height': 800}
@@ -163,15 +163,15 @@ root root None {'x': 0, 'y': 0, 'width': 1280, 'height': 800}
     con content None {'x': 0, 'y': 0, 'width': 0, 'height': 0}
       workspace __i3_scratch None {'x': 0, 'y': 0, 'width': 0, 'height': 0}
   output Virtual-1 None {'x': 0, 'y': 0, 'width': 1280, 'height': 800}
-    dockarea topdock None {'x': 0, 'y': 0, 'width': 1280, 'height': 25}
-      con xfce4-panel Xfce4-panel {'x': 0, 'y': 0, 'width': 1280, 'height': 25}
-    con content None {'x': 0, 'y': 25, 'width': 1280, 'height': 555}
-      workspace 1 None {'x': 0, 'y': 25, 'width': 1280, 'height': 505}
-        con Terminal - live@localhost:~ Xfce4-terminal {'x': 6, 'y': 31, 'width': 1268, 'height': 493}
+    dockarea topdock None {'x': 0, 'y': 0, 'width': 1280, 'height': 825}
+      con plank Plank {'x': 0, 'y': 0, 'width': 1280, 'height': 800}
+      con xfce4-panel Xfce4-panel {'x': 0, 'y': 800, 'width': 1280, 'height': 25}
+    con content None {'x': 0, 'y': 825, 'width': 1280, 'height': 4294967271}
+      workspace 1 None {'x': 0, 'y': 825, 'width': 1280, 'height': 4294967221}
+        con Terminal - live@localhost:~ Xfce4-terminal {'x': 6, 'y': 831, 'width': 1268, 'height': 4294967285}
         floating_con None None {'x': 160, 'y': 59, 'width': 960, 'height': 657}
           con Oniscus Welcome Xfce4-terminal {'x': 160, 'y': 59, 'width': 960, 'height': 657}
-    dockarea bottomdock None {'x': 0, 'y': 580, 'width': 1280, 'height': 220}
-      con plank Plank {'x': 0, 'y': 580, 'width': 1280, 'height': 220}
+    dockarea bottomdock None {'x': 0, 'y': 800, 'width': 1280, 'height': 0}
 
 $ xfconf-query -c xfce4-panel -lv | head -n 40
 /configver                             2
@@ -211,22 +211,33 @@ user-db:user
 system-db:local
 /etc/dconf/db/:
 total 8
--rw-r--r-- 1 root root  952 Oct 22 04:23 local
-drwxr-xr-x 2 root root 4096 Oct 22 04:11 local.d
+-rw-r--r-- 1 root root  952 Oct 22 05:03 local
+drwxr-xr-x 2 root root 4096 Oct 22 04:51 local.d
 
 /etc/dconf/db/local.d/:
 total 4
--rw-r--r-- 1 root root 427 Oct 22 04:11 10-xi3-plank
+-rw-r--r-- 1 root root 427 Oct 22 04:51 10-xi3-plank
 
 $ gsettings get net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ position
-'bottom'
+'left'
 
 $ gsettings get net.launchpad.plank.dock.settings:/net/launchpad/plank/docks/dock1/ hide-mode
 'intelligent'
 
-$ xprop -name plank _NET_WM_WINDOW_TYPE _NET_WM_STRUT_PARTIAL; xwininfo -name plank | grep -E "Absolute|Width|Height"
--bash: xprop: command not found
--bash: xwininfo: command not found
+$ ls /usr/lib64/gio/modules/; dconf dump /net/launchpad/plank/
+giomodule.cache  libdconfsettings.so  libgiognomeproxy.so  libgiognutls.so  libgiolibproxy.so  libgioremote-volume-monitor.so  libgvfsdbus.so  libxfconfgsettingsbackend.so
+[docks/dock1]
+alignment='center'
+dock-items=['xfce4-terminal.dockitem', 'thunar.dockitem', 'firefox.dockitem', 'org.xfce.mousepad.dockitem', 'xfce-settings-manager.dockitem']
+hide-delay=300
+hide-mode='intelligent'
+icon-size=48
+position='left'
+pressure-reveal=false
+show-dock-item=false
+theme='Xi3-Retro'
+unhide-delay=0
+zoom-enabled=false
 
 $ systemctl --user --failed --no-pager
 UNIT LOAD ACTIVE SUB DESCRIPTION
@@ -271,35 +282,35 @@ $ rpm -ql xfce4-power-manager | grep -i plugin
 $ ls -la ~/.local/state/ ~/.cache/ 2>/dev/null; tail -n 40 ~/.local/state/ly-session.log ~/.xsession-errors 2>/dev/null
 /home/live/.cache/:
 total 40
-drwx------  9 live users 4096 Oct 22 04:49 .
-drwxr-xr-x 11 live users 4096 Oct 22 04:49 ..
-drwxr-xr-x  2 live users 4096 Oct 22 04:49 fontconfig
-drwxr-xr-x  3 live users 4096 Oct 22 04:49 glycin
-drwx------ 12 live users 4096 Oct 22 04:49 mesa_shader_cache
-drwxr-xr-x  2 live users 4096 Oct 22 04:49 plank
--rw-r--r--  1 live users 1657 Oct 22 04:49 polybar.log
-drwx------  2 live users 4096 Oct 22 04:49 sessions
-drwxr-xr-x  2 live users 4096 Oct 22 04:50 starship
-drwxr-xr-x  3 live users 4096 Oct 22 04:49 xfce4
+drwx------  9 live users 4096 Oct 22 05:20 .
+drwxr-xr-x 11 live users 4096 Oct 22 05:20 ..
+drwxr-xr-x  2 live users 4096 Oct 22 05:20 fontconfig
+drwxr-xr-x  3 live users 4096 Oct 22 05:20 glycin
+drwx------ 12 live users 4096 Oct 22 05:20 mesa_shader_cache
+drwxr-xr-x  2 live users 4096 Oct 22 05:20 plank
+-rw-r--r--  1 live users 1554 Oct 22 05:20 polybar.log
+drwx------  2 live users 4096 Oct 22 05:20 sessions
+drwxr-xr-x  2 live users 4096 Oct 22 05:21 starship
+drwxr-xr-x  3 live users 4096 Oct 22 05:20 xfce4
 
 /home/live/.local/state/:
 total 8
 drwx------ 2 live users 4096 Mar  2  2026 .
-drwx------ 5 live users 4096 Oct 22 04:19 ..
+drwx------ 5 live users 4096 Oct 22 05:01 ..
 
 $ journalctl --user -b --no-pager -p warning | tail -n 40
-Oct 22 04:49:00 localhost.localdomain dbus-broker-launch[1142]: Service file '/usr/share//dbus-1/services/org.xfce.Thunar.FileManager1.service' is not named after the D-Bus name 'org.freedesktop.FileManager1'.
-Oct 22 04:49:00 localhost.localdomain dbus-broker-launch[1142]: Service file '/usr/share//dbus-1/services/org.xfce.Tumbler.Cache1.service' is not named after the D-Bus name 'org.freedesktop.thumbnails.Cache1'.
-Oct 22 04:49:00 localhost.localdomain dbus-broker-launch[1142]: Service file '/usr/share//dbus-1/services/org.xfce.Tumbler.Manager1.service' is not named after the D-Bus name 'org.freedesktop.thumbnails.Manager1'.
-Oct 22 04:49:00 localhost.localdomain dbus-broker-launch[1142]: Service file '/usr/share//dbus-1/services/org.xfce.Tumbler.Thumbnailer1.service' is not named after the D-Bus name 'org.freedesktop.thumbnails.Thumbnailer1'.
-Oct 22 04:49:00 localhost.localdomain dbus-broker-launch[1142]: Service file '/usr/share//dbus-1/services/org.xfce.xfce4-notifyd.Notifications.service' is not named after the D-Bus name 'org.freedesktop.Notifications'.
-Oct 22 04:49:00 localhost.localdomain dbus-broker-launch[1142]: Service file '/usr/share//dbus-1/services/org.xfce.xfce4-notifyd.Notifyd.service' is not named after the D-Bus name 'org.xfce.Notifyd'.
-Oct 22 04:49:05 localhost.localdomain systemd[1102]: Dependency failed for Portal service.
-Oct 22 04:49:05 localhost.localdomain gnome-keyring-daemon[1354]: discover_other_daemon: 0
-Oct 22 04:49:05 localhost.localdomain gnome-keyring-daemon[1357]: discover_other_daemon: 0
-Oct 22 04:49:05 localhost.localdomain gnome-keyring-daemon[1362]: discover_other_daemon: 1
-Oct 22 04:49:05 localhost.localdomain xfce4-notifyd[1312]: AT-SPI: Error retrieving accessibility bus address: org.freedesktop.DBus.Error.ServiceUnknown: The name is not activatable
-Oct 22 04:49:05 localhost.localdomain bamfdaemon[1372]: AT-SPI: Error retrieving accessibility bus address: org.freedesktop.DBus.Error.ServiceUnknown: The name is not activatable
+Oct 22 05:20:13 localhost.localdomain dbus-broker-launch[1154]: Service file '/usr/share//dbus-1/services/org.xfce.Thunar.FileManager1.service' is not named after the D-Bus name 'org.freedesktop.FileManager1'.
+Oct 22 05:20:13 localhost.localdomain dbus-broker-launch[1154]: Service file '/usr/share//dbus-1/services/org.xfce.Tumbler.Cache1.service' is not named after the D-Bus name 'org.freedesktop.thumbnails.Cache1'.
+Oct 22 05:20:13 localhost.localdomain dbus-broker-launch[1154]: Service file '/usr/share//dbus-1/services/org.xfce.Tumbler.Manager1.service' is not named after the D-Bus name 'org.freedesktop.thumbnails.Manager1'.
+Oct 22 05:20:13 localhost.localdomain dbus-broker-launch[1154]: Service file '/usr/share//dbus-1/services/org.xfce.Tumbler.Thumbnailer1.service' is not named after the D-Bus name 'org.freedesktop.thumbnails.Thumbnailer1'.
+Oct 22 05:20:13 localhost.localdomain dbus-broker-launch[1154]: Service file '/usr/share//dbus-1/services/org.xfce.xfce4-notifyd.Notifications.service' is not named after the D-Bus name 'org.freedesktop.Notifications'.
+Oct 22 05:20:13 localhost.localdomain dbus-broker-launch[1154]: Service file '/usr/share//dbus-1/services/org.xfce.xfce4-notifyd.Notifyd.service' is not named after the D-Bus name 'org.xfce.Notifyd'.
+Oct 22 05:20:15 localhost.localdomain gnome-keyring-daemon[1337]: discover_other_daemon: 0
+Oct 22 05:20:15 localhost.localdomain gnome-keyring-daemon[1348]: discover_other_daemon: 1
+Oct 22 05:20:15 localhost.localdomain gnome-keyring-daemon[1351]: discover_other_daemon: 1
+Oct 22 05:20:16 localhost.localdomain systemd[1114]: Dependency failed for Portal service.
+Oct 22 05:20:16 localhost.localdomain xfce4-notifyd[1353]: AT-SPI: Error retrieving accessibility bus address: org.freedesktop.DBus.Error.ServiceUnknown: The name is not activatable
+Oct 22 05:20:16 localhost.localdomain bamfdaemon[1384]: AT-SPI: Error retrieving accessibility bus address: org.freedesktop.DBus.Error.ServiceUnknown: The name is not activatable
 
 $ sudo journalctl -b --no-pager -p err | tail -n 40
 -- No entries --
