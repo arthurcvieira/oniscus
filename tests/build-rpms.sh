@@ -31,6 +31,8 @@ for spec in "$src"/packaging/ly/ly.spec "$src"/packaging/plank-reloaded/plank-re
     if [ "$(basename "$spec")" = ly.spec ]; then
         version=$(rpmspec -q --qf '%{version}\n' "$spec" | head -1)
         [ -f "$top/SOURCES/ly-$version-vendor.tar.zst" ] || "$dir/make-vendor.sh" "$top/SOURCES"
+        # Keep it with the results, so it can be committed for OBS
+        mkdir -p "$repo/../vendor" && cp "$top/SOURCES/ly-$version-vendor.tar.zst" "$repo/../vendor/"
     fi
     unshare --net rpmbuild -bb --define "_topdir $top" "$spec"
 done

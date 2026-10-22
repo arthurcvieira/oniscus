@@ -84,7 +84,7 @@ jobs:
         run: |
           dir=results/${{ github.run_id }}
           mkdir -p "$RUNNER_TEMP/r/$dir"
-          cp boot-test/*.png boot-test/*.log boot-test/*.txt build.log "$RUNNER_TEMP/r/$dir/" 2>/dev/null || true
+          cp boot-test/*.png boot-test/*.log boot-test/*.txt build.log /mnt/oniscus/vendor/* "$RUNNER_TEMP/r/$dir/" 2>/dev/null || true
           cd "$RUNNER_TEMP/r"
           git init -q && git checkout -q -b iso-test-results
           git config user.name "github-actions[bot]"
