@@ -1,0 +1,93 @@
+# Builds the Oniscus live ISO (Dev profile) with KIWI NG in an openSUSE
+# Tumbleweed container, then boots it in QEMU and takes screenshots.
+# The ISO and the screenshots are uploaded as workflow artifacts; the
+# screenshots and logs are also pushed to the iso-test-results branch.
+name: ISO
+
+on:
+  workflow_dispatch:
+  pull_request:
+    paths: ['kiwi/**', 'tests/**', '.github/workflows/iso.yml']
+  push:
+    branches: [main]
+    paths: ['kiwi/**', 'tests/**', '.github/workflows/iso.yml']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: iso-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-boot:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Free disk space
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL /usr/local/share/boost
+          sudo docker image prune --all --force
+          sudo mkdir -p /mnt/oniscus && sudo chown "$USER" /mnt/oniscus
+          df -h / /mnt
+
+      - name: Build ISO (KIWI NG, Dev profile)
+        run: |
+          sudo docker run --rm --privileged -v /dev:/dev \
+            -v "$PWD":/src:ro -v /mnt/oniscus:/out -e SERIAL=1 \
+            registry.opensuse.org/opensuse/tumbleweed:latest \
+            bash /src/tests/build-in-container.sh 2>&1 | tee build.log
+          exit "${PIPESTATUS[0]}"
+
+      - name: Package errors from the build log
+        if: always()
+        run: grep -nE "not found in package names|No provider of|Problem:|nothing provides|ERROR" build.log | head -50 || true
+
+      - name: Install QEMU
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules && sudo udevadm trigger --name-match=kvm
+          sudo apt-get update && sudo apt-get install -y qemu-system-x86 ovmf socat imagemagick
+
+      - name: Boot test
+        run: |
+          iso=$(ls /mnt/oniscus/image/*.iso | head -1)
+          ls -lh "$iso"
+          tests/boot-test.sh "$iso" boot-test
+
+      - name: Upload screenshots and logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: boot-test
+          path: |
+            boot-test/*.png
+            boot-test/*.log
+            boot-test/*.txt
+            build.log
+          if-no-files-found: ignore
+
+      - name: Upload ISO
+        uses: actions/upload-artifact@v4
+        with:
+          name: oniscus-iso
+          path: /mnt/oniscus/image/*.iso
+          retention-days: 7
+          compression-level: 0
+
+      - name: Push results to the iso-test-results branch
+        if: always()
+        run: |
+          dir=results/${{ github.run_id }}
+          mkdir -p "$RUNNER_TEMP/r/$dir"
+          cp boot-test/*.png boot-test/*.log boot-test/*.txt build.log "$RUNNER_TEMP/r/$dir/" 2>/dev/null || true
+          cd "$RUNNER_TEMP/r"
+          git init -q && git checkout -q -b iso-test-results
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote add origin "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git"
+          git fetch -q --depth 1 origin iso-test-results && git reset -q --soft FETCH_HEAD || true
+          git add -A && git commit -qm "ISO test results for run ${{ github.run_id }} (${{ github.sha }})"
+          git push -q origin iso-test-results
