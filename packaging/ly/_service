@@ -11,6 +11,7 @@
     <param name="filename">oniscus-ly</param>
     <param name="extract">packaging/ly/ly.spec</param>
     <param name="extract">packaging/ly/ly-1.4.1-vendor.tar.zst</param>
+    <param name="extract">packaging/ly/ly-center-bigclock.patch</param>
   </service>
   <service name="download_files"/>
 </services>

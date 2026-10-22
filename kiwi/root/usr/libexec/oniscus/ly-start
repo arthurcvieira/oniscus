@@ -1,0 +1,10 @@
+#!/bin/sh
+# Starts Ly with the Oniscus colors. The Linux console shows only 16 colors and
+# maps Ly's true colors onto them, which turned the background into bright
+# orange, yellow and gray bands. Redefining those 16 colors for this console
+# (dark graphite, warm browns and amber) makes the same mapping look right.
+printf '\033]P0121519\033]P1C0492B\033]P26F7F4F\033]P35A3B26'
+printf '\033]P42A3038\033]P57A4E6A\033]P63F5F66\033]P74A4038'
+printf '\033]P822262C\033]P9F28C28\033]PA9DB06A\033]PBE3AC2C'
+printf '\033]PC5A6B7A\033]PDB07A9C\033]PE9AA4AF\033]PFE6E9EC'
+exec /usr/bin/ly "$@"

@@ -49,6 +49,7 @@
       <property name="icon-size" type="int" value="16"/>
     </property>
     <!-- Battery (xfce4-battery-plugin; Tumbleweed's xfce4-power-manager has no panel plugin) -->
+    <!-- Look (icon and percentage, no bar) in /etc/xdg/xfce4/panel/battery-6.rc -->
     <property name="plugin-6" type="string" value="battery"/>
     <property name="plugin-8" type="string" value="clock">
       <property name="mode" type="uint" value="2"/>

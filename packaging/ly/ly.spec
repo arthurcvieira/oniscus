@@ -16,6 +16,8 @@ License:        WTFPL
 URL:            https://codeberg.org/fairyglade/ly
 Source0:        https://github.com/fairyglade/ly/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Source1:        %{name}-%{version}-vendor.tar.zst
+# Center the big clock from the first frame (it started at the middle of the screen)
+Patch0:         ly-center-bigclock.patch
 BuildRequires:  pam-devel
 BuildRequires:  pkgconfig(xcb)
 BuildRequires:  zig >= 0.16
@@ -29,7 +31,7 @@ Ly is a lightweight text-based display manager (login screen) for Linux and
 BSD, with X11, Wayland and shell sessions and an optional animated background.
 
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup -p1 -n %{name}-%{version}
 tar --zstd -xf %{SOURCE1}
 
 %build

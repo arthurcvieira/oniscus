@@ -1,0 +1,15 @@
+--- a/src/main.zig
++++ b/src/main.zig
+@@ -1927,7 +1927,12 @@
+     );
+ 
+     const clock_str = interop.timeAsString(state.io, &state.bigclock_buf, format);
++    const old_width = TerminalBuffer.strWidth(self.text);
+     self.setText(clock_str);
++
++    // The first layout runs before the clock has any text, which left the
++    // clock starting at the middle of the screen. Re-center when the width changes.
++    if (TerminalBuffer.strWidth(self.text) != old_width) try positionWidgets(state);
+ }
+ 
+ fn calculateBigClockTimeout(_: *BigLabel, ptr: *anyopaque) !?usize {

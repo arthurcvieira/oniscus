@@ -36,6 +36,7 @@ oniscus-branding	kiwi/root/usr/share/plank/themes/Xi3-Retro	/usr/share/plank/the
 oniscus-branding	kiwi/root/usr/lib/os-release.oniscus	/usr/lib/os-release.oniscus	-
 oniscus-branding	kiwi/root/usr/libexec/oniscus	/usr/libexec/oniscus	exec,own
 oniscus-branding	kiwi/root/usr/lib/systemd/system/oniscus-os-release.service	/usr/lib/systemd/system/oniscus-os-release.service	-
+oniscus-branding	kiwi/root/usr/lib/systemd/system/ly@.service.d/oniscus.conf	/usr/lib/systemd/system/ly@.service.d/oniscus.conf	-
 oniscus-desktop	kiwi/root/usr/local/bin/xi3-active-app	/usr/bin/xi3-active-app	exec
 oniscus-desktop	kiwi/root/usr/local/bin/oniscus-session	/usr/bin/oniscus-session	exec
 oniscus-desktop	kiwi/root/usr/share/oniscus/xsessions	/usr/share/oniscus/xsessions	own
@@ -46,5 +47,6 @@ oniscus-desktop	kiwi/root/etc/profile.d/oniscus-starship.sh	/etc/profile.d/onisc
 oniscus-desktop	kiwi/root/etc/starship.toml	/etc/starship.toml	config
 oniscus-desktop	kiwi/root/etc/xdg/mimeapps.list	/etc/xdg/oniscus/mimeapps.list	config
 oniscus-desktop	kiwi/root/etc/xdg/xfce4/xfconf/xfce-perchannel-xml	/etc/xdg/oniscus/xfce4/xfconf/xfce-perchannel-xml	config,own
+oniscus-desktop	kiwi/root/etc/xdg/xfce4/panel/battery-6.rc	/etc/xdg/oniscus/xfce4/panel/battery-6.rc	config
 oniscus-desktop	kiwi/root/etc/dconf/db/local.d/10-xi3-plank	/etc/dconf/db/local.d/10-xi3-plank	config
 oniscus-desktop	kiwi/root/etc/skel/.config	/etc/skel/.config	config
