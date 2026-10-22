@@ -85,6 +85,9 @@
         <package name="grub2-x86_64-efi" arch="x86_64"/>
         <package name="shim" arch="x86_64"/>
         <package name="dracut-kiwi-live"/>
+        <!-- The live initrd (dracut livenet/net-lib) needs ip and pgrep -->
+        <package name="iproute2"/>
+        <package name="procps"/>
         <package name="systemd"/>
         <package name="sudo"/>
         <package name="zypper"/>
