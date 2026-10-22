@@ -1,5 +1,7 @@
 # Builds the Oniscus live ISO (Dev profile) with KIWI NG in an openSUSE
-# Tumbleweed container, then boots it in QEMU and takes screenshots.
+# Tumbleweed container, then boots it in QEMU and takes screenshots. Ly and
+# Plank Reloaded are built from packaging/ in the same container instead of
+# coming from the Oniscus OBS repository, so their spec files are tested too.
 # The ISO and the screenshots are uploaded as workflow artifacts; the
 # screenshots and logs are also pushed to the iso-test-results branch.
 name: ISO
@@ -7,10 +9,10 @@ name: ISO
 on:
   workflow_dispatch:
   pull_request:
-    paths: ['kiwi/**', 'tests/**', '.github/workflows/iso.yml']
+    paths: ['kiwi/**', 'tests/**', 'packaging/ly/**', 'packaging/plank-reloaded/**', '.github/workflows/iso.yml']
   push:
     branches: [main]
-    paths: ['kiwi/**', 'tests/**', '.github/workflows/iso.yml']
+    paths: ['kiwi/**', 'tests/**', 'packaging/ly/**', 'packaging/plank-reloaded/**', '.github/workflows/iso.yml']
 
 permissions:
   contents: write
@@ -36,7 +38,7 @@ jobs:
       - name: Build ISO (KIWI NG, Dev profile)
         run: |
           sudo docker run --rm --privileged -v /dev:/dev \
-            -v "$PWD":/src:ro -v /mnt/oniscus:/out -e SERIAL=1 \
+            -v "$PWD":/src:ro -v /mnt/oniscus:/out -e SERIAL=1 -e LOCAL_RPMS=1 \
             registry.opensuse.org/opensuse/tumbleweed:latest \
             bash /src/tests/build-in-container.sh 2>&1 | tee build.log
           exit "${PIPESTATUS[0]}"

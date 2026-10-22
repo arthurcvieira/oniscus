@@ -49,7 +49,7 @@
         <user name="live" groups="users,wheel,audio,video" home="/home/live" password="live" pwdformat="plain"/>
     </users>
 
-    <!-- Official Tumbleweed repositories (plus the Oniscus one in the Release profile) -->
+    <!-- Official Tumbleweed repositories, plus the Oniscus one -->
     <repository type="rpm-md" alias="repo-oss" imageinclude="true">
         <source path="https://download.opensuse.org/tumbleweed/repo/oss/"/>
     </repository>
@@ -60,10 +60,12 @@
         <source path="https://download.opensuse.org/update/tumbleweed/"/>
     </repository>
 
-    <!-- Oniscus's own packages, built on build.opensuse.org from packaging/oniscus.spec.
-         imageinclude keeps the repository on installed systems, so updates arrive
-         with the rest of Tumbleweed. -->
-    <repository type="rpm-md" alias="oniscus" imageinclude="true" profiles="Release">
+    <!-- The Oniscus repository on build.opensuse.org: Ly and Plank Reloaded (not in
+         Tumbleweed) in every profile, plus Oniscus's own packages from
+         packaging/oniscus.spec in the Release profile. imageinclude keeps the
+         repository on installed systems, so updates arrive with the rest of
+         Tumbleweed. -->
+    <repository type="rpm-md" alias="oniscus" imageinclude="true">
         <source path="https://download.opensuse.org/repositories/home:/oniscus/openSUSE_Tumbleweed/"/>
     </repository>
 
@@ -115,6 +117,7 @@
         <namedCollection name="x11"/>
         <package name="xorg-x11-server"/>
         <package name="xinit"/>
+        <!-- Ly is not in Tumbleweed: it comes from the Oniscus repository -->
         <package name="ly"/>
 
         <!-- XFCE (without xfwm4 or xfdesktop) -->
@@ -135,7 +138,7 @@
         <package name="xfconf"/>
         <package name="xfce4-panel-profiles"/>
         <package name="adwaita-icon-theme"/>
-        <package name="oxygen6-icon-theme"/>
+        <package name="kf6-oxygen-icons"/>
         <package name="google-noto-sans-mono-fonts"/>
         <package name="google-noto-sans-fonts"/>
 
@@ -149,7 +152,8 @@
         <package name="starship"/>
         <package name="fastfetch"/>
         <package name="polybar"/>
-        <package name="plank"/>
+        <!-- Plank Reloaded (maintained Plank fork) from the Oniscus repository -->
+        <package name="plank-reloaded"/>
         <package name="xdotool"/>
         <package name="dconf"/>
         <package name="xfce4-genmon-plugin"/>
