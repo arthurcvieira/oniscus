@@ -30,10 +30,8 @@ for pkg in $(cat /tmp/packages); do
     zypper --non-interactive --quiet search --match-exact --type package "$pkg" >/dev/null 2>&1 \
         || missing+=("$pkg")
 done
-if [ ${#missing[@]} -gt 0 ]; then
-    echo "Packages not in the repositories: ${missing[*]}"
-    for pkg in "${missing[@]}" ${SEARCH:-}; do zypper --non-interactive search "$pkg" || true; done
-fi
+[ ${#missing[@]} -gt 0 ] && echo "Packages not in the repositories: ${missing[*]}"
+for pkg in "${missing[@]}" ${SEARCH:-}; do zypper --non-interactive search "$pkg" || true; done
 
 desc=/out/description
 rm -rf "$desc" /out/image
