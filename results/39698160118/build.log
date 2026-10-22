@@ -1,6 +1,7 @@
 Unable to find image 'registry.opensuse.org/opensuse/tumbleweed:latest' locally
 latest: Pulling from opensuse/tumbleweed
 680d9a2699ec: Pulling fs layer
+680d9a2699ec: Verifying Checksum
 680d9a2699ec: Download complete
 680d9a2699ec: Pull complete
 Digest: sha256:7f2cd9ec1fb4d18b83a110dd379a5e387b6cb21c05b6908792038b430e69b0e3
@@ -9,12 +10,12 @@ Status: Downloaded newer image for registry.opensuse.org/opensuse/tumbleweed:lat
 Retrieving repository 'openSUSE-Tumbleweed-Update' metadata [...
 Looking for gpg keys in repository openSUSE-Tumbleweed-Update.
   gpgkey=http://download.opensuse.org/update/tumbleweed/repodata/repomd.xml.key
-..........done]
+.......done]
 Building repository 'openSUSE-Tumbleweed-Update' cache [....done]
 Retrieving repository 'openSUSE-Tumbleweed-Non-Oss' metadata [....
 Looking for gpg keys in repository openSUSE-Tumbleweed-Non-Oss.
   gpgkey=http://download.opensuse.org/tumbleweed/repo/non-oss/repodata/repomd.xml.key
-........done]
+.......done]
 Building repository 'openSUSE-Tumbleweed-Non-Oss' cache [....done]
 Retrieving repository 'Open H.264 Codec (openSUSE Tumbleweed)' metadata [...
 Looking for gpg keys in repository Open H.264 Codec (openSUSE Tumbleweed).
@@ -24,7 +25,7 @@ Building repository 'Open H.264 Codec (openSUSE Tumbleweed)' cache [....done]
 Retrieving repository 'openSUSE-Tumbleweed-Oss' metadata [....
 Looking for gpg keys in repository openSUSE-Tumbleweed-Oss.
   gpgkey=http://download.opensuse.org/tumbleweed/repo/oss/repodata/repomd.xml.key
-.......................................done]
+...........done]
 Building repository 'openSUSE-Tumbleweed-Oss' cache [....done]
 All repositories have been refreshed.
 + zypper --non-interactive install --no-recommends python3-kiwi kiwi-systemdeps
@@ -48,137 +49,137 @@ Package install size change:
 
 Backend:  classic_rpmtrans
 Continue? [y/n/v/...? shows all options] (y): y
-Preloading Packages [.
-Preloading: libctf0-2.47-1.1.x86_64.rpm [Error: "The requested URL returned error: 404", trying next mirror.]
-Preloading: libfreetype6-2.15.0-1.1.x86_64.rpm [Error: "The requested URL returned error: 404", trying next mirror.]
-Preloading: libfreetype6-2.15.0-1.1.x86_64.rpm [Error: "The requested URL returned error: 404", trying next mirror.]
+Preloading Packages [..
+Preloading: binutils-2.47-1.1.x86_64.rpm [Error: "The requested URL returned error: 404", trying next mirror.]
 .
-Preloading: e2fsprogs-1.47.3-2.2.x86_64.rpm [done]
+Preloading: libctf0-2.47-1.1.x86_64.rpm [done]
+.
+Preloading: e2fsprogs-1.47.3-2.2.x86_64.rpm [Error: "The requested URL returned error: 404", trying next mirror.]
 .
 Preloading: libfreetype6-2.15.0-1.1.x86_64.rpm [done]
 .
-Preloading: libctf0-2.47-1.1.x86_64.rpm [done]
-..
 Preloading: btrfsprogs-7.1-1.2.x86_64.rpm [done]
-.
-Preloading: liblvm2cmd2_03-2.03.38-2.5.x86_64.rpm [done]
-.
-Preloading: python313-3.13.16-1.1.x86_64.rpm [done]
-.
-Preloading: info-7.3-1.5.x86_64.rpm [done]
 .
 Preloading: device-mapper-2.03.38_1.02.212-2.5.x86_64.rpm [done]
 .
+Preloading: liblvm2cmd2_03-2.03.38-2.5.x86_64.rpm [done]
+.
+Preloading: e2fsprogs-1.47.3-2.2.x86_64.rpm [done]
+.
+Preloading: info-7.3-1.5.x86_64.rpm [done]
+.
+Preloading: librpmbuild10-4.20.1-11.1.x86_64.rpm [done]
+.
+Preloading: file-5.48-2.2.x86_64.rpm [done]
+.
 Preloading: libisoburn1-1.5.8-1.2.x86_64.rpm [done]
+.
+Preloading: pkgconf-pkg-config-2.5.1-1.5.x86_64.rpm [done]
 .
 Preloading: systemd-presets-branding-openSUSE-12.2-29.3.noarch.rpm [done]
 .
 Preloading: libgnutls30-3.8.13-3.2.x86_64.rpm [done]
 .
-Preloading: file-5.48-2.2.x86_64.rpm [done]
+Preloading: libssh4-0.11.5-3.1.x86_64.rpm [done]
 .
 Preloading: libtirpc3-1.3.7-1.5.x86_64.rpm [done]
-.
-Preloading: libssh4-0.11.5-3.1.x86_64.rpm [done]
-..
-Preloading: binutils-2.47-1.1.x86_64.rpm [done]
-.
-Preloading: pkgconf-pkg-config-2.5.1-1.5.x86_64.rpm [done]
 .
 Preloading: libcryptsetup12-2.8.8-1.1.x86_64.rpm [done]
 .
 Preloading: kpartx-0.15.1+229+suse.6c6f63e-1.1.x86_64.rpm [done]
 .
-Preloading: python313-xmltodict-1.0.4-2.3.noarch.rpm [done]
+Preloading: xorriso-1.5.8-1.2.x86_64.rpm [done]
 .
 Preloading: python313-urllib3-2.8.0-2.1.noarch.rpm [done]
 .
+Preloading: python313-xmltodict-1.0.4-2.3.noarch.rpm [done]
+.
+Preloading: python313-3.13.16-1.1.x86_64.rpm [done]
+.
 Preloading: libmpath0-0.15.1+229+suse.6c6f63e-1.1.x86_64.rpm [done]
-.
+..
 Preloading: squashfs-4.6.1-2.10.x86_64.rpm [done]
-.
-Preloading: skopeo-1.24.0-1.1.x86_64.rpm [done]
-.
-Preloading: gawk-5.4.1-1.2.x86_64.rpm [done]
-.
-Preloading: librpmbuild10-4.20.1-11.1.x86_64.rpm [done]
 .
 Preloading: libpython3_13-1_0-3.13.16-1.1.x86_64.rpm [done]
 .
 Preloading: libhogweed7-4.0-1.1.x86_64.rpm [done]
 .
+Preloading: gawk-5.4.1-1.2.x86_64.rpm [done]
+.
 Preloading: pkgconf-2.5.1-1.5.x86_64.rpm [done]
-..
+.
 Preloading: libldap2-2.6.13-1.6.x86_64.rpm [done]
 .
 Preloading: virtiofsd-1.14.0-1.3.x86_64.rpm [done]
 .
-Preloading: xorriso-1.5.8-1.2.x86_64.rpm [done]
+Preloading: gettext-runtime-1.0-4.1.x86_64.rpm [done]
 .
 Preloading: xfsprogs-6.19.0-1.5.x86_64.rpm [done]
 .
 Preloading: python313-solv-0.7.40-1.1.x86_64.rpm [done]
 .
-Preloading: libexslt0-1.1.45-1.4.x86_64.rpm [done]
+Preloading: krb5-1.22.2-4.2.x86_64.rpm [done]
 .
 Preloading: rsync-3.5.1-2.1.x86_64.rpm [done]
 .
 Preloading: libmodulemd2-2.15.2-2.3.x86_64.rpm [done]
 .
+Preloading: libexslt0-1.1.45-1.4.x86_64.rpm [done]
+.
 Preloading: pam-config-2.14+git.20260216-1.4.x86_64.rpm [done]
 .
-Preloading: python313-base-3.13.16-1.1.x86_64.rpm [done]
+Preloading: binutils-2.47-1.1.x86_64.rpm [done]
 .
 Preloading: libcontainers-common-20260915-1.1.noarch.rpm [done]
-.
-Preloading: checkmedia-7.1-1.3.x86_64.rpm [done]
 .
 Preloading: gio-branding-openSUSE-42.1-6.5.noarch.rpm [done]
 .
 Preloading: libgio-2_0-0-2.88.4-1.1.x86_64.rpm [done]
 .
-Preloading: glib2-tools-2.88.4-1.1.x86_64.rpm [done]
-..
-Preloading: librepo0-1.20.0-3.1.x86_64.rpm [done]
+Preloading: checkmedia-7.1-1.3.x86_64.rpm [done]
 .
 Preloading: screen-4.9.1-5.6.x86_64.rpm [done]
 .
-Preloading: open-vmdk-0.3.12-4.1.x86_64.rpm [done]
-.
 Preloading: grub2-x86_64-efi-2.16-2.1.noarch.rpm [done]
 .
-Preloading: krb5-1.22.2-4.2.x86_64.rpm [done]
+Preloading: librepo0-1.20.0-3.1.x86_64.rpm [done]
 .
-Preloading: gettext-runtime-1.0-4.1.x86_64.rpm [done]
-.
-Preloading: qemu-tools-11.1.2-1.1.x86_64.rpm [done]
-.
-Preloading: libdnf5_2-5.4.2.1-2.1.x86_64.rpm [done]
-.
-Preloading: libdnf5-cli3-5.4.2.1-2.1.x86_64.rpm [done]
+Preloading: open-vmdk-0.3.12-4.1.x86_64.rpm [done]
 .
 Preloading: kbd-2.10.0-1.1.x86_64.rpm [done]
+.
+Preloading: qemu-tools-11.1.2-1.1.x86_64.rpm [done]
+..
+Preloading: python313-base-3.13.16-1.1.x86_64.rpm [done]
+.
+Preloading: systemd-261.4-1.1.x86_64.rpm [done]
+.
+Preloading: libdnf5_2-5.4.2.1-2.1.x86_64.rpm [done]
 .
 Preloading: dnf-data-4.23.0-2.4.noarch.rpm [done]
 .
 Preloading: util-linux-systemd-2.42.4-1.1.x86_64.rpm [done]
 .
+Preloading: glib2-tools-2.88.4-1.1.x86_64.rpm [done]
+.
 Preloading: libxkbcommon0-1.13.2-1.3.x86_64.rpm [done]
 .
-Preloading: systemd-261.4-1.1.x86_64.rpm [done]
+Preloading: libdnf5-cli3-5.4.2.1-2.1.x86_64.rpm [done]
 .
 Preloading: dnf5-plugins-5.4.2.1-2.1.x86_64.rpm [done]
 .
-Preloading: lvm2-2.03.38-2.5.x86_64.rpm [done]
-..
-Preloading: dbus-broker-37-2.5.x86_64.rpm [done]
-.
 Preloading: dnf5-5.4.2.1-2.1.x86_64.rpm [done]
+.
+Preloading: kiwi-systemdeps-core-10.3.11-1.1.x86_64.rpm [done]
+.
+Preloading: dbus-broker-37-2.5.x86_64.rpm [done]
 .
 Preloading: kiwi-systemdeps-bootloaders-10.3.11-1.1.x86_64.rpm [done]
 .
 Preloading: kiwi-systemdeps-filesystems-10.3.11-1.1.x86_64.rpm [done]
 .
+Preloading: lvm2-2.03.38-2.5.x86_64.rpm [done]
+..
 Preloading: kiwi-systemdeps-disk-images-10.3.11-1.1.x86_64.rpm [done]
 .
 Preloading: kiwi-systemdeps-10.3.11-1.1.x86_64.rpm [done]
@@ -187,45 +188,47 @@ Preloading: python313-simplejson-4.1.1-1.4.x86_64.rpm [done]
 .
 Preloading: xkeyboard-config-2.48-1.2.noarch.rpm [done]
 .
-Preloading: python3-kiwi-10.3.11-1.1.x86_64.rpm [done]
-.
 Preloading: python313-idna-3.20-1.1.noarch.rpm [done]
 .
 Preloading: python313-docopt-0.6.2-10.4.noarch.rpm [done]
 .
-Preloading: python313-charset-normalizer-3.5.2-1.1.noarch.rpm [done]
+Preloading: skopeo-1.24.0-1.1.x86_64.rpm [done]
 .
-Preloading: python313-certifi-2026.7.22-1.1.noarch.rpm [done]
+Preloading: python313-charset-normalizer-3.5.2-1.1.noarch.rpm [done]
 .
 Preloading: python313-cssselect-1.5.0-1.1.noarch.rpm [done]
 .
-Preloading: python313-PyYAML-6.0.3-1.6.x86_64.rpm [done]
-..
-Preloading: kiwi-systemdeps-iso-media-10.3.11-1.1.x86_64.rpm [done]
-.
 Preloading: qemu-vmsr-helper-11.1.2-1.1.x86_64.rpm [done]
+.
+Preloading: python313-PyYAML-6.0.3-1.6.x86_64.rpm [done]
+.
+Preloading: python313-certifi-2026.7.22-1.1.noarch.rpm [done]
 .
 Preloading: qemu-pr-helper-11.1.2-1.1.x86_64.rpm [done]
 .
+Preloading: kiwi-systemdeps-iso-media-10.3.11-1.1.x86_64.rpm [done]
+.
 Preloading: suse-module-tools-16.1.7-1.1.x86_64.rpm [done]
+.
+Preloading: erofs-utils-1.9.4-1.1.x86_64.rpm [done]
 .
 Preloading: qemu-img-11.1.2-1.1.x86_64.rpm [done]
 .
-Preloading: kmod-34.2-5.3.x86_64.rpm [done]
-.
 Preloading: lsof-4.99.7-1.3.x86_64.rpm [done]
 .
-Preloading: kiwi-systemdeps-core-10.3.11-1.1.x86_64.rpm [done]
+Preloading: cryptsetup-2.8.8-1.1.x86_64.rpm [done]
 .
 Preloading: libcurl4-8.23.0-1.1.x86_64.rpm [done]
 .
-Preloading: cryptsetup-2.8.8-1.1.x86_64.rpm [done]
+Preloading: kiwi-systemdeps-image-validation-10.3.11-1.1.x86_64.rpm [done]
 .
 Preloading: kiwi-systemdeps-containers-10.3.11-1.1.x86_64.rpm [done]
 .
 Preloading: grub2-common-2.16-2.1.x86_64.rpm [done]
 .
-Preloading: kiwi-systemdeps-image-validation-10.3.11-1.1.x86_64.rpm [done]
+Preloading: python3-kiwi-10.3.11-1.1.x86_64.rpm [done]
+.
+Preloading: libkbdfile1-2.10.0-1.1.x86_64.rpm [done]
 .
 Preloading: python313-requests-2.34.2-1.2.noarch.rpm [done]
 .
@@ -233,77 +236,75 @@ Preloading: libexpat1-2.9.0-1.1.x86_64.rpm [done]
 .
 Preloading: libelf1-0.196-2.1.x86_64.rpm [done]
 .
-Preloading: libfuse3-4-3.18.3-1.1.x86_64.rpm [done]
-..
+Preloading: python313-lxml-6.1.1-2.2.x86_64.rpm [done]
+.
 Preloading: libfmt12-12.1.0-1.5.x86_64.rpm [done]
 .
-Preloading: fuse3-3.18.3-1.1.x86_64.rpm [done]
+Preloading: libfuse3-4-3.18.3-1.1.x86_64.rpm [done]
 .
 Preloading: libgmodule-2_0-0-2.88.4-1.1.x86_64.rpm [done]
 .
-Preloading: python313-lxml-6.1.1-2.2.x86_64.rpm [done]
+Preloading: libgobject-2_0-0-2.88.4-1.1.x86_64.rpm [done]
 .
 Preloading: libgomp1-16.2.1+git9713-1.1.x86_64.rpm [done]
 .
-Preloading: libgobject-2_0-0-2.88.4-1.1.x86_64.rpm [done]
+Preloading: kmod-34.2-5.3.x86_64.rpm [done]
 .
-Preloading: erofs-utils-1.9.4-1.1.x86_64.rpm [done]
+Preloading: libjte2-1.22-1.19.x86_64.rpm [done]
+.
+Preloading: libinih0-62-1.5.x86_64.rpm [done]
 .
 Preloading: libjson-c5-0.19-1.2.x86_64.rpm [done]
 .
 Preloading: libkeyutils1-1.6.3-7.9.x86_64.rpm [done]
 .
-Preloading: libinih0-62-1.5.x86_64.rpm [done]
-.
-Preloading: libjte2-1.22-1.19.x86_64.rpm [done]
-.
 Preloading: liblastlog2-2-2.42.4-1.1.x86_64.rpm [done]
-.
-Preloading: liblz4-1-1.10.0-2.8.x86_64.rpm [done]
-.
-Preloading: libkbdfile1-2.10.0-1.1.x86_64.rpm [done]
-.
-Preloading: liblz1-1.16-2.1.x86_64.rpm [done]
 .
 Preloading: libleancrypto1-1.8.0-3.2.x86_64.rpm [done]
 .
+Preloading: liblz1-1.16-2.1.x86_64.rpm [done]
+.
+Preloading: liblz4-1-1.10.0-2.8.x86_64.rpm [done]
+.
 Preloading: liblzo2-2-2.10-9.7.x86_64.rpm [done]
+.
+Preloading: libmediacheck7-7.1-1.3.x86_64.rpm [done]
+.
+Preloading: libmpfr6-4.2.2-1.5.x86_64.rpm [done]
 .
 Preloading: libmpdec4-4.0.1-2.5.x86_64.rpm [done]
 .
 Preloading: libnettle9-4.0-1.1.x86_64.rpm [done]
-.
-Preloading: libmpfr6-4.2.2-1.5.x86_64.rpm [done]
-.
-Preloading: libefivar1-38-3.7.x86_64.rpm [done]
-.
-Preloading: cracklib-2.9.11-1.10.x86_64.rpm [done]
 ..
-Preloading: libcrack2-2.9.11-1.10.x86_64.rpm [done]
+Preloading: glibc-gconv-modules-extra-2.44-3.1.x86_64.rpm [done]
 .
 Preloading: btrfsprogs-udev-rules-7.1-1.2.noarch.rpm [done]
 .
-Preloading: glibc-gconv-modules-extra-2.44-3.1.x86_64.rpm [done]
+Preloading: cpio-2.15-9.1.x86_64.rpm [done]
 .
 Preloading: dbus-1-common-1.14.10-5.7.noarch.rpm [done]
 .
-Preloading: cpio-2.15-9.1.x86_64.rpm [done]
+Preloading: libcrack2-2.9.11-1.10.x86_64.rpm [done]
 .
 Preloading: dbus-broker-block-restart-37-2.5.noarch.rpm [done]
 .
+Preloading: cracklib-2.9.11-1.10.x86_64.rpm [done]
+.
 Preloading: dosfstools-4.2-4.13.x86_64.rpm [done]
+.
+Preloading: envsubst-1.0-4.1.x86_64.rpm [done]
+.
+Preloading: libefivar1-38-3.7.x86_64.rpm [done]
 .
 Preloading: file-magic-5.48-2.2.noarch.rpm [done]
 .
-Preloading: findutils-4.11.0-1.2.x86_64.rpm [done]
-.
 Preloading: libnuma1-2.0.19.27.gc9475de-1.4.x86_64.rpm [done]
 .
-Preloading: gptfdisk-1.0.10-1.7.x86_64.rpm [done]
-.
-Preloading: libaio1-0.3.113-5.5.x86_64.rpm [done]
+Preloading: findutils-4.11.0-1.2.x86_64.rpm [done]
 .
 Preloading: libalternatives1-2.0+0.4f22c01-1.1.x86_64.rpm [done]
+.
+Preloading: libaio1-0.3.113-5.5.x86_64.rpm [done]
 .
 Preloading: libbrotlicommon1-1.2.0-2.4.x86_64.rpm [done]
 .
@@ -311,17 +312,15 @@ Preloading: libburn4-1.5.8-1.4.x86_64.rpm [done]
 .
 Preloading: libcom_err2-1.47.3-2.2.x86_64.rpm [done]
 .
-Preloading: libcontainers-default-policy-20260915-1.1.noarch.rpm [done]
-.
 Preloading: libctf-nobfd0-2.47-1.1.x86_64.rpm [done]
+.
+Preloading: libcontainers-default-policy-20260915-1.1.noarch.rpm [done]
 .
 Preloading: libdevmapper1_03-2.03.38_1.02.212-2.5.x86_64.rpm [done]
 .
-Preloading: alts-2.0+0.4f22c01-1.1.x86_64.rpm [done]
-.
 Preloading: libedit0-20250104.3.1-1.5.x86_64.rpm [done]
 .
-Preloading: envsubst-1.0-4.1.x86_64.rpm [done]
+Preloading: alts-2.0+0.4f22c01-1.1.x86_64.rpm [done]
 .
 Preloading: systemd-default-settings-branding-openSUSE-0.10-1.5.noarch.rpm [done]
 .
@@ -330,52 +329,52 @@ Preloading: system-group-kvm-20250822-2.3.noarch.rpm [done]
 Preloading: systemd-presets-common-SUSE-15-48.2.noarch.rpm [done]
 .
 Preloading: systemd-default-settings-0.10-1.5.noarch.rpm [done]
-..
+.
 Preloading: systemd-rpm-macros-26-1.3.noarch.rpm [done]
 .
 Preloading: thin-provisioning-tools-1.3.4-1.1.x86_64.rpm [done]
 .
-Preloading: kiwi-systemdeps-containers-wsl-10.3.11-1.1.x86_64.rpm [done]
-.
-Preloading: libmediacheck7-7.1-1.3.x86_64.rpm [done]
-.
-Preloading: libbrotlidec1-1.2.0-2.4.x86_64.rpm [done]
+Preloading: libpwquality1-1.4.5-5.7.x86_64.rpm [done]
 .
 Preloading: mtools-4.0.49-1.5.x86_64.rpm [done]
 .
-Preloading: libpwquality1-1.4.5-5.7.x86_64.rpm [done]
+Preloading: kiwi-systemdeps-containers-wsl-10.3.11-1.1.x86_64.rpm [done]
 .
 Preloading: shared-mime-info-2.5.1-1.1.x86_64.rpm [done]
 .
-Preloading: libdevmapper-event1_03-2.03.38_1.02.212-2.5.x86_64.rpm [done]
+Preloading: libbrotlidec1-1.2.0-2.4.x86_64.rpm [done]
+.
+Preloading: libext2fs2-1.47.3-2.2.x86_64.rpm [done]
 .
 Preloading: efibootmgr-18-1.12.x86_64.rpm [done]
 .
+Preloading: umoci-0.6.0-1.7.x86_64.rpm [done]
+.
+Preloading: libdevmapper-event1_03-2.03.38_1.02.212-2.5.x86_64.rpm [done]
+.
+Preloading: libdw1-0.196-2.1.x86_64.rpm [done]
+.
 Preloading: libkfont0-2.10.0-1.1.x86_64.rpm [done]
+.
+Preloading: libisofs6-1.5.8.pl02-1.2.x86_64.rpm [done]
 .
 Preloading: libkeymap1-2.10.0-1.1.x86_64.rpm [done]
 .
 Preloading: libzio1-1.17-1.1.x86_64.rpm [done]
 .
-Preloading: libisofs6-1.5.8.pl02-1.2.x86_64.rpm [done]
-.
-Preloading: libdw1-0.196-2.1.x86_64.rpm [done]
+Preloading: liburcu8-0.15.6-1.4.x86_64.rpm [done]
 .
 Preloading: libmagic1-5.48-2.2.x86_64.rpm [done]
+.
+Preloading: gptfdisk-1.0.10-1.7.x86_64.rpm [done]
 .
 Preloading: libpng16-16-1.6.59-1.1.x86_64.rpm [done]
 .
 Preloading: libpkgconf7-2.5.1-1.5.x86_64.rpm [done]
 .
-Preloading: liburcu8-0.15.6-1.4.x86_64.rpm [done]
-..
 Preloading: libsasl2-3-2.1.28-13.1.x86_64.rpm [done]
 .
 Preloading: libseccomp2-2.6.1-3.1.x86_64.rpm [done]
-.
-Preloading: libsdbus-c++2-2.3.1-1.3.x86_64.rpm [done]
-.
-Preloading: umoci-0.6.0-1.7.x86_64.rpm [done]
 .
 Preloading: libsframe3-2.47-1.1.x86_64.rpm [done]
 .
@@ -385,21 +384,23 @@ Preloading: libsolv1-0.7.40-1.1.x86_64.rpm [done]
 .
 Preloading: libtirpc-netconfig-1.3.7-1.5.x86_64.rpm [done]
 .
-Preloading: libext2fs2-1.47.3-2.2.x86_64.rpm [done]
+Preloading: libtextstyle0-1.0-4.1.x86_64.rpm [done]
+.
+Preloading: fuse3-3.18.3-1.1.x86_64.rpm [done]
+..
+Preloading: appx-util-0.5-1.9.x86_64.rpm [done]
 .
 Preloading: liburing2-2.15-1.1.x86_64.rpm [done]
 .
 Preloading: libverto1-0.3.2-3.9.x86_64.rpm [done]
 .
-Preloading: appx-util-0.5-1.9.x86_64.rpm [done]
-.
 Preloading: libyaml-0-2-0.2.5-2.11.x86_64.rpm [done]
-.
-Preloading: libxxhash0-0.8.4-1.1.x86_64.rpm [done]
 .
 Preloading: mdadm-4.5+44.gf732de3f-1.4.x86_64.rpm [done]
 .
 Preloading: pam-extra-1.7.3-1.1.x86_64.rpm [done]
+.
+Preloading: libxxhash0-0.8.4-1.1.x86_64.rpm [done]
 .
 Preloading: pkgconf-m4-2.5.1-1.5.noarch.rpm [done]
 .
@@ -407,8 +408,8 @@ Preloading: perl-base-5.44.0-1.2.x86_64.rpm [done]
 .
 Preloading: registries-conf-default-20260915-1.1.noarch.rpm [done]
 .
-Preloading: libtextstyle0-1.0-4.1.x86_64.rpm [done]
-..
+Preloading: libsdbus-c++2-2.3.1-1.3.x86_64.rpm [done]
+.
 Preloading: libxslt1-1.1.45-1.4.x86_64.rpm [done]
 .done]
 Retrieving: appx-util-0.5-1.9.x86_64 (openSUSE-Tumbleweed-Oss) (1/179),  56.4 KiB    
@@ -591,7 +592,7 @@ Retrieving: kiwi-systemdeps-disk-images-10.3.11-1.1.x86_64 (openSUSE-Tumbleweed-
 Retrieving: kiwi-systemdeps-10.3.11-1.1.x86_64 (openSUSE-Tumbleweed-Oss) (178/179), 273.7 KiB    
 Retrieving: python3-kiwi-10.3.11-1.1.x86_64 (openSUSE-Tumbleweed-Oss) (179/179),   1.2 MiB    
 
-Checking for file conflicts: [.....done]
+Checking for file conflicts: [....done]
 (  1/179) Installing: appx-util-0.5-1.9.x86_64 [..done]
 (  2/179) Installing: btrfsprogs-udev-rules-7.1-1.2.noarch [..done]
 (  3/179) Installing: cpio-2.15-9.1.x86_64 [..done]
@@ -691,7 +692,7 @@ done]
 ( 89/179) Installing: libmagic1-5.48-2.2.x86_64 [..done]
 ( 90/179) Installing: erofs-utils-1.9.4-1.1.x86_64 [..done]
 ( 91/179) Installing: squashfs-4.6.1-2.10.x86_64 [..done]
-( 92/179) Installing: python313-base-3.13.16-1.1.x86_64 [......done]
+( 92/179) Installing: python313-base-3.13.16-1.1.x86_64 [....done]
 ( 93/179) Installing: libpython3_13-1_0-3.13.16-1.1.x86_64 [..done]
 ( 94/179) Installing: gawk-5.4.1-1.2.x86_64 [..done]
 ( 95/179) Installing: libhogweed7-4.0-1.1.x86_64 [..done]
@@ -833,7 +834,7 @@ No schema files found: doing nothing.
 done]
 (112/179) Installing: systemd-presets-branding-openSUSE-12.2-29.3.noarch [..done]
 (113/179) Installing: libctf0-2.47-1.1.x86_64 [..done]
-(114/179) Installing: binutils-2.47-1.1.x86_64 [......done]
+(114/179) Installing: binutils-2.47-1.1.x86_64 [....done]
 (115/179) Installing: libfreetype6-2.15.0-1.1.x86_64 [..done]
 (116/179) Installing: e2fsprogs-1.47.3-2.2.x86_64 [..done]
 (117/179) Installing: btrfsprogs-7.1-1.2.x86_64 [..done]
@@ -848,7 +849,7 @@ done]
 (126/179) Installing: pkgconf-pkg-config-2.5.1-1.5.x86_64 [..done]
 (127/179) Installing: libtirpc3-1.3.7-1.5.x86_64 [..done]
 (128/179) Installing: libssh4-0.11.5-3.1.x86_64 [..done]
-(129/179) Installing: skopeo-1.24.0-1.1.x86_64 [...done]
+(129/179) Installing: skopeo-1.24.0-1.1.x86_64 [..done]
 (130/179) Installing: libcryptsetup12-2.8.8-1.1.x86_64 [..done]
 (131/179) Installing: kpartx-0.15.1+229+suse.6c6f63e-1.1.x86_64 [..done]
 (132/179) Installing: xorriso-1.5.8-1.2.x86_64 [..done]
@@ -872,7 +873,7 @@ done]
 (150/179) Installing: libcurl4-8.23.0-1.1.x86_64 [..done]
 (151/179) Installing: kiwi-systemdeps-containers-10.3.11-1.1.x86_64 [..done]
 (152/179) Installing: cryptsetup-2.8.8-1.1.x86_64 [..done]
-(153/179) Installing: grub2-common-2.16-2.1.x86_64 [...done]
+(153/179) Installing: grub2-common-2.16-2.1.x86_64 [..done]
 (154/179) Installing: kiwi-systemdeps-image-validation-10.3.11-1.1.x86_64 [..done]
 (155/179) Installing: python313-lxml-6.1.1-2.2.x86_64 [..done]
 (156/179) Installing: python313-requests-2.34.2-1.2.noarch [..done]
@@ -881,7 +882,7 @@ done]
 (159/179) Installing: grub2-x86_64-efi-2.16-2.1.noarch [..done]
 (160/179) Installing: open-vmdk-0.3.12-4.1.x86_64 [..done]
 (161/179) Installing: qemu-tools-11.1.2-1.1.x86_64 [..done]
-(162/179) Installing: kbd-2.10.0-1.1.x86_64 [...
+(162/179) Installing: kbd-2.10.0-1.1.x86_64 [..
 Updating /etc/sysconfig/console ...
 Updating /etc/sysconfig/keyboard ...
 done]
@@ -910,21 +911,21 @@ done]
 (176/179) Installing: kiwi-systemdeps-iso-media-10.3.11-1.1.x86_64 [..done]
 (177/179) Installing: kiwi-systemdeps-disk-images-10.3.11-1.1.x86_64 [..done]
 (178/179) Installing: kiwi-systemdeps-10.3.11-1.1.x86_64 [..done]
-(179/179) Installing: python3-kiwi-10.3.11-1.1.x86_64 [...done]
+(179/179) Installing: python3-kiwi-10.3.11-1.1.x86_64 [..done]
 Running post-transaction scripts [..
 %posttrans(systemd-presets-common-SUSE-15-48.2.noarch) script output:
 Created symlink '/etc/systemd/system/default.target.wants/ca-certificates.path' -> '/usr/lib/systemd/system/ca-certificates.path'.
 Created symlink '/etc/systemd/system/default.target.wants/soft-reboot-cleanup.service' -> '/usr/lib/systemd/system/soft-reboot-cleanup.service'.
+Created symlink '/etc/systemd/system/multi-user.target.wants/remote-fs.target' -> '/usr/lib/systemd/system/remote-fs.target'.
 Created symlink '/etc/systemd/system/mdmonitor.service.wants/mdcheck_start.timer' -> '/usr/lib/systemd/system/mdcheck_start.timer'.
 Created symlink '/etc/systemd/system/mdmonitor.service.wants/mdcheck_continue.timer' -> '/usr/lib/systemd/system/mdcheck_continue.timer'.
-Created symlink '/etc/systemd/system/multi-user.target.wants/remote-fs.target' -> '/usr/lib/systemd/system/remote-fs.target'.
 Created symlink '/etc/systemd/system/mdmonitor.service.wants/mdmonitor-oneshot.timer' -> '/usr/lib/systemd/system/mdmonitor-oneshot.timer'.
+Created symlink '/etc/systemd/system/multi-user.target.wants/kbdsettings.service' -> '/usr/lib/systemd/system/kbdsettings.service'.
 Created symlink '/etc/systemd/system/sockets.target.wants/dm-event.socket' -> '/usr/lib/systemd/system/dm-event.socket'.
 Created symlink '/etc/systemd/system/autovt@.service' -> '/usr/lib/systemd/system/getty@.service'.
 Created symlink '/etc/systemd/system/getty.target.wants/getty@tty1.service' -> '/usr/lib/systemd/system/getty@.service'.
-Created symlink '/etc/systemd/system/multi-user.target.wants/kbdsettings.service' -> '/usr/lib/systemd/system/kbdsettings.service'.
-Created symlink '/etc/systemd/user/basic.target.wants/systemd-tmpfiles-setup.service' -> '/usr/lib/systemd/user/systemd-tmpfiles-setup.service'.
 Created symlink '/etc/systemd/user/timers.target.wants/systemd-tmpfiles-clean.timer' -> '/usr/lib/systemd/user/systemd-tmpfiles-clean.timer'.
+Created symlink '/etc/systemd/user/basic.target.wants/systemd-tmpfiles-setup.service' -> '/usr/lib/systemd/user/systemd-tmpfiles-setup.service'.
 .
 %posttrans(pam-config-2.14+git.20260216-1.4.x86_64) script output:
 *** load_config (common-account-pc, account, ...)
@@ -1144,6 +1145,8 @@ Created symlink '/etc/systemd/user/timers.target.wants/systemd-tmpfiles-clean.ti
 + for pkg in $(cat /tmp/packages)
 + zypper --non-interactive --quiet search --match-exact --type package xfce4-whiskermenu-plugin-lang
 + for pkg in $(cat /tmp/packages)
++ zypper --non-interactive --quiet search --match-exact --type package xfce4-docklike-plugin-lang
++ for pkg in $(cat /tmp/packages)
 + zypper --non-interactive --quiet search --match-exact --type package thunar-lang
 + for pkg in $(cat /tmp/packages)
 + zypper --non-interactive --quiet search --match-exact --type package mousepad-lang
@@ -1154,8 +1157,9 @@ Created symlink '/etc/systemd/user/timers.target.wants/systemd-tmpfiles-clean.ti
 + for pkg in $(cat /tmp/packages)
 + zypper --non-interactive --quiet search --match-exact --type package xinit
 + for pkg in $(cat /tmp/packages)
-+ zypper --non-interactive --quiet search --match-exact --type package ly
-+ missing+=("$pkg")
++ zypper --non-interactive --quiet search --match-exact --type package greetd
++ for pkg in $(cat /tmp/packages)
++ zypper --non-interactive --quiet search --match-exact --type package tuigreet
 + for pkg in $(cat /tmp/packages)
 + zypper --non-interactive --quiet search --match-exact --type package xfce4-session
 + for pkg in $(cat /tmp/packages)
@@ -1191,7 +1195,7 @@ Created symlink '/etc/systemd/user/timers.target.wants/systemd-tmpfiles-clean.ti
 + for pkg in $(cat /tmp/packages)
 + zypper --non-interactive --quiet search --match-exact --type package adwaita-icon-theme
 + for pkg in $(cat /tmp/packages)
-+ zypper --non-interactive --quiet search --match-exact --type package oxygen5-icon-theme
++ zypper --non-interactive --quiet search --match-exact --type package oxygen6-icon-theme
 + missing+=("$pkg")
 + for pkg in $(cat /tmp/packages)
 + zypper --non-interactive --quiet search --match-exact --type package google-noto-sans-mono-fonts
@@ -1216,8 +1220,7 @@ Created symlink '/etc/systemd/user/timers.target.wants/systemd-tmpfiles-clean.ti
 + for pkg in $(cat /tmp/packages)
 + zypper --non-interactive --quiet search --match-exact --type package polybar
 + for pkg in $(cat /tmp/packages)
-+ zypper --non-interactive --quiet search --match-exact --type package plank
-+ missing+=("$pkg")
++ zypper --non-interactive --quiet search --match-exact --type package xfce4-docklike-plugin
 + for pkg in $(cat /tmp/packages)
 + zypper --non-interactive --quiet search --match-exact --type package xdotool
 + for pkg in $(cat /tmp/packages)
@@ -1276,552 +1279,171 @@ Created symlink '/etc/systemd/user/timers.target.wants/systemd-tmpfiles-clean.ti
 + zypper --non-interactive --quiet search --match-exact --type package openSUSE-release
 + for pkg in $(cat /tmp/packages)
 + zypper --non-interactive --quiet search --match-exact --type package cracklib-dict-small
-+ '[' 3 -gt 0 ']'
-+ echo 'Packages not in the repositories: ly oxygen5-icon-theme plank'
-Packages not in the repositories: ly oxygen5-icon-theme plank
++ '[' 1 -gt 0 ']'
++ echo 'Packages not in the repositories: oxygen6-icon-theme'
 + for pkg in "${missing[@]}" ${SEARCH:-}
-+ zypper --non-interactive search ly
-Loading repository data...
-Reading installed packages...
-
-S  | Name                                                     | Summary                                                                       | Type
----+----------------------------------------------------------+-------------------------------------------------------------------------------+--------
-   | aws-sdk-java-marketplacecommerceanalytics                | AWS Java SDK for AWS Marketplace Commerce Analytics                           | package
-   | blog-plymouth                                            | Replaces plymouth by blogd                                                    | package
-   | dolly                                                    | Tool for cloning data of one machine to other machines                        | package
-   | duply                                                    | A frontend for the "duplicity" backup program                                 | package
-   | earlyoom                                                 | Early OOM Daemon for Linux                                                    | package
-   | erlang-dialyzer                                          | A DIscrepany AnaLYZer for ERlang programs                                     | package
-   | erlang-dialyzer-src                                      | Erlang/OTP dialyzer application sources                                       | package
-   | erlang27-dialyzer                                        | A DIscrepany AnaLYZer for ERlang programs                                     | package
-   | erlang27-dialyzer-src                                    | Erlang/OTP dialyzer application sources                                       | package
-   | fly                                                      | A Script to Create PNGs                                                       | package
-   | frugally-deep-devel                                      | Header-only library for using Keras (TensorFlow) models in C++                | package
-   | gap-polycyclic                                           | GAP: Computation with polycyclic groups                                       | package
-   | gap-polymaking                                           | GAP: Interfacing the geometry software polymake                               | package
-   | gap-ugaly                                                | GAP: Universal Groups Acting LocallY                                          | package
-   | ghc-generically                                          | Generically newtype to use with DerivingVia                                   | package
-   | ghc-generically-devel                                    | Haskell generically library development files                                 | package
-   | ghc-generically-doc                                      | Haskell generically library documentation                                     | package
-   | ghc-generically-prof                                     | Haskell generically profiling library                                         | package
-   | ghc-Only                                                 | The 1-tuple type or single-value "collection"                                 | package
-   | ghc-Only-devel                                           | Haskell Only library development files                                        | package
-   | ghc-Only-doc                                             | Haskell Only library documentation                                            | package
-   | ghc-Only-prof                                            | Haskell Only profiling library                                                | package
-   | ghc-polyparse                                            | A variety of alternative parser combinator libraries                          | package
-   | ghc-polyparse-devel                                      | Haskell polyparse library development files                                   | package
-   | ghc-polyparse-doc                                        | Haskell polyparse library documentation                                       | package
-   | ghc-polyparse-prof                                       | Haskell polyparse profiling library                                           | package
-   | ghc-silently                                             | Prevent or capture writing to stdout and other handles                        | package
-   | ghc-silently-devel                                       | Haskell silently library development files                                    | package
-   | ghc-silently-doc                                         | Haskell silently library documentation                                        | package
-   | ghc-silently-prof                                        | Haskell silently profiling library                                            | package
-   | ghc-uglymemo                                             | A simple (but internally ugly) memoization function                           | package
-   | ghc-uglymemo-devel                                       | Haskell uglymemo library development files                                    | package
-   | ghc-uglymemo-doc                                         | Haskell uglymemo library documentation                                        | package
-   | ghc-uglymemo-prof                                        | Haskell uglymemo profiling library                                            | package
-   | glycin-loaders                                           | Sandboxed image rendering                                                     | package
-   | glyr-devel                                               | Development files for glyr, a music metadata search engine                    | package
-   | glyrc                                                    | Search engine for music related metadata                                      | package
-   | gnome-shell-search-provider-lollypop                     | GNOME music playing application - gnome-shell search provider                 | package
-   | golang-github-v2fly-v2ray-core                           | Additional mobile libraries                                                   | package
-   | golly                                                    | Tool for exploring Game of Life and other automata                            | package
-   | golly-assets                                             | Assets for golly                                                              | package
-   | golly-devel                                              | Development files for golly                                                   | package
-   | google-noto-sans-anatolianhieroglyphs-fonts              | Noto Anatolian Hieroglyphs Sans Serif Font                                    | package
-   | google-noto-sans-egyptianhieroglyphs-fonts               | Noto Egyptian Hieroglyphs Sans Serif Font                                     | package
-   | google-noto-sans-elymaic-fonts                           | Noto Elymaic Sans Serif Font                                                  | package
-   | google-noto-sans-lycian-fonts                            | Noto Lycian Sans Serif Font                                                   | package
-   | google-noto-sans-lydian-fonts                            | Noto Lydian Sans Serif Font                                                   | package
-   | gstreamer-plugins-ugly                                   | GStreamer Streaming-Media Framework Plug-Ins                                  | package
-   | gstreamer-plugins-ugly-32bit                             | GStreamer Streaming-Media Framework Plug-Ins                                  | package
-   | gstreamer-plugins-ugly-lang                              | Translations for package gstreamer-plugins-ugly                               | package
-   | hivelytracker                                            | Music tracker for AHX and HVL formats                                         | package
-   | hollywood                                                | Program to fill the console with Hollywood melodrama technobabble             | package
-   | hollywood-data                                           | Data files for hollywood                                                      | package
-   | int10h-olympiad-fonts                                    | Remakes of IBM 6150 prototype fonts                                           | package
-   | iosevka-curly-fonts                                      | Iosevka in monospace curly style                                              | package
-   | iosevka-curly-slab-fonts                                 | Iosevka in monospace slab-serif curly style                                   | package
-   | jupyter-plotly                                           | Jupyter integration for python-plotly                                         | package
-   | leechcraft-deadlyrics                                    | LeechCraft Lyrics finder Module                                               | package
-   | libglycin-2-0                                            | Shared library for libglycin                                                  | package
-   | libglycin-2-0-32bit                                      | Shared library for libglycin                                                  | package
-   | libglycin-devel                                          | Development Files for libglycin                                               | package
-   | libglycin-gtk4-2-0                                       | Shared library for libglycin-gtk4                                             | package
-   | libglycin-gtk4-devel                                     | Development Files for libglycin-gtk4                                          | package
-   | libglyr1                                                 | Search engine for music related metadata                                      | package
-   | libgstanalytics-1_0-0                                    | GStreamer Streaming-Media Framework Plug-Ins                                  | package
-   | libgstanalytics-1_0-0-32bit                              | GStreamer Streaming-Media Framework Plug-Ins                                  | package
-   | libhomfly-devel                                          | Development files for the homfly library                                      | package
-   | libhomfly0                                               | Library to compute the homfly polynomial of a link                            | package
-   | libply-boot-client5                                      | Plymouth core library                                                         | package
-   | libply-splash-core5                                      | Plymouth core library                                                         | package
-   | libply-splash-graphics5                                  | Plymouth graphics libraries                                                   | package
-   | libply5                                                  | Plymouth core library                                                         | package
-   | libpolyclipping-devel                                    | Development files for libpolyclipping                                         | package
-   | libpolyclipping22                                        | Polygon clipping library                                                      | package
-   | libpolylibgmp8                                           | Library for computing homotopy continuation of roots                          | package
-   | libpolymake4_15                                          | Library for studying combinatorics and geometry of convex polytopes           | package
-   | libpolys-4_4_1                                           | Singular's POLYS library                                                      | package
-   | libpolys-devel                                           | Development files for Singular's POLYS library                                | package
-   | libschily-devel                                          | Development files for libschily                                               | package
-   | libschily-devel-doc                                      | Manual pages for libschily functions                                          | package
-   | libschily2_0                                             | Support library for utilities from the Schily toolbox                         | package
-   | libSILLY-devel                                           | Simple Image Loading LibrarY development package                              | package
-   | libSILLY1                                                | Simple Image Loading LibrarY                                                  | package
-   | libzn_poly-0_9                                           | Library for polynomial arithmetic in Z/nZ[x]                                  | package
-   | lilypond                                                 | A typesetting system for music notation                                       | package
-   | lilypond-doc                                             | Documentation for the LilyPond Typesetter                                     | package
-   | lilypond-doc-cs                                          | Documentation for the LilyPond Typesetter (cs)                                | package
-   | lilypond-doc-de                                          | Documentation for the LilyPond Typesetter (de)                                | package
-   | lilypond-doc-es                                          | Documentation for the LilyPond Typesetter (es)                                | package
-   | lilypond-doc-fr                                          | Documentation for the LilyPond Typesetter (fr)                                | package
-   | lilypond-doc-hu                                          | Documentation for the LilyPond Typesetter (hu)                                | package
-   | lilypond-doc-it                                          | Documentation for the LilyPond Typesetter (it)                                | package
-   | lilypond-doc-ja                                          | Documentation for the LilyPond Typesetter (ja)                                | package
-   | lilypond-doc-nl                                          | Documentation for the LilyPond Typesetter (nl)                                | package
-   | lilypond-doc-zh                                          | Documentation for the LilyPond Typesetter (zh)                                | package
-   | lilypond-emmentaler-fonts                                | Lilypond emmentaler fonts                                                     | package
-   | lilypond-fonts-common                                    | Lilypond fonts common dir                                                     | package
-   | llvm-polly                                               | LLVM Framework for High-Level Loop and Data-Locality Optimizations            | package
-   | llvm-polly-devel                                         | Development files for Polly                                                   | package
-   | llvm18-polly                                             | LLVM Framework for High-Level Loop and Data-Locality Optimizations            | package
-   | llvm18-polly-devel                                       | Development files for Polly                                                   | package
-   | llvm19-polly                                             | LLVM Framework for High-Level Loop and Data-Locality Optimizations            | package
-   | llvm19-polly-devel                                       | Development files for Polly                                                   | package
-   | llvm20-polly                                             | LLVM Framework for High-Level Loop and Data-Locality Optimizations            | package
-   | llvm20-polly-devel                                       | Development files for Polly                                                   | package
-   | llvm21-polly                                             | LLVM Framework for High-Level Loop and Data-Locality Optimizations            | package
-   | llvm21-polly-devel                                       | Development files for Polly                                                   | package
-   | llvm22-polly                                             | LLVM Framework for High-Level Loop and Data-Locality Optimizations            | package
-   | llvm22-polly-devel                                       | Development files for Polly                                                   | package
-   | llvm23-polly                                             | LLVM Framework for High-Level Loop and Data-Locality Optimizations            | package
-   | llvm23-polly-devel                                       | Development files for Polly                                                   | package
-   | lollypop                                                 | GNOME music playing application                                               | package
-   | lollypop-lang                                            | Translations for package lollypop                                             | package
-   | lua53-lyaml                                              | LibYAML binding for Lua                                                       | package
-   | lua54-lyaml                                              | LibYAML binding for Lua                                                       | package
-   | lua55-lyaml                                              | LibYAML binding for Lua                                                       | package
-   | luajit-lyaml                                             | LibYAML binding for Lua                                                       | package
-   | lucene-analyzers-common                                  | Analyzers-common module for lucene                                            | package
-   | lucene-analyzers-icu                                     | Lucene ICU Analysis Components                                                | package
-   | lucene-analyzers-phonetic                                | Lucene Phonetic Filters                                                       | package
-   | lucene-analyzers-smartcn                                 | Analyzers-smartcn module for lucene                                           | package
-   | lucene-analyzers-stempel                                 | Analyzers-stempel module for lucene                                           | package
-   | lychee                                                   | Fast, async, stream-based link checker written in Rust                        | package
-   | lynis                                                    | Security and System auditing tool                                             | package
-   | lynx                                                     | A Text-Based WWW Browser                                                      | package
-   | lyx                                                      | WYSIWYM (What You See Is What You Mean) document processor                    | package
-   | lyx-fonts                                                | Fonts for displaying math                                                     | package
-   | mate-disk-usage-analyzer                                 | MATE disk usage analyser                                                      | package
-   | maven-assembly-plugin                                    | Maven Assembly Plugin                                                         | package
-   | maven-assembly-plugin-javadoc                            | API documentation for maven-assembly-plugin                                   | package
-   | maven-dependency-analyzer                                | Maven dependency analyzer                                                     | package
-   | maven-dependency-analyzer-javadoc                        | API documentation for maven-dependency-analyzer                               | package
-   | mcfly                                                    | Shell history helper                                                          | package
-   | myrlyn                                                   | Package manager GUI                                                           | package
-   | myspell-ar_LY                                            | MySpell ar_LY Dictionary                                                      | package
-   | nerdfonts-symbolsonly-fonts                              | The Nerd Fonts symbol set, without base (letter) glyphs                       | package
-   | osdlyrics                                                | A third-party lyrics display program                                          | package
-   | osdlyrics-lang                                           | Translations for package osdlyrics                                            | package
-   | patterns-microos-alt_onlyDVD                             | Alternative Packages only for the DVD of openSUSE MicroOS                     | package
-   | patterns-microos-onlyDVD                                 | Packages only for the DVD of openSUSE MicroOS                                 | package
-   | perl-Catalyst-Manual                                     | The Catalyst developer's manual                                               | package
-   | perl-Email-Reply                                         | Reply to an Email Message                                                     | package
-   | perl-IO-Pipely                                           | Portably create pipe() or pipe-like handles, one way or another               | package
-   | perl-Module-CPANTS-Analyse                               | Generate Kwalitee ratings for a distribution                                  | package
-   | perl-Readonly                                            | Facility for creating read-only scalars, arrays, hashes                       | package
-   | perl-Readonly-XS                                         | Companion module for Readonly.pm, to speed up read-only scalar variables      | package
-   | perl-Reply                                               | Read, eval, print, loop, yay!                                                 | package
-   | perl-Sort-Naturally                                      | sort lexically, but sort numeral parts numerically                            | package
-   | plymouth                                                 | Graphical Boot Animation and Logger                                           | package
-   | plymouth-branding-openSUSE                               | openSUSE Tumbleweed branding for Plymouth bootsplash                          | package
-   | plymouth-branding-upstream                               | Default configuration file and branding from the Plymouth upstream            | package
-   | plymouth-devel                                           | Libraries and headers for writing Plymouth splash plugins                     | package
-   | plymouth-dracut                                          | Plymouth related utilities for dracut                                         | package
-   | plymouth-lang                                            | Translations for package plymouth                                             | package
-   | plymouth-plugin-breeze                                   | Plymouth "breeze" plugin                                                      | package
-   | plymouth-plugin-fade-throbber                            | Plymouth "Fade-Throbber" plugin                                               | package
-   | plymouth-plugin-label                                    | Plymouth label plugin                                                         | package
-   | plymouth-plugin-label-ft                                 | Plymouth FreeType label plugin                                                | package
-   | plymouth-plugin-script                                   | Plymouth "script" plugin                                                      | package
-   | plymouth-plugin-space-flares                             | Plymouth "space-flares" plugin                                                | package
-   | plymouth-plugin-tribar                                   | Plymouth "script" plugin                                                      | package
-   | plymouth-plugin-two-step                                 | Plymouth "two-step" plugin                                                    | package
-   | plymouth-scripts                                         | Plymouth related scripts                                                      | package
-   | plymouth-theme-bgrt                                      | Plymouth "bgrt" theme                                                         | package
-   | plymouth-theme-breeze6                                   | Plymouth "Breeze" theme                                                       | package
-   | plymouth-theme-fade-in                                   | Plymouth "Fade-In" theme                                                      | package
-   | plymouth-theme-opensuse-beat                             | Theme opensuse-beat for Plymouth                                              | package
-   | plymouth-theme-script                                    | Plymouth "Script" theme                                                       | package
-   | plymouth-theme-solar                                     | Plymouth "Solar" theme                                                        | package
-   | plymouth-theme-spinfinity                                | Plymouth "Spinfinity" theme                                                   | package
-   | plymouth-theme-spinner                                   | Plymouth "Spinner" theme                                                      | package
-   | plymouth-theme-tribar                                    | Plymouth "Tribar" theme                                                       | package
-   | polybar                                                  | A fast and easy-to-use status bar                                             | package
-   | polylib                                                  | Library for computing homotopy continuation of roots                          | package
-   | polylib-devel                                            | Development files for PolyLib                                                 | package
-   | polymake                                                 | Application for studying combinatorics and geometry of convex polytopes       | package
-   | polymake-devel                                           | Development files for Polymake plugins                                        | package
-   | psi+-plugins-autoreplyplugin                             | Plugin for Psi                                                                | package
-   | python-ply-doc                                           | Python Lex & Yacc                                                             | package
-   | python3-osdlyrics                                        | Python module for osdlyrics                                                   | package
-   | python313-azure-ai-anomalydetector                       | Microsoft Azure Cognitive Services Anomaly Detector Client Library for Python | package
-   | python313-azure-ai-textanalytics                         | Azure Text Analytics client library for Python                                | package
-   | python313-azure-cognitiveservices-anomalydetector        | Microsoft Azure Cognitive Services Anomaly Detector Client Library            | package
-   | python313-azure-cognitiveservices-language-textanalytics | Microsoft Azure Cognitive Services Text Analytics Client Library              | package
-   | python313-azure-loganalytics                             | Microsoft Azure Log Analytics Client Library                                  | package
-   | python313-azure-media-videoanalyzer-edge                 | Microsoft Azure Video Analyzer Edge SDK Library for Python                    | package
-   | python313-azure-mgmt-changeanalysis                      | Microsoft Azure Changeanalysis Management Client Library for Python           | package
-   | python313-azure-mgmt-datalake-analytics                  | Microsoft Azure Data Lake Analytics Management Client Library                 | package
-   | python313-azure-mgmt-loganalytics                        | Microsoft Azure Log Analytics Management Client Library                       | package
-   | python313-azure-mgmt-networkanalytics                    | Microsoft Azure Networkanalytics Management Client Library for Python         | package
-   | python313-azure-mgmt-streamanalytics                     | Microsoft Azure Stream Analytics Management Client Library for Python         | package
-   | python313-azure-mgmt-videoanalyzer                       | Microsoft Azure Video Analyzer Management Client Library for Python           | package
-   | python313-confusable-homoglyphs                          | Detector for confusable use of Unicode homoglyphs                             | package
-   | python313-constantly                                     | Symbolic constants in Python                                                  | package
-   | python313-curlylint                                      | HTML templates linting for Jinja, Nunjucks, Django templates, Twig, Liquid    | package
-   | python313-django-polymorphic                             | Polymorphic inheritance for Django models                                     | package
-   | python313-email-reply-parser                             | Email reply parser                                                            | package
-   | python313-flake8-polyfill                                | Polyfill package for Flake8 plugins                                           | package
-   | python313-flynt                                          | CLI tool to convert a python project's  strings to f-strings                  | package
-   | python313-Glymur                                         | Tools for accessing JPEG2000 files                                            | package
-   | python313-gnssanalysis                                   | GNSS-related functionality from Geoscience Australia                          | package
-   | python313-humanfriendly                                  | Human friendly input/output for text interfaces using Python                  | package
-   | python313-jellyfish                                      | A library for doing approximate and phonetic matching of strings              | package
-   | python313-ly                                             | Tool and library for manipulating LilyPond files                              | package
-   | python313-orderly-set                                    | Orderly set                                                                   | package
-   | python313-phply                                          | Lexer and parser for PHP source implemented using PLY                         | package
-   | python313-plotly                                         | Interactive, browser-based graphing library for Python                        | package
-   | python313-ply                                            | Python Lex & Yacc                                                             | package
-   | python313-plyvel                                         | Python interface to LevelDB                                                   | package
-   | python313-pytest-randomly                                | Pytest plugin to randomly order tests and control random.seed                 | package
-   | python313-rply                                           | A pure Python Lex/Yacc that works with RPython                                | package
-   | python313-Shapely                                        | Geospatial geometries, predicates, and operations                             | package
-   | python313-sly                                            | Python implementation of the lex and yacc tools                               | package
-   | python313-slycot                                         | A wrapper for the SLICOT control and systems library                          | package
-   | python313-tkreadonly                                     | A set of Tkinter widgets to display readonly text and code                    | package
-   | python313-types-humanfriendly                            | Typing stubs for humanfriendly                                                | package
-   | python314-azure-ai-anomalydetector                       | Microsoft Azure Cognitive Services Anomaly Detector Client Library for Python | package
-   | python314-azure-ai-textanalytics                         | Azure Text Analytics client library for Python                                | package
-   | python314-azure-cognitiveservices-anomalydetector        | Microsoft Azure Cognitive Services Anomaly Detector Client Library            | package
-   | python314-azure-cognitiveservices-language-textanalytics | Microsoft Azure Cognitive Services Text Analytics Client Library              | package
-   | python314-azure-loganalytics                             | Microsoft Azure Log Analytics Client Library                                  | package
-   | python314-azure-media-videoanalyzer-edge                 | Microsoft Azure Video Analyzer Edge SDK Library for Python                    | package
-   | python314-azure-mgmt-changeanalysis                      | Microsoft Azure Changeanalysis Management Client Library for Python           | package
-   | python314-azure-mgmt-datalake-analytics                  | Microsoft Azure Data Lake Analytics Management Client Library                 | package
-   | python314-azure-mgmt-loganalytics                        | Microsoft Azure Log Analytics Management Client Library                       | package
-   | python314-azure-mgmt-networkanalytics                    | Microsoft Azure Networkanalytics Management Client Library for Python         | package
-   | python314-azure-mgmt-streamanalytics                     | Microsoft Azure Stream Analytics Management Client Library for Python         | package
-   | python314-azure-mgmt-videoanalyzer                       | Microsoft Azure Video Analyzer Management Client Library for Python           | package
-   | python314-confusable-homoglyphs                          | Detector for confusable use of Unicode homoglyphs                             | package
-   | python314-constantly                                     | Symbolic constants in Python                                                  | package
-   | python314-curlylint                                      | HTML templates linting for Jinja, Nunjucks, Django templates, Twig, Liquid    | package
-   | python314-django-polymorphic                             | Polymorphic inheritance for Django models                                     | package
-   | python314-email-reply-parser                             | Email reply parser                                                            | package
-   | python314-flake8-polyfill                                | Polyfill package for Flake8 plugins                                           | package
-   | python314-flynt                                          | CLI tool to convert a python project's  strings to f-strings                  | package
-   | python314-Glymur                                         | Tools for accessing JPEG2000 files                                            | package
-   | python314-gnssanalysis                                   | GNSS-related functionality from Geoscience Australia                          | package
-   | python314-humanfriendly                                  | Human friendly input/output for text interfaces using Python                  | package
-   | python314-jellyfish                                      | A library for doing approximate and phonetic matching of strings              | package
-   | python314-ly                                             | Tool and library for manipulating LilyPond files                              | package
-   | python314-orderly-set                                    | Orderly set                                                                   | package
-   | python314-phply                                          | Lexer and parser for PHP source implemented using PLY                         | package
-   | python314-plotly                                         | Interactive, browser-based graphing library for Python                        | package
-   | python314-ply                                            | Python Lex & Yacc                                                             | package
-   | python314-plyvel                                         | Python interface to LevelDB                                                   | package
-   | python314-pytest-randomly                                | Pytest plugin to randomly order tests and control random.seed                 | package
-   | python314-rply                                           | A pure Python Lex/Yacc that works with RPython                                | package
-   | python314-Shapely                                        | Geospatial geometries, predicates, and operations                             | package
-   | python314-sly                                            | Python implementation of the lex and yacc tools                               | package
-   | python314-slycot                                         | A wrapper for the SLICOT control and systems library                          | package
-   | python314-tkreadonly                                     | A set of Tkinter widgets to display readonly text and code                    | package
-   | python314-types-humanfriendly                            | Typing stubs for humanfriendly                                                | package
-   | read-only-root-fs                                        | Files and Scripts for a RO root fileystem                                     | package
-   | read-only-root-fs-volatile                               | Dracut Module to mount a tmpfs overlay on a RO root                           | package
-   | rocm-clang-analyzer                                      | The ROCm code analysis framework                                              | package
-   | samply                                                   | A command line CPU profiler which uses the Firefox profiler as its UI         | package
-   | schily-ctags                                             | A program to generate tag files for ex/vi                                     | package
-   | schily-mt                                                | Magnetic tape control                                                         | package
-   | schily-rmt                                               | Remote magnetic tape protocol server                                          | package
-   | setools-console-analyses                                 | Policy analysis command-line tools for SELinux                                | package
-   | snallygaster                                             | Tool to scan for hidden files on HTTP servers                                 | package
-   | telly-skout                                              | Kirigami TV guide                                                             | package
-   | telly-skout-lang                                         | Translations for package telly-skout                                          | package
-   | tesla-polyglot-common                                    | Polyglot Tesla :: Common                                                      | package
-   | tesla-polyglot-common-javadoc                            | Javadoc for tesla-polyglot-common                                             | package
-   | texlive-bpolynomial                                      | Drawing polynomial functions of up to order 3                                 | package
-   | texlive-bpolynomial-doc                                  | Documentation for texlive-bpolynomial                                         | package
-   | texlive-circularglyphs                                   | A circular glyphs alphabet                                                    | package
-   | texlive-circularglyphs-doc                               | Documentation for texlive-circularglyphs                                      | package
-   | texlive-complexpolylongdiv                               | Typesetting (complex) polynomial long division                                | package
-   | texlive-complexpolylongdiv-doc                           | Documentation for texlive-complexpolylongdiv                                  | package
-   | texlive-excludeonly                                      | Prevent files being \include-ed                                               | package
-   | texlive-excludeonly-doc                                  | Documentation for texlive-excludeonly                                         | package
-   | texlive-expex-glossonly                                  | Help gb4e, linguex, and covington users use the ExPex glossing macros         | package
-   | texlive-expex-glossonly-doc                              | Documentation for texlive-expex-glossonly                                     | package
-   | texlive-familytree                                       | Draw family trees                                                             | package
-   | texlive-familytree-doc                                   | Documentation for texlive-familytree                                          | package
-   | texlive-glyphlist                                        | Adobe Glyph List and TeX extensions                                           | package
-   | texlive-lilyglyphs                                       | Access lilypond fragments and glyphs, in LaTeX                                | package
-   | texlive-lilyglyphs-bin                                   | Binary files of lilyglyphs                                                    | package
-   | texlive-lilyglyphs-doc                                   | Documentation for texlive-lilyglyphs                                          | package
-   | texlive-lilyglyphs-fonts                                 | Severed fonts for texlive-lilyglyphs                                          | package
-   | texlive-ly1                                              | Support for LY1 LaTeX encoding                                                | package
-   | texlive-ly1-doc                                          | Documentation for texlive-ly1                                                 | package
-   | texlive-lydtype                                          | Typing in the Lydian alphabet                                                 | package
-   | texlive-lydtype-doc                                      | Documentation for texlive-lydtype                                             | package
-   | texlive-lydtype-fonts                                    | Severed fonts for texlive-lydtype                                             | package
-   | texlive-lyluatex                                         | Commands to include lilypond scores within a (Lua)LaTeX document              | package
-   | texlive-lyluatex-doc                                     | Documentation for texlive-lyluatex                                            | package
-   | texlive-onlyamsmath                                      | Inhibit use of non-amsmath mathematics markup when using amsmath              | package
-   | texlive-onlyamsmath-doc                                  | Documentation for texlive-onlyamsmath                                         | package
-   | texlive-polyglossia                                      | An alternative to babel for XeLaTeX and LuaLaTeX                              | package
-   | texlive-polyglossia-doc                                  | Documentation for texlive-polyglossia                                         | package
-   | texlive-polyhedra                                        | A TikZ package for drawing polyhedra                                          | package
-   | texlive-polyhedra-doc                                    | Documentation for texlive-polyhedra                                           | package
-   | texlive-polynom                                          | Macros for manipulating polynomials                                           | package
-   | texlive-polynom-doc                                      | Documentation for texlive-polynom                                             | package
-   | texlive-polynomial                                       | Typeset (univariate) polynomials                                              | package
-   | texlive-polynomial-doc                                   | Documentation for texlive-polynomial                                          | package
-   | texlive-polyomino                                        | Polyominoes using TikZ and LaTeX3                                             | package
-   | texlive-polyomino-doc                                    | Documentation for texlive-polyomino                                           | package
-   | texlive-polytable                                        | Tabular-like environments with named columns                                  | package
-   | texlive-polytable-doc                                    | Documentation for texlive-polytable                                           | package
-   | texlive-proflycee                                        | A LaTeX package for French maths teachers in high school                      | package
-   | texlive-proflycee-doc                                    | Documentation for texlive-proflycee                                           | package
-   | texlive-pst-poly                                         | Polygons with PSTricks                                                        | package
-   | texlive-pst-poly-doc                                     | Documentation for texlive-pst-poly                                            | package
-   | texlive-scheme-infraonly                                 | Infrastructure-only scheme (no TeX at all)                                    | package
-   | texlive-sillypage                                        | John Cleese's Silly Walk as page numbering style                              | package
-   | texlive-sillypage-doc                                    | Documentation for texlive-sillypage                                           | package
-   | texlive-texliveonfly                                     | On-the-fly download of missing TeX Live packages                              | package
-   | texlive-texliveonfly-bin                                 | Binary files of texliveonfly                                                  | package
-   | texlive-texliveonfly-doc                                 | Documentation for texlive-texliveonfly                                        | package
-   | texlive-texloganalyser                                   | Analyse TeX logs                                                              | package
-   | texlive-texloganalyser-bin                               | Binary files of texloganalyser                                                | package
-   | texlive-texloganalyser-doc                               | Documentation for texlive-texloganalyser                                      | package
-   | texlive-texonly                                          | A sample document in Plain TeX                                                | package
-   | trigger-rally                                            | Fast-paced single-player rally racing game                                    | package
-   | trigger-rally-data                                       | Data files for trigger-rally                                                  | package
-   | trytond_stock_supply                                     | The Stock Supply module for the Tryton ERP system                             | package
-   | typelib-1_0-Gly_2                                        | Introspection bindings for libglycin                                          | package
-   | typelib-1_0-GlyGtk-2                                     | Introspection bindings for libglycin-gtk4                                     | package
-   | typelib-1_0-GstAnalytics-1_0                             | Introspection bindings for GStreamer Streaming-Media Framework Plug-Ins       | package
-   | waylyrics                                                | The furry way to show desktop lyrics                                          | package
-   | waylyrics-lang                                           | Translations for package waylyrics                                            | package
-   | wireplumber-video-only-profile                           | Disable audio support in PipeWire / WirePlumber                               | package
-   | wshowlyrics                                              | A lightweight lyrics overlay for Wayland compositors                          | package
-   | zn_poly-devel                                            | Development files for the zn_poly library                                     | package
-+ for pkg in "${missing[@]}" ${SEARCH:-}
-+ zypper --non-interactive search oxygen5-icon-theme
++ zypper --non-interactive search oxygen6-icon-theme
+Packages not in the repositories: oxygen6-icon-theme
 Loading repository data...
 Reading installed packages...
 No matching items found.
 + true
 + for pkg in "${missing[@]}" ${SEARCH:-}
-+ zypper --non-interactive search plank
-Loading repository data...
-Reading installed packages...
-No matching items found.
-+ true
-+ for pkg in "${missing[@]}" ${SEARCH:-}
-+ zypper --non-interactive search greetd
++ zypper --non-interactive search oxygen
 Loading repository data...
 Reading installed packages...
 
-S  | Name                         | Summary                                                   | Type
----+------------------------------+-----------------------------------------------------------+--------
-   | greetd                       | Minimal and flexible login manager daemon                 | package
-   | greetd-agreety               | A text-based greeter for greetd                           | package
-   | greetd-branding-openSUSE     | openSUSE branding of greetd                               | package
-   | greetd-branding-upstream     | Upstream branding of greetd                               | package
-   | greetd-fakegreet             | Test utility for greeter development                      | package
-   | greetd-gtkgreet-hyprland     | Greetd config using gtkgreet and Hyprland Wayland session | package
-   | greetd-gtkgreet-xfce-wayland | Greetd config using gtkgreet and XFCE Wayland session     | package
-+ for pkg in "${missing[@]}" ${SEARCH:-}
-+ zypper --non-interactive search tuigreet
-Loading repository data...
-Reading installed packages...
-
-S  | Name     | Summary                              | Type
----+----------+--------------------------------------+--------
-   | tuigreet | Graphical console greeter for greetd | package
-+ for pkg in "${missing[@]}" ${SEARCH:-}
-+ zypper --non-interactive search lightdm-gtk-greeter
-Loading repository data...
-Reading installed packages...
-
-S  | Name                                  | Summary                                               | Type
----+---------------------------------------+-------------------------------------------------------+--------
-   | lightdm-gtk-greeter                   | Simple display manager (GTK greeter)                  | package
-   | lightdm-gtk-greeter-branding-openSUSE | openSUSE branding of lightdm-gtk-greeter              | package
-   | lightdm-gtk-greeter-branding-upstream | Upstream branding of lightdm-gtk-greeter              | package
-   | lightdm-gtk-greeter-lang              | Translations for package lightdm-gtk-greeter          | package
-   | lightdm-gtk-greeter-settings          | Settings editor for the LightDM GTK+ Greeter          | package
-   | lightdm-gtk-greeter-settings-lang     | Translations for package lightdm-gtk-greeter-settings | package
-+ for pkg in "${missing[@]}" ${SEARCH:-}
-+ zypper --non-interactive search docky
-Loading repository data...
-Reading installed packages...
-No matching items found.
-+ true
-+ for pkg in "${missing[@]}" ${SEARCH:-}
-+ zypper --non-interactive search cairo-dock
-Loading repository data...
-Reading installed packages...
-No matching items found.
-+ true
-+ for pkg in "${missing[@]}" ${SEARCH:-}
-+ zypper --non-interactive search latte
-Loading repository data...
-Reading installed packages...
-
-S  | Name                         | Summary                                                    | Type
----+------------------------------+------------------------------------------------------------+--------
-   | flatten-maven-plugin         | Maven Flatten Plugin                                       | package
-   | flatten-maven-plugin-javadoc | API documentation for flatten-maven-plugin                 | package
-   | latte                        | Computations with polyhedra                                | package
-   | texlive-texdirflatten        | Collect files related to a LaTeX job in a single directory | package
-   | texlive-texdirflatten-bin    | Binary files of texdirflatten                              | package
-   | texlive-texdirflatten-doc    | Documentation for texlive-texdirflatten                    | package
-+ for pkg in "${missing[@]}" ${SEARCH:-}
-+ zypper --non-interactive search xfce4-docklike
-Loading repository data...
-Reading installed packages...
-
-S  | Name                       | Summary                                        | Type
----+----------------------------+------------------------------------------------+--------
-   | xfce4-docklike-plugin      | Docklike Taskbar                               | package
-   | xfce4-docklike-plugin-lang | Translations for package xfce4-docklike-plugin | package
+S  | Name                      | Summary                                                              | Type
+---+---------------------------+----------------------------------------------------------------------+--------
+   | apache2-icons-oxygen      | Oxygen icons for Apache 2                                            | package
+   | doxygen                   | Automated C, C++, and Java Documentation Generator                   | package
+   | doxygen2man               | tool to generate man pages from Doxygen XML files                    | package
+   | gtk2-engine-oxygen        | Oxygen GTK 2.x Theme Engine                                          | package
+   | gtk2-engine-oxygen-32bit  | Oxygen GTK 2.x Theme Engine                                          | package
+   | gtk2-theme-oxygen         | Oxygen GTK 2.x Theme                                                 | package
+   | kde-oxygen-fonts          | A desktop/gui font family for integrated use with the KDE desktop    | package
+   | kf6-oxygen-icons          | Oxygen Icon Theme                                                    | package
+   | kf6-oxygen-icons-large    | Oxygen Icon Theme                                                    | package
+   | kf6-oxygen-icons-scalable | Oxygen Icon Theme                                                    | package
+   | oxygen6                   | Oxygen style, KWin decoration and cursors                            | package
+   | oxygen6-cursors           | The KDE Plasma Workspace Cursors                                     | package
+   | oxygen6-decoration        | Oxygen's KWin decoration                                             | package
+   | oxygen6-sounds            | Oxygen sounds                                                        | package
+   | oxygen6-style             | Oxygen style for Qt 6                                                | package
+   | oxygen6-style-lang        | Translations for package oxygen6-style                               | package
+   | oxygen6-style-qt5         | Oxygen style for Qt 5                                                | package
+   | oxygen6-wallpapers        | Oxygen wallpapers                                                    | package
+   | tree-sitter-doxygen       | Doxygen grammar for tree-sitter                                      | package
+   | tree-sitter-doxygen-devel | Devel package for tree-sitter-doxygen containing it's grammar source | package
+   | yast2-theme-oxygen        | YaST2 - Oxygen icon theme                                            | package
 + desc=/out/description
 + rm -rf /out/description /out/image
 + cp -a /src/kiwi /out/description
 + '[' 1 = 1 ']'
 + sed -i 's/kernelcmdline="splash quiet"/kernelcmdline="splash quiet console=tty0 console=ttyS0,115200"/' /out/description/config.kiwi
 + kiwi-ng --profile Dev system build --description /out/description --target-dir /out/image
-[ INFO    ]: 00:07:56 | Loading XML description: /out/description/config.kiwi
-[ INFO    ]: 00:07:56 | Support for XML markup available
-[ INFO    ]: 00:07:56 | --> loaded /out/description/config.kiwi
-[ INFO    ]: 00:07:56 | --> Selected build type: iso
-[ INFO    ]: 00:07:56 | --> Selected profiles: Dev
-[ INFO    ]: 00:07:56 | Preparing new root system
-[ INFO    ]: 00:07:56 | Setup root directory: /out/image/build/image-root
-[ INFO    ]: 00:07:56 | Setting up repository https://download.opensuse.org/tumbleweed/repo/oss/
-[ INFO    ]: 00:07:56 | --> Type: rpm-md
-[ INFO    ]: 00:07:56 | --> Translated: https://download.opensuse.org/tumbleweed/repo/oss/
-[ INFO    ]: 00:07:56 | --> Alias: repo-oss
-[ INFO    ]: 00:07:56 | Setting up repository https://download.opensuse.org/tumbleweed/repo/non-oss/
-[ INFO    ]: 00:07:56 | --> Type: rpm-md
-[ INFO    ]: 00:07:56 | --> Translated: https://download.opensuse.org/tumbleweed/repo/non-oss/
-[ INFO    ]: 00:07:56 | --> Alias: repo-non-oss
-[ INFO    ]: 00:07:56 | Setting up repository https://download.opensuse.org/update/tumbleweed/
-[ INFO    ]: 00:07:56 | --> Type: rpm-md
-[ INFO    ]: 00:07:56 | --> Translated: https://download.opensuse.org/update/tumbleweed/
-[ INFO    ]: 00:07:56 | --> Alias: repo-update
-[ INFO    ]: 00:07:56 | Using package manager backend: zypper
-[ INFO    ]: 00:07:56 | Installing bootstrap packages
-[ INFO    ]: 00:07:56 | --> collection type: onlyRequired
-[ INFO    ]: 00:07:56 | --> package: ca-certificates
-[ INFO    ]: 00:07:56 | --> package: ca-certificates-mozilla
-[ INFO    ]: 00:07:56 | --> package: cracklib-dict-small
-[ INFO    ]: 00:07:56 | --> package: filesystem
-[ INFO    ]: 00:07:56 | --> package: glibc-locale-base
-[ INFO    ]: 00:07:56 | --> package: openSUSE-release
-[ INFO    ]: 00:07:56 | --> package: zypper
+[ INFO    ]: 00:15:04 | Loading XML description: /out/description/config.kiwi
+[ INFO    ]: 00:15:04 | Support for XML markup available
+[ INFO    ]: 00:15:05 | --> loaded /out/description/config.kiwi
+[ INFO    ]: 00:15:05 | --> Selected build type: iso
+[ INFO    ]: 00:15:05 | --> Selected profiles: Dev
+[ INFO    ]: 00:15:05 | Preparing new root system
+[ INFO    ]: 00:15:05 | Setup root directory: /out/image/build/image-root
+[ INFO    ]: 00:15:05 | Setting up repository https://download.opensuse.org/tumbleweed/repo/oss/
+[ INFO    ]: 00:15:05 | --> Type: rpm-md
+[ INFO    ]: 00:15:05 | --> Translated: https://download.opensuse.org/tumbleweed/repo/oss/
+[ INFO    ]: 00:15:05 | --> Alias: repo-oss
+[ INFO    ]: 00:15:05 | Setting up repository https://download.opensuse.org/tumbleweed/repo/non-oss/
+[ INFO    ]: 00:15:05 | --> Type: rpm-md
+[ INFO    ]: 00:15:05 | --> Translated: https://download.opensuse.org/tumbleweed/repo/non-oss/
+[ INFO    ]: 00:15:05 | --> Alias: repo-non-oss
+[ INFO    ]: 00:15:05 | Setting up repository https://download.opensuse.org/update/tumbleweed/
+[ INFO    ]: 00:15:05 | --> Type: rpm-md
+[ INFO    ]: 00:15:05 | --> Translated: https://download.opensuse.org/update/tumbleweed/
+[ INFO    ]: 00:15:05 | --> Alias: repo-update
+[ INFO    ]: 00:15:05 | Using package manager backend: zypper
+[ INFO    ]: 00:15:05 | Installing bootstrap packages
+[ INFO    ]: 00:15:05 | --> collection type: onlyRequired
+[ INFO    ]: 00:15:05 | --> package: ca-certificates
+[ INFO    ]: 00:15:05 | --> package: ca-certificates-mozilla
+[ INFO    ]: 00:15:05 | --> package: cracklib-dict-small
+[ INFO    ]: 00:15:05 | --> package: filesystem
+[ INFO    ]: 00:15:05 | --> package: glibc-locale-base
+[ INFO    ]: 00:15:05 | --> package: openSUSE-release
+[ INFO    ]: 00:15:05 | --> package: zypper
 [ INFO    ]: Processing: [                                        ] 0%[ INFO    ]: Processing: [######                                  ] 14%[ INFO    ]: Processing: [###########                             ] 29%[ INFO    ]: Processing: [#################                       ] 43%[ INFO    ]: Processing: [#######################                 ] 57%[ INFO    ]: Processing: [#############################           ] 71%[ INFO    ]: Processing: [##################################      ] 86%[ INFO    ]: Processing: [########################################] 100%[ INFO    ]: Processing: [########################################] 100%
-[ INFO    ]: 00:08:36 | Importing Image description to system tree
-[ INFO    ]: 00:08:36 | --> Importing state XML description to /out/image/build/image-root/image/config.xml
-[ INFO    ]: 00:08:36 | --> Importing config.sh script to /out/image/build/image-root/image/config.sh
-[ INFO    ]: 00:08:36 | --> Importing script helper functions
-[ INFO    ]: 00:08:36 | Installing system (chroot) for build type: iso
-[ INFO    ]: 00:08:36 | --> collection type: onlyRequired
-[ INFO    ]: 00:08:36 | --> package: MozillaFirefox
-[ INFO    ]: 00:08:36 | --> package: MozillaFirefox-branding-upstream
-[ INFO    ]: 00:08:36 | --> package: MozillaFirefox-translations-common
-[ INFO    ]: 00:08:36 | --> package: NetworkManager
-[ INFO    ]: 00:08:36 | --> package: NetworkManager-applet
-[ INFO    ]: 00:08:36 | --> package: adwaita-icon-theme
-[ INFO    ]: 00:08:36 | --> package: branding-upstream
-[ INFO    ]: 00:08:36 | --> package: calamares
-[ INFO    ]: 00:08:36 | --> package: dconf
-[ INFO    ]: 00:08:36 | --> package: dmenu
-[ INFO    ]: 00:08:36 | --> package: dracut-kiwi-live
-[ INFO    ]: 00:08:36 | --> package: efibootmgr
-[ INFO    ]: 00:08:36 | --> package: fastfetch
-[ INFO    ]: 00:08:36 | --> package: feh
-[ INFO    ]: 00:08:36 | --> package: file-roller
-[ INFO    ]: 00:08:36 | --> package: flatpak
-[ INFO    ]: 00:08:36 | --> package: glibc-locale
-[ INFO    ]: 00:08:36 | --> package: google-noto-sans-fonts
-[ INFO    ]: 00:08:36 | --> package: google-noto-sans-mono-fonts
-[ INFO    ]: 00:08:36 | --> package: grub2
-[ INFO    ]: 00:08:36 | --> package: grub2-x86_64-efi
-[ INFO    ]: 00:08:36 | --> package: gum
-[ INFO    ]: 00:08:36 | --> package: gvfs
-[ INFO    ]: 00:08:36 | --> package: i3
-[ INFO    ]: 00:08:36 | --> package: i3lock
-[ INFO    ]: 00:08:36 | --> package: i3status
-[ INFO    ]: 00:08:36 | --> package: kernel-default
-[ INFO    ]: 00:08:36 | --> package: kernel-firmware-all
-[ INFO    ]: 00:08:36 | --> package: libnotify-tools
-[ INFO    ]: 00:08:36 | --> package: ly
-[ INFO    ]: 00:08:36 | --> package: man
-[ INFO    ]: 00:08:36 | --> package: mousepad
-[ INFO    ]: 00:08:36 | --> package: mousepad-lang
-[ INFO    ]: 00:08:36 | --> package: oxygen5-icon-theme
-[ INFO    ]: 00:08:36 | --> package: pavucontrol
-[ INFO    ]: 00:08:36 | --> package: picom
-[ INFO    ]: 00:08:36 | --> package: pipewire
-[ INFO    ]: 00:08:36 | --> package: pipewire-pulseaudio
-[ INFO    ]: 00:08:36 | --> package: plank
-[ INFO    ]: 00:08:36 | --> package: plymouth-branding-upstream
-[ INFO    ]: 00:08:36 | --> package: polkit
-[ INFO    ]: 00:08:36 | --> package: polybar
-[ INFO    ]: 00:08:36 | --> package: ristretto
-[ INFO    ]: 00:08:36 | --> package: rofi
-[ INFO    ]: 00:08:36 | --> package: shim
-[ INFO    ]: 00:08:36 | --> package: starship
-[ INFO    ]: 00:08:36 | --> package: sudo
-[ INFO    ]: 00:08:36 | --> package: systemd
-[ INFO    ]: 00:08:36 | --> package: thunar
-[ INFO    ]: 00:08:36 | --> package: thunar-lang
-[ INFO    ]: 00:08:36 | --> package: thunar-volman
-[ INFO    ]: 00:08:36 | --> package: timezone
-[ INFO    ]: 00:08:36 | --> package: tumbler
-[ INFO    ]: 00:08:36 | --> package: vlc
-[ INFO    ]: 00:08:36 | --> package: vlc-lang
-[ INFO    ]: 00:08:36 | --> package: vlc-qt
-[ INFO    ]: 00:08:36 | --> package: wireplumber
-[ INFO    ]: 00:08:36 | --> package: xdg-utils
-[ INFO    ]: 00:08:36 | --> package: xdotool
-[ INFO    ]: 00:08:36 | --> package: xfce4-appfinder
-[ INFO    ]: 00:08:36 | --> package: xfce4-genmon-plugin
-[ INFO    ]: 00:08:36 | --> package: xfce4-notifyd
-[ INFO    ]: 00:08:36 | --> package: xfce4-panel
-[ INFO    ]: 00:08:36 | --> package: xfce4-panel-lang
-[ INFO    ]: 00:08:36 | --> package: xfce4-panel-profiles
-[ INFO    ]: 00:08:36 | --> package: xfce4-power-manager
-[ INFO    ]: 00:08:36 | --> package: xfce4-power-manager-lang
-[ INFO    ]: 00:08:36 | --> package: xfce4-pulseaudio-plugin
-[ INFO    ]: 00:08:36 | --> package: xfce4-screenshooter
-[ INFO    ]: 00:08:36 | --> package: xfce4-session
-[ INFO    ]: 00:08:36 | --> package: xfce4-session-lang
-[ INFO    ]: 00:08:36 | --> package: xfce4-settings
-[ INFO    ]: 00:08:36 | --> package: xfce4-settings-lang
-[ INFO    ]: 00:08:36 | --> package: xfce4-terminal
-[ INFO    ]: 00:08:36 | --> package: xfce4-terminal-lang
-[ INFO    ]: 00:08:36 | --> package: xfce4-whiskermenu-plugin
-[ INFO    ]: 00:08:36 | --> package: xfce4-whiskermenu-plugin-lang
-[ INFO    ]: 00:08:36 | --> package: xfconf
-[ INFO    ]: 00:08:36 | --> package: xinit
-[ INFO    ]: 00:08:36 | --> package: xorg-x11-server
-[ INFO    ]: 00:08:36 | --> package: zypper
-[ INFO    ]: 00:08:36 | --> collection: base
-[ INFO    ]: 00:08:36 | --> collection: enhanced_base
-[ INFO    ]: 00:08:36 | --> collection: x11
+[ INFO    ]: 00:15:35 | Importing Image description to system tree
+[ INFO    ]: 00:15:35 | --> Importing state XML description to /out/image/build/image-root/image/config.xml
+[ INFO    ]: 00:15:35 | --> Importing config.sh script to /out/image/build/image-root/image/config.sh
+[ INFO    ]: 00:15:35 | --> Importing script helper functions
+[ INFO    ]: 00:15:35 | Installing system (chroot) for build type: iso
+[ INFO    ]: 00:15:35 | --> collection type: onlyRequired
+[ INFO    ]: 00:15:35 | --> package: MozillaFirefox
+[ INFO    ]: 00:15:35 | --> package: MozillaFirefox-branding-upstream
+[ INFO    ]: 00:15:35 | --> package: MozillaFirefox-translations-common
+[ INFO    ]: 00:15:35 | --> package: NetworkManager
+[ INFO    ]: 00:15:35 | --> package: NetworkManager-applet
+[ INFO    ]: 00:15:35 | --> package: adwaita-icon-theme
+[ INFO    ]: 00:15:35 | --> package: branding-upstream
+[ INFO    ]: 00:15:35 | --> package: calamares
+[ INFO    ]: 00:15:35 | --> package: dconf
+[ INFO    ]: 00:15:35 | --> package: dmenu
+[ INFO    ]: 00:15:35 | --> package: dracut-kiwi-live
+[ INFO    ]: 00:15:35 | --> package: efibootmgr
+[ INFO    ]: 00:15:35 | --> package: fastfetch
+[ INFO    ]: 00:15:35 | --> package: feh
+[ INFO    ]: 00:15:35 | --> package: file-roller
+[ INFO    ]: 00:15:35 | --> package: flatpak
+[ INFO    ]: 00:15:35 | --> package: glibc-locale
+[ INFO    ]: 00:15:35 | --> package: google-noto-sans-fonts
+[ INFO    ]: 00:15:35 | --> package: google-noto-sans-mono-fonts
+[ INFO    ]: 00:15:35 | --> package: greetd
+[ INFO    ]: 00:15:35 | --> package: grub2
+[ INFO    ]: 00:15:35 | --> package: grub2-x86_64-efi
+[ INFO    ]: 00:15:35 | --> package: gum
+[ INFO    ]: 00:15:35 | --> package: gvfs
+[ INFO    ]: 00:15:35 | --> package: i3
+[ INFO    ]: 00:15:35 | --> package: i3lock
+[ INFO    ]: 00:15:35 | --> package: i3status
+[ INFO    ]: 00:15:35 | --> package: kernel-default
+[ INFO    ]: 00:15:35 | --> package: kernel-firmware-all
+[ INFO    ]: 00:15:35 | --> package: libnotify-tools
+[ INFO    ]: 00:15:35 | --> package: man
+[ INFO    ]: 00:15:35 | --> package: mousepad
+[ INFO    ]: 00:15:35 | --> package: mousepad-lang
+[ INFO    ]: 00:15:35 | --> package: oxygen6-icon-theme
+[ INFO    ]: 00:15:35 | --> package: pavucontrol
+[ INFO    ]: 00:15:35 | --> package: picom
+[ INFO    ]: 00:15:35 | --> package: pipewire
+[ INFO    ]: 00:15:35 | --> package: pipewire-pulseaudio
+[ INFO    ]: 00:15:35 | --> package: plymouth-branding-upstream
+[ INFO    ]: 00:15:35 | --> package: polkit
+[ INFO    ]: 00:15:35 | --> package: polybar
+[ INFO    ]: 00:15:35 | --> package: ristretto
+[ INFO    ]: 00:15:35 | --> package: rofi
+[ INFO    ]: 00:15:35 | --> package: shim
+[ INFO    ]: 00:15:35 | --> package: starship
+[ INFO    ]: 00:15:35 | --> package: sudo
+[ INFO    ]: 00:15:35 | --> package: systemd
+[ INFO    ]: 00:15:35 | --> package: thunar
+[ INFO    ]: 00:15:35 | --> package: thunar-lang
+[ INFO    ]: 00:15:35 | --> package: thunar-volman
+[ INFO    ]: 00:15:35 | --> package: timezone
+[ INFO    ]: 00:15:35 | --> package: tuigreet
+[ INFO    ]: 00:15:35 | --> package: tumbler
+[ INFO    ]: 00:15:35 | --> package: vlc
+[ INFO    ]: 00:15:35 | --> package: vlc-lang
+[ INFO    ]: 00:15:35 | --> package: vlc-qt
+[ INFO    ]: 00:15:35 | --> package: wireplumber
+[ INFO    ]: 00:15:35 | --> package: xdg-utils
+[ INFO    ]: 00:15:35 | --> package: xdotool
+[ INFO    ]: 00:15:35 | --> package: xfce4-appfinder
+[ INFO    ]: 00:15:35 | --> package: xfce4-docklike-plugin
+[ INFO    ]: 00:15:35 | --> package: xfce4-docklike-plugin-lang
+[ INFO    ]: 00:15:35 | --> package: xfce4-genmon-plugin
+[ INFO    ]: 00:15:35 | --> package: xfce4-notifyd
+[ INFO    ]: 00:15:35 | --> package: xfce4-panel
+[ INFO    ]: 00:15:35 | --> package: xfce4-panel-lang
+[ INFO    ]: 00:15:35 | --> package: xfce4-panel-profiles
+[ INFO    ]: 00:15:35 | --> package: xfce4-power-manager
+[ INFO    ]: 00:15:35 | --> package: xfce4-power-manager-lang
+[ INFO    ]: 00:15:35 | --> package: xfce4-pulseaudio-plugin
+[ INFO    ]: 00:15:35 | --> package: xfce4-screenshooter
+[ INFO    ]: 00:15:35 | --> package: xfce4-session
+[ INFO    ]: 00:15:35 | --> package: xfce4-session-lang
+[ INFO    ]: 00:15:35 | --> package: xfce4-settings
+[ INFO    ]: 00:15:35 | --> package: xfce4-settings-lang
+[ INFO    ]: 00:15:35 | --> package: xfce4-terminal
+[ INFO    ]: 00:15:35 | --> package: xfce4-terminal-lang
+[ INFO    ]: 00:15:35 | --> package: xfce4-whiskermenu-plugin
+[ INFO    ]: 00:15:35 | --> package: xfce4-whiskermenu-plugin-lang
+[ INFO    ]: 00:15:35 | --> package: xfconf
+[ INFO    ]: 00:15:35 | --> package: xinit
+[ INFO    ]: 00:15:35 | --> package: xorg-x11-server
+[ INFO    ]: 00:15:35 | --> package: zypper
+[ INFO    ]: 00:15:35 | --> collection: base
+[ INFO    ]: 00:15:35 | --> collection: enhanced_base
+[ INFO    ]: 00:15:35 | --> collection: x11
 [ INFO    ]: Processing: [                                        ] 0%[ INFO    ]: Processing: [########################################] 100%
-[ ERROR   ]: 00:08:39 | KiwiInstallPhaseFailed: System package installation failed: No provider of 'ly' found.
-No provider of 'plank' found.
+[ ERROR   ]: 00:15:38 | KiwiInstallPhaseFailed: System package installation failed: Package 'oxygen6-icon-theme' not found.
 
