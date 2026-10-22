@@ -125,7 +125,9 @@ Agents can take care of the machine itself:
 Swaps Yellow/Honey/Amber by key, not by value (so ANSI yellow and other palette
 colors stay put) in the user's copies: the `client.focused` line of the i3
 config, Polybar `accent`, fastfetch colors, `~/.config/oniscus/starship.toml`, a
-GTK theme copy in `~/.local/share/themes/Xi3-Retro` and the terminal cursor
+GTK theme copy in `~/.local/share/themes/Xi3-Retro`, a rofi theme copy in
+`~/.local/share/rofi/themes/oniscus.rasi` (keys `accent`, `accent-light`,
+`accent-dark`) and the terminal cursor
 (xfconf). The Ly login screen changes only if the user accepts (sudo). State
 lives in `~/.config/oniscus/`.
 

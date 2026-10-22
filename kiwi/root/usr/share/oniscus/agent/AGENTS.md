@@ -19,7 +19,9 @@ sentences. The user may not be technical.
   - Bottom bar: Polybar (`~/.config/polybar/config.ini`, restart with `sh ~/.config/polybar/launch.sh`).
   - Dock: Plank (dconf at `/net/launchpad/plank/docks/dock1/`, launchers in `~/.config/plank/dock1/launchers/`).
   - Compositor: picom (`~/.config/picom/picom.conf`).
-  - Launcher: rofi (`Super+Space` or `Super+d`). Wallpaper: feh, picked with `onis wallpaper`.
+  - Launcher: rofi (`Super+Space` or `Super+d`), settings in `~/.config/rofi/config.rasi`,
+    theme "oniscus" (`/usr/share/rofi/themes/oniscus.rasi`; user copy in
+    `~/.local/share/rofi/themes/` when the accent color was changed). Wallpaper: feh, picked with `onis wallpaper`.
 - Login: **Ly** greeter on tty2 (`/etc/ly/config.ini`, system-wide).
 - Terminal: xfce4-terminal (xfconf channel `xfce4-terminal`), Starship prompt, fastfetch.
 - Audio: PipeWire + WirePlumber (`wpctl status`). Network: NetworkManager (`nmcli`).

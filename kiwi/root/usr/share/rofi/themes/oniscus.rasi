@@ -1,0 +1,127 @@
+/* Oniscus: default rofi theme, with the palette of the Xi3 Retro desktop.
+ * Copyright (C) 2026 Oniscus contributors
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ *
+ * "onis accent" writes a user copy to ~/.local/share/rofi/themes/oniscus.rasi
+ * with the three accent keys below changed, so keep their names and the
+ * "key: #RRGGBB;" form. */
+
+* {
+    /* Accent: Yellow, Honey (light) and Amber (dark) */
+    accent:       #F7C948;
+    accent-light: #FFE58F;
+    accent-dark:  #C99412;
+
+    carvao:  #121519;
+    grafite: #1C2026;
+    ardosia: #2A3038;
+    borda:   #3A424C;
+    nevoa:   #E6E9EC;
+    cinza:   #9AA4AF;
+    bico:    #F28C28;
+
+    font: "Noto Sans 11";
+    background-color: transparent;
+    text-color: @nevoa;
+}
+
+window {
+    width: 560px;
+    location: center;
+    anchor: center;
+    background-color: @grafite;
+    border: 2px;
+    border-color: @accent;
+    border-radius: 12px;
+}
+
+mainbox {
+    padding: 12px;
+    spacing: 10px;
+    children: [ inputbar, message, listview ];
+}
+
+inputbar {
+    padding: 8px 12px;
+    spacing: 8px;
+    background-color: @ardosia;
+    border: 1px;
+    border-color: @borda;
+    border-radius: 8px;
+    children: [ prompt, entry ];
+}
+
+prompt {
+    text-color: @accent;
+    font: "Noto Sans Bold 11";
+}
+
+entry {
+    placeholder: "";
+    placeholder-color: @cinza;
+    cursor-color: @accent;
+}
+
+message {
+    padding: 8px 12px;
+    background-color: @ardosia;
+    border-radius: 8px;
+}
+
+textbox {
+    text-color: @cinza;
+}
+
+listview {
+    lines: 8;
+    columns: 1;
+    spacing: 2px;
+    fixed-height: true;
+    scrollbar: true;
+}
+
+scrollbar {
+    handle-width: 4px;
+    handle-color: @borda;
+    border-radius: 2px;
+}
+
+element {
+    padding: 6px 10px;
+    spacing: 10px;
+    border-radius: 6px;
+}
+
+element normal.normal, element alternate.normal {
+    text-color: @nevoa;
+}
+
+element normal.urgent, element alternate.urgent {
+    text-color: @bico;
+}
+
+element normal.active, element alternate.active {
+    text-color: @accent-light;
+}
+
+element selected.normal, element selected.active {
+    background-color: @accent;
+    text-color: @carvao;
+}
+
+element selected.urgent {
+    background-color: @bico;
+    text-color: @carvao;
+}
+
+element-icon {
+    size: 22px;
+    text-color: inherit;
+}
+
+element-text {
+    vertical-align: 0.5;
+    text-color: inherit;
+    highlight: bold underline;
+}
+
