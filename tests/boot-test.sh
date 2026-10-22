@@ -1,6 +1,6 @@
 #!/bin/bash
 # Boots an Oniscus ISO in QEMU (UEFI, headless), takes screenshots of the boot,
-# the Ly greeter and the desktop after logging in as the live user, and saves
+# the tuigreet greeter and the desktop after logging in as the live user, and saves
 # them with the serial log in the output directory.
 #   tests/boot-test.sh path/to/oniscus.iso out-dir
 set -uo pipefail
@@ -52,9 +52,10 @@ for t in 005 020 040 060 090 120 150 180; do
     shot "boot-${t}s"
 done
 
-# Ly starts with the login field focused: user, Down to password, Enter
+# tuigreet asks for the user name, then the password
 type_text live
-hmp "sendkey down"
+hmp "sendkey ret"
+sleep 2
 type_text live
 shot greeter-filled
 hmp "sendkey ret"

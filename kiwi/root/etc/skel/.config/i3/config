@@ -1,6 +1,6 @@
 # Oniscus: default i3 config, running inside the XFCE session.
 # Bars: xfce4-panel on top and Polybar at the bottom, so there is no "bar {}" block.
-# Dock: Plank on the left, hiding when a window touches it.
+# Dock: a second xfce4-panel on the left, hiding when a window touches it.
 
 set $mod Mod4
 font pango:Noto Sans 10
@@ -129,7 +129,6 @@ no_focus [class="Xfce4-notifyd"]
 # picom animates opening, closing and resizing windows
 exec --no-startup-id picom --config ~/.config/picom/picom.conf -b
 exec --no-startup-id nm-applet
-exec --no-startup-id plank
 # Terminal-first system: the session starts with a terminal open
 exec --no-startup-id xfce4-terminal
 exec_always --no-startup-id ~/.config/polybar/launch.sh

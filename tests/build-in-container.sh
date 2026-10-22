@@ -39,3 +39,7 @@ kiwi-ng --profile "${PROFILE:-Dev}" system build \
     --description "$desc" \
     --target-dir /out/image
 ls -lh /out/image/*.iso
+# A few facts about the built system, for the log
+root=/out/image/build/image-root
+grep -E '^(greeter|live):' "$root/etc/passwd" || echo "no greeter user"
+ls -l "$root"/etc/systemd/system/display-manager.service "$root"/etc/systemd/system/*.wants/greetd* 2>&1 || true
