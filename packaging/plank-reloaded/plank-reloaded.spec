@@ -66,6 +66,8 @@ docklets for Plank Reloaded.
 %install
 %meson_install
 rm -f %{buildroot}%{_libdir}/*.la
+# README.md goes in with %doc below
+rm -rf %{buildroot}%{_datadir}/doc/%{name}
 %find_lang %{name} %{?no_lang_C} || touch %{name}.lang
 %fdupes %{buildroot}%{_datadir}
 
