@@ -9,9 +9,13 @@ echo "Configuring Oniscus..."
 
 # Services
 systemctl enable NetworkManager
-# Greeter: greetd + tuigreet on tty2 instead of openSUSE's display-manager
+# Greeter: Ly on tty2 instead of openSUSE's display-manager
 systemctl disable display-manager.service || true
-systemctl enable greetd.service
+if [ -f /usr/lib/systemd/system/ly@.service ]; then
+    systemctl enable ly@tty2.service
+else
+    systemctl enable ly.service
+fi
 systemctl disable getty@tty2.service || true
 systemctl set-default graphical.target
 
@@ -61,6 +65,9 @@ if [ -e /usr/local/bin/onis ]; then
     # "oniscus" is a long alias of the onis command
     ln -sfn onis /usr/local/bin/oniscus
 fi
+
+# System dconf defaults (Plank)
+dconf update
 
 # Remove xfwm4 and xfdesktop in case a package pulled them back in
 rpm -q xfwm4 && rpm -e --nodeps xfwm4 || true

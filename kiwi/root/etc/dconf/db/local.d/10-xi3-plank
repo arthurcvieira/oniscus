@@ -1,0 +1,13 @@
+# Dock on the left that hides when a window touches it (intellihide)
+[net/launchpad/plank/docks/dock1]
+position='left'
+alignment='center'
+hide-mode='intelligent'
+hide-delay=300
+unhide-delay=0
+pressure-reveal=false
+icon-size=48
+zoom-enabled=false
+theme='Xi3-Retro'
+show-dock-item=false
+dock-items=['xfce4-terminal.dockitem', 'thunar.dockitem', 'firefox.dockitem', 'org.xfce.mousepad.dockitem', 'xfce-settings-manager.dockitem']
