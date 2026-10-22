@@ -16,7 +16,7 @@ sentences. The user may not be technical.
   per user (`flatpak --user`).
 - Graphical session: **XFCE with i3 instead of xfwm4**, on X11. No xfdesktop.
   - Top bar: `xfce4-panel` (configured through xfconf, channel `xfce4-panel`).
-  - Bottom bar: Polybar (`~/.config/polybar/config.ini`, restart with `~/.config/polybar/launch.sh`).
+  - Bottom bar: Polybar (`~/.config/polybar/config.ini`, restart with `sh ~/.config/polybar/launch.sh`).
   - Dock: Plank (dconf at `/net/launchpad/plank/docks/dock1/`, launchers in `~/.config/plank/dock1/launchers/`).
   - Compositor: picom (`~/.config/picom/picom.conf`).
   - Launcher: rofi (`Super+Space` or `Super+d`). Wallpaper: feh, picked with `onis wallpaper`.
@@ -94,7 +94,7 @@ second `bindsym` with the same combination.
 
 **Top bar (xfce4-panel)**: `xfconf-query -c xfce4-panel -lv` to inspect;
 `xfce4-panel -r` to restart. **Bottom bar**: edit Polybar and run
-`~/.config/polybar/launch.sh`. **Dock**: `pkill plank; setsid -f plank`.
+`sh ~/.config/polybar/launch.sh`. **Dock**: `pkill plank; setsid -f plank`.
 
 **Theme and fonts**: `xfconf-query -c xsettings -p /Net/ThemeName`,
 `/Net/IconThemeName`, `/Gtk/FontName`. Accent color: use `onis accent`.

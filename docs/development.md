@@ -90,7 +90,7 @@ Things to confirm on each new build:
 - **Animations:** picom 12 syntax matches the Tumbleweed version.
 - **Ly:** `config.ini` uses the Ly 1.1+ color format (`0xSSRRGGBB`); the service is
   `ly.service` or `ly@tty2.service`.
-- **Panel:** the battery plugin (`power-manager-plugin`) comes from xfce4-power-manager.
+- **Panel:** the battery plugin is `xfce4-battery-plugin` (Tumbleweed's xfce4-power-manager has no panel plugin).
 - **Branding:** `branding-upstream`, `plymouth-branding-upstream` and
   `MozillaFirefox-branding-upstream` exist, nothing pulls an openSUSE logo back
   (`rpm -qa '*branding*'`), and GRUB, Plymouth, `/etc/issue` and fastfetch say Oniscus.

@@ -10,8 +10,10 @@ set -euo pipefail
 cd "$(dirname "$0")"
 OUT=${OUT:-out}
 PROFILE=${PROFILE:-Dev}
-# Public key of the Oniscus repository on build.opensuse.org (Release only)
+# Public key of the Oniscus repository on build.opensuse.org (both profiles:
+# Ly and Plank Reloaded come from there). Downloaded when missing.
 KEY=${KEY:-packaging/oniscus-repo.asc}
+KEY_URL=https://download.opensuse.org/repositories/home:/oniscus/openSUSE_Tumbleweed/repodata/repomd.xml.key
 
 sudo rm -rf "$OUT"
 mkdir -p "$OUT"
@@ -30,15 +32,16 @@ if [ "$PROFILE" = Release ]; then
     # Image-only files that replace overlay files in this profile
     cp -a packaging/release-overlay/. "$desc/root/"
     find "$desc/root" -depth -type d -empty -delete
-    if [ -f "$KEY" ]; then
-        args+=(--signing-key "$KEY")
-    else
-        echo "Missing $KEY: export the repository key first (see docs/packages.md)." >&2
-        exit 1
-    fi
 else
     desc=kiwi
 fi
+
+if [ ! -f "$KEY" ] && ! curl -fsSL -o "$KEY" "$KEY_URL"; then
+    rm -f "$KEY"
+    echo "Missing $KEY and could not download it from $KEY_URL (see docs/packages.md)." >&2
+    exit 1
+fi
+args+=(--signing-key "$KEY")
 
 sudo kiwi-ng --profile "$PROFILE" system build \
     --description "$desc" \

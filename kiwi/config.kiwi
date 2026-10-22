@@ -31,7 +31,7 @@
         <timezone>UTC</timezone>
         <rpm-excludedocs>false</rpm-excludedocs>
         <rpm-check-signatures>true</rpm-check-signatures>
-        <bootsplash-theme>bgrt</bootsplash-theme>
+        <bootsplash-theme>oniscus</bootsplash-theme>
         <type image="iso"
               primary="true"
               flags="dmsquash"
@@ -40,7 +40,7 @@
               volid="ONISCUS_LIVE"
               publisher="Oniscus"
               kernelcmdline="splash quiet">
-            <bootloader name="grub2" console="gfxterm" timeout="10"/>
+            <bootloader name="grub2" console="console" timeout="10"/>
         </type>
     </preferences>
 
@@ -49,7 +49,7 @@
         <user name="live" groups="users,wheel,audio,video" home="/home/live" password="live" pwdformat="plain"/>
     </users>
 
-    <!-- Official Tumbleweed repositories (plus the Oniscus one in the Release profile) -->
+    <!-- Official Tumbleweed repositories, plus the Oniscus one -->
     <repository type="rpm-md" alias="repo-oss" imageinclude="true">
         <source path="https://download.opensuse.org/tumbleweed/repo/oss/"/>
     </repository>
@@ -60,10 +60,12 @@
         <source path="https://download.opensuse.org/update/tumbleweed/"/>
     </repository>
 
-    <!-- Oniscus's own packages, built on build.opensuse.org from packaging/oniscus.spec.
-         imageinclude keeps the repository on installed systems, so updates arrive
-         with the rest of Tumbleweed. -->
-    <repository type="rpm-md" alias="oniscus" imageinclude="true" profiles="Release">
+    <!-- The Oniscus repository on build.opensuse.org: Ly and Plank Reloaded (not in
+         Tumbleweed) in every profile, plus Oniscus's own packages from
+         packaging/oniscus.spec in the Release profile. imageinclude keeps the
+         repository on installed systems, so updates arrive with the rest of
+         Tumbleweed. -->
+    <repository type="rpm-md" alias="oniscus" imageinclude="true">
         <source path="https://download.opensuse.org/repositories/home:/oniscus/openSUSE_Tumbleweed/"/>
     </repository>
 
@@ -83,6 +85,10 @@
         <package name="grub2-x86_64-efi" arch="x86_64"/>
         <package name="shim" arch="x86_64"/>
         <package name="dracut-kiwi-live"/>
+        <!-- The live initrd (dracut livenet, net-lib, url-lib) needs ip, pgrep and curl -->
+        <package name="iproute2"/>
+        <package name="procps"/>
+        <package name="curl"/>
         <package name="systemd"/>
         <package name="sudo"/>
         <package name="zypper"/>
@@ -97,6 +103,10 @@
              ones, so they keep them out. -->
         <package name="branding-upstream"/>
         <package name="plymouth-branding-upstream"/>
+        <!-- Boot splash: the Oniscus theme (usr/share/plymouth/themes/oniscus) uses the script plugin -->
+        <package name="plymouth"/>
+        <package name="plymouth-plugin-script"/>
+        <package name="plymouth-dracut"/>
         <package name="MozillaFirefox-branding-upstream"/>
 
         <!-- Languages: English is the default, Portuguese (Brazil) is the second
@@ -115,6 +125,7 @@
         <namedCollection name="x11"/>
         <package name="xorg-x11-server"/>
         <package name="xinit"/>
+        <!-- Ly is not in Tumbleweed: it comes from the Oniscus repository -->
         <package name="ly"/>
 
         <!-- XFCE (without xfwm4 or xfdesktop) -->
@@ -135,9 +146,11 @@
         <package name="xfconf"/>
         <package name="xfce4-panel-profiles"/>
         <package name="adwaita-icon-theme"/>
-        <package name="oxygen5-icon-theme"/>
+        <package name="kf6-oxygen-icons"/>
         <package name="google-noto-sans-mono-fonts"/>
         <package name="google-noto-sans-fonts"/>
+        <!-- Symbols such as the prompt arrow -->
+        <package name="google-noto-sans-symbols2-fonts"/>
 
         <!-- i3 -->
         <package name="i3"/>
@@ -149,10 +162,15 @@
         <package name="starship"/>
         <package name="fastfetch"/>
         <package name="polybar"/>
-        <package name="plank"/>
+        <!-- Plank Reloaded (maintained Plank fork) from the Oniscus repository -->
+        <package name="plank-reloaded"/>
         <package name="xdotool"/>
         <package name="dconf"/>
+        <!-- Without it GSettings keeps settings in memory and ignores the dconf
+             defaults in /etc/dconf (Plank's position, theme and launchers) -->
+        <package name="gsettings-backend-dconf"/>
         <package name="xfce4-genmon-plugin"/>
+        <package name="xfce4-battery-plugin"/>
         <package name="feh"/>
         <!-- Welcome app (onis command) -->
         <package name="gum"/>
@@ -184,12 +202,9 @@
         <package name="polkit"/>
     </packages>
 
-    <!-- Keep xfwm4 and xfdesktop out even if something recommends them -->
-    <packages type="delete">
-        <package name="xfwm4"/>
-        <package name="xfdesktop"/>
-        <!-- openSUSE artwork packages are removed and locked in config.sh -->
-    </packages>
+    <!-- xfwm4 and xfdesktop are removed in config.sh if anything pulled them in
+         (a type="delete" section fails the build when they are not installed),
+         and the openSUSE artwork packages are removed and locked there too -->
 
     <packages type="bootstrap">
         <package name="filesystem"/>

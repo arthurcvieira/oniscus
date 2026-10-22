@@ -106,16 +106,19 @@ in_terminal() {
 # "app:cmd" starts a graphical program, anything else is an onis subcommand.
 
 menu_main() {
-    # Live ISO: offer the installer first
-    if grep -qw rd.live.image /proc/cmdline 2>/dev/null && has calamares; then
-        printf '%s\t%s\n' "$(t "Install Oniscus to this computer" "Instalar o Oniscus neste computador")" "app:pkexec calamares"
+    # Each action appears in one menu only. On the live ISO the installer comes
+    # first, and updates and snapshots (which make no sense there) are hidden.
+    local live=
+    grep -qw rd.live.image /proc/cmdline 2>/dev/null && live=1
+    if [ -n "$live" ] && has calamares; then
+        printf '%s\t%s\n' "$(t "Install Oniscus on this computer" "Instalar o Oniscus neste computador")" "app:oniscus-install"
     fi
     printf '%s\t%s\n' \
+        "$(t "Install apps" "Instalar apps")"  "install" \
+        "$(t "Remove apps" "Remover apps")"    "uninstall"
+    [ -z "$live" ] && printf '%s\t%s\n' "$(t "Update everything" "Atualizar tudo")" "update"
+    printf '%s\t%s\n' \
         "$(t "Ask the AI agent for help" "Pedir ajuda ao agente de IA")"  "agent" \
-        "$(t "Install" "Instalar")"            "install" \
-        "$(t "Uninstall" "Desinstalar")"       "uninstall" \
-        "$(t "Update everything" "Atualizar tudo")"  "update" \
-        "$(t "Snapshots (restore points)" "Snapshots (pontos de restauração)")"  "snapshot" \
         "$(t "Style" "Estilo")"                "menu:style" \
         "$(t "i3 shortcuts" "Atalhos do i3")"  "menu:keys" \
         "$(t "System" "Sistema")"              "menu:system" \
@@ -139,10 +142,10 @@ menu_keys() {
 }
 
 menu_system() {
+    grep -qw rd.live.image /proc/cmdline 2>/dev/null ||
+        printf '%s\t%s\n' "$(t "Snapshots (restore points)" "Snapshots (pontos de restauração)")" "snapshot"
     printf '%s\t%s\n' \
-        "$(t "Update the system" "Atualizar o sistema")"         "update" \
         "$(t "Diagnostics report" "Diagnóstico (relatório)")"    "doctor" \
-        "$(t "Snapshots (restore points)" "Snapshots (pontos de restauração)")" "snapshot" \
         "$(t "Drivers and codecs" "Drivers e codecs")"           "drivers" \
         "$(t "Network and Wi-Fi" "Rede e Wi-Fi")"                "app:nm-connection-editor" \
         "$(t "Sound" "Som")"                                     "app:pavucontrol" \
@@ -153,7 +156,6 @@ menu_system() {
 
 menu_learn() {
     printf '%s\t%s\n' \
-        "$(t "Essential shortcuts" "Atalhos essenciais")"       "keys" \
         "$(t "i3 user guide (web)" "Guia do i3 (site)")"        "app:xdg-open https://i3wm.org/docs/userguide.html" \
         "$(t "openSUSE wiki (web)" "Wiki do openSUSE (site)")"  "app:xdg-open https://en.opensuse.org/Portal:Tumbleweed"
 }
@@ -248,9 +250,18 @@ header() {
             "Super+Enter         terminal" \
             "onis help           $(t "every command" "todos os comandos")"
     )
-    if [ -r "$LOGO" ] && [ "$(tput cols 2>/dev/null || echo 80)" -ge 100 ]; then
+    # Mascot beside the text on wide terminals, above it on narrow ones
+    # (it used to vanish below 100 columns)
+    local cols
+    cols=$(stty size </dev/tty 2>/dev/null | cut -d' ' -f2)
+    [ "${cols:-0}" -gt 0 ] 2>/dev/null || cols=$(tput cols 2>/dev/null || echo 80)
+    if [ -r "$LOGO" ] && [ "$cols" -ge 92 ]; then
         gum join --horizontal --align center "$(cat "$LOGO")" \
             "$(gum style --padding "0 0 0 3" "$text")"
+    elif [ -r "$LOGO" ] && [ "$cols" -ge 40 ]; then
+        cat "$LOGO"
+        echo
+        echo "$text"
     else
         echo "$text"
     fi
@@ -264,9 +275,11 @@ welcome() {
         off) : > "$STATE/no-welcome"
              ok "$(t "The welcome screen won't open at login anymore (use Super+Alt+Space)." "As Boas-vindas não vão mais abrir ao entrar (use Super+Alt+Espaço).")"; return ;;
         --autostart)
-            # Called by i3 at login: open in a floating terminal
-            [ -e "$STATE/no-welcome" ] && exit 0
-            exec xfce4-terminal --title "$WELCOME_TITLE" --geometry 104x34 -x onis ;;
+            # Called by i3 at login: the session's one terminal. It shows the
+            # welcome menu and stays open as a shell after "Quit"
+            [ -e "$STATE/no-welcome" ] && exec xfce4-terminal
+            # (short pause so i3 has sized the window before the menu is drawn)
+            exec xfce4-terminal -x bash -c 'sleep 0.5; onis; exec bash -i' ;;
     esac
     browse main
     clear
@@ -1020,7 +1033,7 @@ apply_accent() {
     has xfconf-query && xfconf-query -c xfce4-terminal -p /color-cursor -n -t string -s "$a" 2>/dev/null
 
     # Bottom bar
-    [ -x "$CONF/polybar/launch.sh" ] && setsid -f "$CONF/polybar/launch.sh" >/dev/null 2>&1
+    [ -f "$CONF/polybar/launch.sh" ] && setsid -f sh "$CONF/polybar/launch.sh" >/dev/null 2>&1
 
     ok "$(t "Accent changed to" "Realce trocado para") $a $(swatch "$a")"
     note "$(t "New terminals open with the prompt in the new color." "Terminais novos já abrem com o prompt na cor nova.")"
@@ -1414,7 +1427,7 @@ update() {
 }
 
 restart_bars() {
-    [ -x "$CONF/polybar/launch.sh" ] && setsid -f "$CONF/polybar/launch.sh" >/dev/null 2>&1
+    [ -f "$CONF/polybar/launch.sh" ] && setsid -f sh "$CONF/polybar/launch.sh" >/dev/null 2>&1
     has xfce4-panel && setsid -f xfce4-panel -r >/dev/null 2>&1
     pkill -x plank && setsid -f plank >/dev/null 2>&1
     ok "$(t "Bars and dock restarted." "Barras e dock reiniciados.")"
@@ -1664,7 +1677,7 @@ onis welcome [on|off|--autostart]
 
   (nada)        abre as Boas-vindas
   on | off      liga ou desliga a abertura automática ao entrar
-  --autostart   usado pelo i3 no login; abre num terminal flutuante
+  --autostart   usado pelo i3 no login; abre o terminal da sessão com o menu
 EOF
 ;;
             menu) echo "onis menu: abre o menu no rofi (Super+Alt+Espaço). Ações que precisam de terminal abrem um flutuante." ;;
@@ -1820,7 +1833,7 @@ onis welcome [on|off|--autostart]
 
   (none)        open the welcome screen
   on | off      turn opening at login on or off
-  --autostart   used by i3 at login; opens in a floating terminal
+  --autostart   used by i3 at login; opens the session terminal with the menu
 EOF
 ;;
             menu) echo "onis menu: opens the menu in rofi (Super+Alt+Space). Actions that need a terminal open a floating one." ;;

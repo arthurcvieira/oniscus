@@ -19,7 +19,9 @@ fi
 systemctl disable getty@tty2.service || true
 systemctl set-default graphical.target
 
-sed -i 's/^DEFAULT_WM=.*/DEFAULT_WM="xfce"/' /etc/sysconfig/windowmanager
+if [ -f /etc/sysconfig/windowmanager ]; then
+    sed -i 's/^DEFAULT_WM=.*/DEFAULT_WM="xfce"/' /etc/sysconfig/windowmanager
+fi
 
 # Languages: English by default, Brazilian Portuguese also supported.
 # Users switch with LANG=pt_BR.UTF-8 (e.g. in ~/.config/locale.conf or Xfce settings).
@@ -48,9 +50,22 @@ cp -a /tmp/oniscus-xdg/. /etc/xdg/ && rm -rf /tmp/oniscus-xdg
 find /etc/xdg -name '*.rpmsave' -delete
 : > /etc/motd
 
+# Boot splash with the mascot (KIWI's bootsplash-theme sets it too)
+command -v plymouth-set-default-theme >/dev/null && plymouth-set-default-theme oniscus || true
+
+# The installer has one entry, "Install Oniscus" (oniscus-install.desktop):
+# hide the "Install System" entry that the calamares package ships
+for f in /usr/share/applications/*calamares*.desktop; do
+    [ -f "$f" ] || continue
+    grep -q '^NoDisplay=true' "$f" || sed -i '/^\[Desktop Entry\]/a NoDisplay=true' "$f"
+done
+
 # Passwordless sudo for the live user (live ISO only)
 echo "live ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/10-live
 chmod 0440 /etc/sudoers.d/10-live
+
+# Scripts in the user configs (the overlay can drop the executable bit)
+chmod 0755 /etc/skel/.config/polybar/launch.sh
 
 # Copy /etc/skel to the live user, which was created before the overlay
 if [ -d /home/live ]; then

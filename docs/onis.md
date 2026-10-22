@@ -22,12 +22,12 @@ Packages added to `config.kiwi`: `gum`, `xdg-utils`, `libnotify-tools`, `flatpak
 
 ## How it opens
 
-- At every login, in a floating terminal titled "Oniscus Welcome"
-  (`exec onis welcome --autostart` in the i3 config). Turn it off in
-  Preferences or with `onis welcome off`.
+- At every login, in the session's terminal, which becomes a normal shell after
+  "Quit" (`exec onis welcome --autostart` in the i3 config). Turn it off in
+  Preferences or with `onis welcome off`; the terminal then opens without it.
 - `Super+Alt+Space` opens the same menu in rofi (`onis menu`); actions that need a
   terminal open a floating one. `Super+Space` is the app launcher.
-- On the live ISO, the first item is "Install Oniscus to this computer" (`pkexec calamares`).
+- On the live ISO, the first item is "Install Oniscus on this computer" (`oniscus-install`, which starts Calamares as root).
 
 ## Language
 

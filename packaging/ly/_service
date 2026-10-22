@@ -1,0 +1,17 @@
+<!--
+  OBS source service for home:oniscus/ly.
+  Takes the spec and the Zig vendor tarball from this repository on GitHub, then
+  downloads the upstream source tarball named in the spec (Source0).
+-->
+<services>
+  <service name="obs_scm">
+    <param name="url">https://github.com/arthurcvieira/oniscus.git</param>
+    <param name="scm">git</param>
+    <param name="revision">main</param>
+    <param name="filename">oniscus-ly</param>
+    <param name="extract">packaging/ly/ly.spec</param>
+    <param name="extract">packaging/ly/ly-1.4.1-vendor.tar.zst</param>
+    <param name="extract">packaging/ly/ly-center-bigclock.patch</param>
+  </service>
+  <service name="download_files"/>
+</services>

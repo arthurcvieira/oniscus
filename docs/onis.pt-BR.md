@@ -22,12 +22,12 @@ Pacotes acrescentados ao `config.kiwi`: `gum`, `xdg-utils`, `libnotify-tools`, `
 
 ## Como abre
 
-- A cada login, num terminal flutuante chamado "Oniscus Welcome"
-  (`exec onis welcome --autostart` no i3 config). Desliga em Preferências ou
-  com `onis welcome off`.
+- A cada login, no terminal da sessão, que vira um shell normal depois de
+  "Sair" (`exec onis welcome --autostart` no i3 config). Desliga em Preferências ou
+  com `onis welcome off`; aí o terminal abre sem o menu.
 - `Super+Alt+Espaço` abre o mesmo menu no rofi (`onis menu`); ações que precisam
   de terminal abrem um flutuante. `Super+Espaço` é o lançador de apps.
-- Na ISO live, o primeiro item é "Instalar o Oniscus neste computador" (`pkexec calamares`).
+- Na ISO live, o primeiro item é "Instalar o Oniscus neste computador" (`oniscus-install`, que abre o Calamares como root).
 
 ## Idioma
 
