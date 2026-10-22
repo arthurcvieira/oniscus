@@ -105,6 +105,40 @@ O repositório fica em
 4. Os usuários recebem com `onis update`. O OBS reconstrói os pacotes sozinho
    quando sai snapshot novo do Tumbleweed.
 
+## Ly e Plank Reloaded
+
+O Ly (tela de login) e o Plank (dock) não existem no Tumbleweed, então o
+repositório do Oniscus compila os dois também, como mais dois pacotes ao lado do
+`oniscus`. Os dois perfis da ISO instalam eles de lá.
+
+| Pacote | Origem | Spec |
+|---|---|---|
+| `ly` | [Ly](https://codeberg.org/fairyglade/ly), compilado com o Zig do Tumbleweed | `packaging/ly/` |
+| `plank-reloaded` | [Plank Reloaded](https://github.com/zquestz/plank-reloaded), o fork mantido do Plank (mesmo comando `plank`, configurações e temas; fornece `plank`) | `packaging/plank-reloaded/` |
+
+O OBS compila sem rede, e o Zig baixa as dependências durante o build. O
+`packaging/ly/ly-<versão>-vendor.tar.zst` guarda essas dependências; ao mudar o
+`Version:` do Ly, gere um novo com `packaging/ly/make-vendor.sh` (precisa de zig,
+curl e zstd), faça commit e atualize o nome do arquivo em `packaging/ly/_service`.
+
+Para pôr no OBS (uma vez só; os specs já precisam estar no `main`):
+
+```sh
+for p in ly plank-reloaded; do
+    osc meta pkg home:oniscus $p -F - <<META
+<package name="$p" project="home:oniscus"><title>$p</title><description/></package>
+META
+    osc checkout home:oniscus/$p && cp <repo>/packaging/$p/_service home:oniscus/$p/
+    (cd home:oniscus/$p && osc add _service && osc commit -m "Build from GitHub")
+done
+```
+
+Ou pela interface web: em `home:oniscus`, "Create package" (`ly`), depois "Add
+file" e envie o `packaging/ly/_service`; o mesmo para `plank-reloaded`. Para
+builds locais o `osc` também precisa do `obs-service-download_files`. O workflow
+da ISO (`.github/workflows/iso.yml`) compila os dois pacotes a partir desses
+specs, sem rede, antes de cada ISO de teste.
+
 ## Pôr o repositório num sistema já instalado
 
 Sistemas instalados por uma ISO Dev têm os arquivos mas não o repositório. Para

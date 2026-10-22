@@ -1,0 +1,15 @@
+<!--
+  OBS source service for home:oniscus/plank-reloaded.
+  Takes the spec from this repository on GitHub, then
+  downloads the upstream source tarball named in the spec (Source0).
+-->
+<services>
+  <service name="obs_scm">
+    <param name="url">https://github.com/arthurcvieira/oniscus.git</param>
+    <param name="scm">git</param>
+    <param name="revision">main</param>
+    <param name="filename">oniscus-plank-reloaded</param>
+    <param name="extract">packaging/plank-reloaded/plank-reloaded.spec</param>
+  </service>
+  <service name="download_files"/>
+</services>
