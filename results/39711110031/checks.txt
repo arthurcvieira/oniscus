@@ -1,0 +1,139 @@
+
+$ cat /etc/os-release
+export TERM=dumb PAGER=cat SYSTEMD_COLORS=0; stty cols 200
+[ERROR] - (starship::print): Under a 'dumb' terminal (TERM=dumb).
+NAME="Oniscus"
+PRETTY_NAME="Oniscus (based on openSUSE Tumbleweed)"
+ID="oniscus"
+ID_LIKE="opensuse-tumbleweed opensuse suse"
+VERSION_ID="rolling"
+ANSI_COLOR="1;33"
+LOGO="oniscus-menu"
+DOCUMENTATION_URL="https://en.opensuse.org/Portal:Tumbleweed"
+
+$ systemctl --failed --no-pager
+UNIT LOAD ACTIVE SUB DESCRIPTION
+
+0 loaded units listed.
+
+$ sudo journalctl -b --no-pager -u 'ly@*' | tail -n 30
+Oct 22 02:53:48 localhost.localdomain systemd[1]: Started TUI display manager.
+
+$ sudo ls -l /etc/ly/
+total 28
+-rw-r--r-- 1 root root 1161 Oct 22 02:23 config.ini
+drwxr-xr-x 2 root root 4096 Oct 22 02:34 custom-sessions
+-rwxr-xr-x 1 root root 2061 Oct 22 02:25 example.dur
+drwxr-xr-x 2 root root 4096 Oct 22 02:34 lang
+-rw-r--r-- 1 root root   16 Oct 22 02:56 save.txt
+-rwxr-xr-x 1 root root 3653 Oct 22 02:25 setup.sh
+-rwxr-xr-x 1 root root 1167 Oct 22 02:25 startup.sh
+
+$ grep -vE '^(#|$)' /etc/ly/config.ini | head -n 40
+lang = en
+animation = colormix
+animation_timeout_sec = 0
+colormix_col1 = 0x00121519
+colormix_col2 = 0x004E3527
+colormix_col3 = 0x00C99412
+box_title = Oniscus
+fg = 0x00E6E9EC
+bg = 0x00121519
+border_fg = 0x00F7C948
+error_fg = 0x01F28C28
+error_bg = 0x00121519
+margin_box_h = 3
+margin_box_v = 2
+input_len = 34
+asterisk = •
+clear_password = true
+blank_box = true
+hide_borders = false
+hide_key_hints = false
+text_in_center = false
+bigclock = en
+clock = %a %d %b  %H:%M
+initial_info_text = Oniscus live: user live, password live
+save = true
+default_input = login
+numlock = false
+xsessions = /usr/share/oniscus/xsessions
+waylandsessions = /usr/share/oniscus/wayland-sessions
+
+$ pgrep -a i3; pgrep -a xfce4-panel; pgrep -a polybar; pgrep -a plank; pgrep -a picom
+1164 i3
+1248 xfce4-panel
+1168 plank
+1211 picom --config /home/live/.config/picom/picom.conf -b
+
+$ ls /usr/lib64/xfce4/panel/plugins/ /usr/share/xfce4/panel/plugins/
+/usr/lib64/xfce4/panel/plugins/:
+libactions.so           libclock.so          libgenmon.so    libnotification-plugin.so  libpulseaudio-plugin.so  libshowdesktop.so  libtasklist.so    libwhiskermenu.so
+libapplicationsmenu.so  libdirectorymenu.so  liblauncher.so  libpager.so                libseparator.so          libsystray.so      libthunar-tpa.so  libwindowmenu.so
+
+/usr/share/xfce4/panel/plugins/:
+actions.desktop           clock.desktop          genmon.desktop    notification-plugin.desktop  pulseaudio.desktop  showdesktop.desktop  tasklist.desktop    whiskermenu.desktop
+applicationsmenu.desktop  directorymenu.desktop  launcher.desktop  pager.desktop                separator.desktop   systray.desktop      thunar-tpa.desktop  windowmenu.desktop
+
+$ rpm -ql xfce4-power-manager | grep -i plugin
+
+
+$ ls -la ~/.local/state/ ~/.cache/ 2>/dev/null; tail -n 40 ~/.local/state/ly-session.log ~/.xsession-errors 2>/dev/null
+/home/live/.cache/:
+total 36
+drwx------  9 live users 4096 Oct 22 02:56 .
+drwxr-xr-x 11 live users 4096 Oct 22 02:56 ..
+drwxr-xr-x  2 live users 4096 Oct 22 02:56 fontconfig
+drwxr-xr-x  3 live users 4096 Oct 22 02:56 glycin
+drwx------ 39 live users 4096 Oct 22 02:56 mesa_shader_cache
+drwxr-xr-x  2 live users 4096 Oct 22 02:56 plank
+drwx------  2 live users 4096 Oct 22 02:56 sessions
+drwxr-xr-x  2 live users 4096 Oct 22 02:57 starship
+drwxr-xr-x  3 live users 4096 Oct 22 02:56 xfce4
+
+/home/live/.local/state/:
+total 8
+drwx------ 2 live users 4096 Mar  2  2026 .
+drwx------ 5 live users 4096 Oct 22 02:31 ..
+
+$ journalctl --user -b --no-pager -p warning | tail -n 40
+Oct 22 02:56:32 localhost.localdomain dbus-broker-launch[1143]: Service file '/usr/share//dbus-1/services/org.xfce.Thunar.FileManager1.service' is not named after the D-Bus name 'org.freedesktop.FileManager1'.
+Oct 22 02:56:32 localhost.localdomain dbus-broker-launch[1143]: Service file '/usr/share//dbus-1/services/org.xfce.Tumbler.Cache1.service' is not named after the D-Bus name 'org.freedesktop.thumbnails.Cache1'.
+Oct 22 02:56:32 localhost.localdomain dbus-broker-launch[1143]: Service file '/usr/share//dbus-1/services/org.xfce.Tumbler.Manager1.service' is not named after the D-Bus name 'org.freedesktop.thumbnails.Manager1'.
+Oct 22 02:56:32 localhost.localdomain dbus-broker-launch[1143]: Service file '/usr/share//dbus-1/services/org.xfce.Tumbler.Thumbnailer1.service' is not named after the D-Bus name 'org.freedesktop.thumbnails.Thumbnailer1'.
+Oct 22 02:56:32 localhost.localdomain dbus-broker-launch[1143]: Service file '/usr/share//dbus-1/services/org.xfce.xfce4-notifyd.Notifications.service' is not named after the D-Bus name 'org.freedesktop.Notifications'.
+Oct 22 02:56:32 localhost.localdomain dbus-broker-launch[1143]: Service file '/usr/share//dbus-1/services/org.xfce.xfce4-notifyd.Notifyd.service' is not named after the D-Bus name 'org.xfce.Notifyd'.
+Oct 22 02:56:36 localhost.localdomain systemd[1099]: Dependency failed for Portal service.
+Oct 22 02:56:36 localhost.localdomain gnome-keyring-daemon[1318]: discover_other_daemon: 0
+Oct 22 02:56:36 localhost.localdomain gnome-keyring-daemon[1320]: discover_other_daemon: 0
+Oct 22 02:56:36 localhost.localdomain gnome-keyring-daemon[1323]: discover_other_daemon: 0
+Oct 22 02:56:36 localhost.localdomain xfce4-notifyd[1295]: cannot open display: 
+Oct 22 02:56:36 localhost.localdomain systemd[1099]: xfce4-notifyd.service: Failed with result 'exit-code'.
+Oct 22 02:56:36 localhost.localdomain systemd[1099]: Failed to start XFCE notifications service.
+Oct 22 02:56:36 localhost.localdomain xfce4-notifyd[1367]: cannot open display: 
+Oct 22 02:56:36 localhost.localdomain systemd[1099]: xfce4-notifyd.service: Failed with result 'exit-code'.
+Oct 22 02:56:36 localhost.localdomain systemd[1099]: Failed to start XFCE notifications service.
+Oct 22 02:56:37 localhost.localdomain bamfdaemon[1426]: cannot open display: 
+Oct 22 02:56:37 localhost.localdomain systemd[1099]: bamfdaemon.service: Failed with result 'exit-code'.
+Oct 22 02:56:37 localhost.localdomain systemd[1099]: Failed to start BAMF Application Matcher Framework.
+Oct 22 02:56:38 localhost.localdomain bamfdaemon[1493]: cannot open display: 
+Oct 22 02:56:38 localhost.localdomain systemd[1099]: bamfdaemon.service: Failed with result 'exit-code'.
+Oct 22 02:56:38 localhost.localdomain systemd[1099]: Failed to start BAMF Application Matcher Framework.
+Oct 22 02:56:38 localhost.localdomain bamfdaemon[1505]: cannot open display: 
+Oct 22 02:56:38 localhost.localdomain systemd[1099]: bamfdaemon.service: Failed with result 'exit-code'.
+Oct 22 02:56:38 localhost.localdomain systemd[1099]: Failed to start BAMF Application Matcher Framework.
+Oct 22 02:56:38 localhost.localdomain bamfdaemon[1510]: cannot open display: 
+Oct 22 02:56:38 localhost.localdomain systemd[1099]: bamfdaemon.service: Failed with result 'exit-code'.
+Oct 22 02:56:38 localhost.localdomain systemd[1099]: Failed to start BAMF Application Matcher Framework.
+Oct 22 02:56:38 localhost.localdomain systemd[1099]: bamfdaemon.service: Start request repeated too quickly.
+Oct 22 02:56:38 localhost.localdomain systemd[1099]: bamfdaemon.service: Failed with result 'start-limit-hit'.
+Oct 22 02:56:38 localhost.localdomain systemd[1099]: Failed to start BAMF Application Matcher Framework.
+
+$ sudo journalctl -b --no-pager -p err | tail -n 40
+Oct 22 02:56:36 localhost.localdomain systemd[1099]: Failed to start XFCE notifications service.
+Oct 22 02:56:36 localhost.localdomain systemd[1099]: Failed to start XFCE notifications service.
+Oct 22 02:56:37 localhost.localdomain systemd[1099]: Failed to start BAMF Application Matcher Framework.
+Oct 22 02:56:38 localhost.localdomain systemd[1099]: Failed to start BAMF Application Matcher Framework.
+Oct 22 02:56:38 localhost.localdomain systemd[1099]: Failed to start BAMF Application Matcher Framework.
+Oct 22 02:56:38 localhost.localdomain systemd[1099]: Failed to start BAMF Application Matcher Framework.
+Oct 22 02:56:38 localhost.localdomain systemd[1099]: Failed to start BAMF Application Matcher Framework.
