@@ -85,8 +85,16 @@ vm() {
 key() { vm "timeout 20 xdotool search --sync --onlyvisible --limit 1 --class calamares windowactivate --sync key --clearmodifiers $*"; }
 next_page() { key alt+n; sleep 5; shot "install-$1"; }
 
+# rofi with the Oniscus theme, then after "onis accent" (the user theme copy)
 vm 'export DISPLAY=:0 XAUTHORITY=/run/user/$(id -u)/lyxauth' \
-   'setsid -f oniscus-install; sleep 45; pgrep -a calamares'
+   'setsid -f rofi -show drun; sleep 4'
+shot rofi-drun
+vm 'pkill -x rofi; onis accent "#7AA2F7" | tail -n 2; grep -E "^ *accent" ~/.local/share/rofi/themes/oniscus.rasi' \
+   'setsid -f onis menu; sleep 4'
+shot rofi-menu-blue-accent
+vm 'pkill -x rofi; onis accent default | tail -n 2; ls ~/.local/share/rofi/themes/'
+
+vm 'setsid -f oniscus-install; sleep 45; pgrep -a calamares'
 shot install-01-welcome
 next_page 02-location
 next_page 03-keyboard

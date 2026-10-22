@@ -188,9 +188,9 @@ choose() {
     local menu=$1 lines label
     lines=$("menu_$menu")
     if [ "$UI" = rofi ]; then
+        # Colors come from the oniscus rofi theme, which follows the accent
         label=$(cut -f1 <<<"$lines" | rofi -dmenu -i -p "$(menu_title "$menu")" \
-            -theme-str "element selected { background-color: $ACCENT; text-color: $BG; }" \
-            -theme-str "window { border: 2px; border-color: $ACCENT; width: 460px; }") || return 1
+            -theme oniscus -theme-str "window { width: 460px; } listview { fixed-height: false; }") || return 1
     else
         local back; back=$(t Back Voltar); [ "$menu" = main ] && back=$(t Quit Sair)
         gum style --foreground "$MUTED" --faint "$(t "↑↓ choose · Enter open · Esc back" "↑↓ escolher · Enter abrir · Esc voltar")" >&2
@@ -953,7 +953,7 @@ accent() {
     fi
 
     heading "$(t "Accent color" "Cor de realce")" \
-        "$(t "Changes i3 borders, bar, window theme, prompt, cursor and this menu." "Muda bordas do i3, barra, tema das janelas, prompt, cursor e este menu.")"
+        "$(t "Changes i3 borders, bar, window theme, launcher, prompt, cursor and this menu." "Muda bordas do i3, barra, tema das janelas, lançador, prompt, cursor e este menu.")"
     local labels=() name colors choice custom back
     custom=$(t "Other color (hex)" "Outra cor (hex)")
     back=$(t Back Voltar)
@@ -1025,6 +1025,19 @@ apply_accent() {
             sleep 0.3
             xfconf-query -c xsettings -p /Net/ThemeName -s Xi3-Retro 2>/dev/null
         fi
+    fi
+
+    # rofi: user copy of the theme with the three accent keys changed; it
+    # shadows /usr/share/rofi/themes/oniscus.rasi and applies the next time rofi opens
+    local rofi=/usr/share/rofi/themes/oniscus.rasi rdest="$DATA/rofi/themes/oniscus.rasi"
+    if [ -f "$rofi" ]; then
+        mkdir -p "$(dirname "$rdest")"
+        sed -E \
+            -e "s/^([[:space:]]*accent:[[:space:]]*)#[0-9A-Fa-f]{6}/\1$a/" \
+            -e "s/^([[:space:]]*accent-light:[[:space:]]*)#[0-9A-Fa-f]{6}/\1$m/" \
+            -e "s/^([[:space:]]*accent-dark:[[:space:]]*)#[0-9A-Fa-f]{6}/\1$b/" \
+            "$rofi" > "$rdest"
+        [ "$a $m $b" = "$ACCENT_DEFAULT" ] && rm -f "$rdest"
     fi
 
     # Terminal: only the cursor (yellow in the ANSI palette stays yellow)
@@ -1642,8 +1655,8 @@ EOF
 onis accent [#hex|default]
 
 Sem argumento abre a escolha de cores (7 prontas ou qualquer hex). Troca bordas
-do i3, Polybar, tema GTK, prompt do Starship, cursor do terminal e fastfetch,
-nas cópias do usuário. A tela de login (Ly) só muda se você aceitar (sudo).
+do i3, Polybar, tema GTK, rofi, prompt do Starship, cursor do terminal e
+fastfetch, nas cópias do usuário. A tela de login (Ly) só muda se você aceitar (sudo).
 
 Exemplos:
   onis accent '#7AA2F7'
@@ -1798,8 +1811,8 @@ EOF
 onis accent [#hex|default]
 
 With no argument, opens the color picker (7 presets or any hex). Changes i3
-borders, Polybar, GTK theme, Starship prompt, terminal cursor and fastfetch in
-the user's copies. The login screen (Ly) changes only if you accept (sudo).
+borders, Polybar, GTK theme, rofi, Starship prompt, terminal cursor and
+fastfetch in the user's copies. The login screen (Ly) changes only if you accept (sudo).
 
 Examples:
   onis accent '#7AA2F7'

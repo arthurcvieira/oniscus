@@ -1,0 +1,15 @@
+/* Oniscus: rofi settings. The look comes from the "oniscus" theme
+ * (/usr/share/rofi/themes/oniscus.rasi, or the user copy that "onis accent"
+ * writes to ~/.local/share/rofi/themes). */
+
+configuration {
+    modi: "drun,run,window";
+    show-icons: true;
+    icon-theme: "oxygen";
+    drun-display-format: "{name}";
+    display-drun: "Apps";
+    display-run: "$";
+    matching: "fuzzy";
+}
+
+@theme "oniscus"

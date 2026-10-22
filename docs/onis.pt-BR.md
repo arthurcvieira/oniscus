@@ -124,7 +124,9 @@ Os agentes podem cuidar da própria máquina:
 Troca Amarelo/Mel/Âmbar pela chave, não pelo valor (o amarelo ANSI e as outras
 cores da paleta ficam como estão), nas cópias do usuário: linha `client.focused`
 do i3, `accent` da Polybar, cores do fastfetch, `~/.config/oniscus/starship.toml`,
-cópia do tema GTK em `~/.local/share/themes/Xi3-Retro` e cursor do terminal
+cópia do tema GTK em `~/.local/share/themes/Xi3-Retro`, cópia do tema do rofi em
+`~/.local/share/rofi/themes/oniscus.rasi` (chaves `accent`, `accent-light`,
+`accent-dark`) e cursor do terminal
 (xfconf). A tela de login Ly só muda se o usuário aceitar (sudo). O estado fica
 em `~/.config/oniscus/`.
 
