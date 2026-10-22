@@ -6,6 +6,12 @@ sudo ls -l /etc/ly/
 grep -vE '^(#|$)' /etc/ly/config.ini | head -n 40
 pgrep -a i3; pgrep -a xfce4-panel; pgrep -a polybar; pgrep -a plank; pgrep -a picom
 cat ~/.cache/polybar.log
+ls -l ~/.config/polybar/
+export DISPLAY=:0 XAUTHORITY=/run/user/$(id -u)/lyxauth
+timeout 5 polybar xi3 2>&1 | head -n 20
+ps -u live -o pid,args --forest | grep -v ' \[' | tail -n 60
+i3-msg -t get_tree | python3 -c 'import json,sys; t=json.load(sys.stdin); w=lambda n,d=0: [print("  "*d+str(n.get("type"))+" "+str(n.get("name"))+" "+str((n.get("window_properties") or {}).get("class"))+" "+str(n["rect"])) or [w(c,d+1) for c in n["nodes"]+n["floating_nodes"]] for _ in [0]]; w(t)'
+xfconf-query -c xfce4-panel -lv | head -n 40
 systemctl --user --failed --no-pager
 env | grep -E "^(DISPLAY|XAUTHORITY|XDG_)"; systemctl --user show-environment | grep -E "^(DISPLAY|XAUTHORITY)"
 ls /usr/share/xsessions/ /usr/share/oniscus/xsessions/
@@ -14,3 +20,5 @@ rpm -ql xfce4-power-manager | grep -i plugin
 ls -la ~/.local/state/ ~/.cache/ 2>/dev/null; tail -n 40 ~/.local/state/ly-session.log ~/.xsession-errors 2>/dev/null
 journalctl --user -b --no-pager -p warning | tail -n 40
 sudo journalctl -b --no-pager -p err | tail -n 40
+# Last: stop the compositor, so the next screenshot shows whether picom hid anything
+pkill picom; sleep 2

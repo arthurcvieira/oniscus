@@ -54,6 +54,9 @@ find /etc/xdg -name '*.rpmsave' -delete
 echo "live ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/10-live
 chmod 0440 /etc/sudoers.d/10-live
 
+# Scripts in the user configs (the overlay can drop the executable bit)
+chmod 0755 /etc/skel/.config/polybar/launch.sh
+
 # Copy /etc/skel to the live user, which was created before the overlay
 if [ -d /home/live ]; then
     cp -a /etc/skel/. /home/live/

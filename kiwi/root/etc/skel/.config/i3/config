@@ -132,7 +132,7 @@ exec --no-startup-id nm-applet
 exec --no-startup-id plank
 # Terminal-first system: the session starts with a terminal open
 exec --no-startup-id xfce4-terminal
-exec_always --no-startup-id ~/.config/polybar/launch.sh
+exec_always --no-startup-id sh ~/.config/polybar/launch.sh
 # Without xfdesktop, feh sets the wallpaper. onis reads the user's choice from
 # ~/.config/oniscus/wallpaper and falls back to xi3.jpg
 exec_always --no-startup-id onis wallpaper --apply

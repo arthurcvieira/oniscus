@@ -1020,7 +1020,7 @@ apply_accent() {
     has xfconf-query && xfconf-query -c xfce4-terminal -p /color-cursor -n -t string -s "$a" 2>/dev/null
 
     # Bottom bar
-    [ -x "$CONF/polybar/launch.sh" ] && setsid -f "$CONF/polybar/launch.sh" >/dev/null 2>&1
+    [ -f "$CONF/polybar/launch.sh" ] && setsid -f sh "$CONF/polybar/launch.sh" >/dev/null 2>&1
 
     ok "$(t "Accent changed to" "Realce trocado para") $a $(swatch "$a")"
     note "$(t "New terminals open with the prompt in the new color." "Terminais novos já abrem com o prompt na cor nova.")"
@@ -1414,7 +1414,7 @@ update() {
 }
 
 restart_bars() {
-    [ -x "$CONF/polybar/launch.sh" ] && setsid -f "$CONF/polybar/launch.sh" >/dev/null 2>&1
+    [ -f "$CONF/polybar/launch.sh" ] && setsid -f sh "$CONF/polybar/launch.sh" >/dev/null 2>&1
     has xfce4-panel && setsid -f xfce4-panel -r >/dev/null 2>&1
     pkill -x plank && setsid -f plank >/dev/null 2>&1
     ok "$(t "Bars and dock restarted." "Barras e dock reiniciados.")"
