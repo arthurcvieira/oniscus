@@ -19,7 +19,9 @@ fi
 systemctl disable getty@tty2.service || true
 systemctl set-default graphical.target
 
-sed -i 's/^DEFAULT_WM=.*/DEFAULT_WM="xfce"/' /etc/sysconfig/windowmanager
+if [ -f /etc/sysconfig/windowmanager ]; then
+    sed -i 's/^DEFAULT_WM=.*/DEFAULT_WM="xfce"/' /etc/sysconfig/windowmanager
+fi
 
 # Languages: English by default, Brazilian Portuguese also supported.
 # Users switch with LANG=pt_BR.UTF-8 (e.g. in ~/.config/locale.conf or Xfce settings).
