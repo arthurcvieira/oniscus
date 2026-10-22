@@ -456,7 +456,7 @@ install() {
 # Packages Oniscus cannot run without; removal is refused if any would go
 PROTECTED="kernel-default systemd zypper rpm glibc bash sudo filesystem openSUSE-release
 grub2 shim dracut NetworkManager xorg-x11-server i3 xfce4-session xfce4-panel xfconf
-xfce4-settings xfce4-terminal ly gum flatpak polybar plank picom rofi feh pipewire wireplumber
+xfce4-settings xfce4-terminal greetd tuigreet gum flatpak polybar picom rofi feh pipewire wireplumber
 starship fastfetch dconf xdotool libnotify-tools xdg-utils onis oniscus-branding oniscus-desktop"
 
 is_protected() { tr ' ' '\n' <<<"$PROTECTED" | grep -qx "$1"; }
@@ -965,9 +965,6 @@ accent() {
     esac
     [ -z "$trio" ] && return 0
     apply_accent "$trio"
-    if confirm "$(t "Apply to the login screen (Ly) too? Asks for the admin password." "Aplicar também na tela de login (Ly)? Pede a senha de administrador.")"; then
-        accent_ly
-    fi
     pause
 }
 
@@ -1024,13 +1021,6 @@ apply_accent() {
 
     ok "$(t "Accent changed to" "Realce trocado para") $a $(swatch "$a")"
     note "$(t "New terminals open with the prompt in the new color." "Terminais novos já abrem com o prompt na cor nova.")"
-}
-
-accent_ly() {
-    local cfg=/etc/ly/config.ini a=${ACCENT#\#} b=${AMBER#\#}
-    [ -f "$cfg" ] || { warn "$(t "Could not find" "Não achei") $cfg."; return; }
-    run sudo sed -i -E "'s/^(border_fg[[:space:]]*=[[:space:]]*0x00)[0-9A-Fa-f]{6}/\1$a/; s/^(colormix_col3[[:space:]]*=[[:space:]]*0x00)[0-9A-Fa-f]{6}/\1$b/'" "$cfg" &&
-        ok "$(t "Login screen updated (takes effect at the next login)." "Tela de login atualizada (vale no próximo login).")"
 }
 
 # ---------------------------------------------------------------------------
@@ -1416,7 +1406,6 @@ update() {
 restart_bars() {
     [ -x "$CONF/polybar/launch.sh" ] && setsid -f "$CONF/polybar/launch.sh" >/dev/null 2>&1
     has xfce4-panel && setsid -f xfce4-panel -r >/dev/null 2>&1
-    pkill -x plank && setsid -f plank >/dev/null 2>&1
     ok "$(t "Bars and dock restarted." "Barras e dock reiniciados.")"
     sleep 1
 }
@@ -1554,7 +1543,7 @@ de remover só o app ou remover e limpar tudo.
               antigas da config do i3
 
 Antes de remover um pacote, faz um teste (dry run) e recusa se algo essencial
-do Oniscus (kernel, systemd, zypper, i3, XFCE, Ly, gum, flatpak...) for junto.
+do Oniscus (kernel, systemd, zypper, i3, XFCE, greetd, gum, flatpak...) for junto.
 
 Exemplos:
   onis uninstall --purge com.spotify.Client
@@ -1632,7 +1621,7 @@ onis accent [#hex|default]
 
 Sem argumento abre a escolha de cores (7 prontas ou qualquer hex). Troca bordas
 do i3, Polybar, tema GTK, prompt do Starship, cursor do terminal e fastfetch,
-nas cópias do usuário. A tela de login (Ly) só muda se você aceitar (sudo).
+nas cópias do usuário. A tela de login (tuigreet) não muda.
 
 Exemplos:
   onis accent '#7AA2F7'
@@ -1668,7 +1657,7 @@ onis welcome [on|off|--autostart]
 EOF
 ;;
             menu) echo "onis menu: abre o menu no rofi (Super+Alt+Espaço). Ações que precisam de terminal abrem um flutuante." ;;
-            restart-bars) echo "onis restart-bars: reinicia a Polybar, o xfce4-panel e o Plank." ;;
+            restart-bars) echo "onis restart-bars: reinicia a Polybar e o xfce4-panel (barra de cima e dock)." ;;
             about) echo "onis about: mostra o fastfetch com as informações do sistema." ;;
             help) echo "onis help [comando]: ajuda geral ou de um comando. Manual completo: man onis." ;;
             *) warn "Comando desconhecido: $c"; help; return 1 ;;
@@ -1710,7 +1699,7 @@ remove the app only or remove and purge.
               old i3 config backups
 
 Before removing a package it does a dry run and refuses if anything essential
-to Oniscus (kernel, systemd, zypper, i3, XFCE, Ly, gum, flatpak...) would go.
+to Oniscus (kernel, systemd, zypper, i3, XFCE, greetd, gum, flatpak...) would go.
 
 Examples:
   onis uninstall --purge com.spotify.Client
@@ -1788,7 +1777,7 @@ onis accent [#hex|default]
 
 With no argument, opens the color picker (7 presets or any hex). Changes i3
 borders, Polybar, GTK theme, Starship prompt, terminal cursor and fastfetch in
-the user's copies. The login screen (Ly) changes only if you accept (sudo).
+the user's copies. The login screen (tuigreet) does not change.
 
 Examples:
   onis accent '#7AA2F7'
@@ -1824,7 +1813,7 @@ onis welcome [on|off|--autostart]
 EOF
 ;;
             menu) echo "onis menu: opens the menu in rofi (Super+Alt+Space). Actions that need a terminal open a floating one." ;;
-            restart-bars) echo "onis restart-bars: restarts Polybar, xfce4-panel and Plank." ;;
+            restart-bars) echo "onis restart-bars: restarts Polybar and xfce4-panel (top bar and dock)." ;;
             about) echo "onis about: shows fastfetch with system information." ;;
             help) echo "onis help [command]: general help or help for one command. Full manual: man onis." ;;
             *) warn "Unknown command: $c"; help; return 1 ;;
